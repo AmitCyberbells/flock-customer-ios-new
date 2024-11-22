@@ -1,0 +1,19 @@
+export const USER_INFO = "USER_INFO";
+export const CATEGORY_DATA = "CATEGORY_DATA";
+export const VANUE_DATA = "VANUE_DATA";
+export const VANUE_HOT = "VANUE_HOT";
+export const VANUE_STAR = "VANUE_STAR";
+export const FAQ = "FAQ";
+export const DASHBOARD_DATA = "DASHBOARD_DATA";
+export const NOTIFICATION_DATA = "NOTIFICATION_DATA";
+export const ALL_TRANSACTIONS = "ALL_TRANSACTIONS";
+export const REPORT_TYPE = "REPORT_TYPE";
+export const TUTORIAL_LIST = "TUTORIAL_LIST";
+export const SUPPORT_LIST = "SUPPORT_LIST";
+export const MYREDEEMOFFERS = "MYREDEEMOFFERS";
+export const SAVED_OFFERED = "SAVED_OFFERED";
+export const LOCATION = "LOCATION";
+export const CURRENT_LOCATION = "CURRENT_LOCATION";
+export const SELECTED_CATEGORY = "SELECTED_CATEGORY";
+
+

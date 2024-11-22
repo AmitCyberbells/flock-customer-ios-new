@@ -1,0 +1,1372 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		004FCD303FAD431B8C0DB00A /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = D4905401FDD44C57A44098D9 /* profile.png */; };
+		00E356F31AD99517003FC87E /* FlockBusinessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FlockBusinessTests.m */; };
+		0188F53BB944402CB32025CE /* five.png in Resources */ = {isa = PBXBuildFile; fileRef = B97A091B43CF4888AF3D2689 /* five.png */; };
+		0368B463FE21403DA53686F7 /* earned.png in Resources */ = {isa = PBXBuildFile; fileRef = FCA7312912374444BBC73DA0 /* earned.png */; };
+		0816A78E09A6434E922D1B65 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1F1E17E9854DDDBD017478 /* unchecked.png */; };
+		09ABED22F2CA42F395EC2D19 /* slider3.png in Resources */ = {isa = PBXBuildFile; fileRef = D85D4A3E4DE64110AD88AE1B /* slider3.png */; };
+		0BD28C5A4FA84566BF3E4A1B /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = B0153AC4EC2442FDAA566BBC /* setting.png */; };
+		0EB073B6026B47C4992F07B6 /* hotelback2.png in Resources */ = {isa = PBXBuildFile; fileRef = 376DCC629AC948298FF77652 /* hotelback2.png */; };
+		1036750769814EA7A07B405A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = B840DA72874E47C78610DF38 /* splash.png */; };
+		106CAD2CAC58404C8AAE18A9 /* night_life.png in Resources */ = {isa = PBXBuildFile; fileRef = 6572F36E1C1549E2AF941CD6 /* night_life.png */; };
+		10CFA7888CE147F7A58E4E7F /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 058EDE0143494B5EBACBA329 /* location.png */; };
+		112E5A43C66140DBB2720603 /* fav_food.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094BBB2BDD14B49A375D4E8 /* fav_food.png */; };
+		115A212690904E14A7CF8CBF /* stays.png in Resources */ = {isa = PBXBuildFile; fileRef = AB005B428855438483C6F6C3 /* stays.png */; };
+		121F77FA3EB34436B487F87E /* verify.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B34CB290D754BD68C108592 /* verify.png */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		14C8252EEF9D464BABD0CFEA /* feather_food.png in Resources */ = {isa = PBXBuildFile; fileRef = 804DF1988D7A4638964C74CA /* feather_food.png */; };
+		160EF9EF63BC4F88A0094E61 /* gaming.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A6414581B214587B47DC725 /* gaming.png */; };
+		166FBBD2CF874B6E8D41F474 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F5FBEC45034C7288742C70 /* bird.png */; };
+		16EA2E88813042B28558100C /* flock_marker_3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8890F5A9E70E47958B3512C1 /* flock_marker_3x.png */; };
+		17064F1751A241FD8AE06D67 /* no_data.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9D77561F1A59424296864B29 /* no_data.gif */; };
+		180CE0A79166423FACC48AE2 /* grid_icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 37A36D4761E947338421DAB4 /* grid_icon.svg */; };
+		1827370B268C452B9FFB40DB /* slider1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7364257F654D44BD9E8632F7 /* slider1.png */; };
+		18BBF1D459D34D4E939EE0AC /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = EA701B3F73CF4049B46CD501 /* map.png */; };
+		1A1FF4192A7EA17600CD1562 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A1FF4182A7EA17600CD1562 /* GoogleService-Info.plist */; };
+		1AEEE2F72A7B81FD00D6ABB5 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AEEE2F22A7B81F800D6ABB5 /* Montserrat-Bold.ttf */; };
+		1AEEE2F82A7B81FD00D6ABB5 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AEEE2F32A7B81FD00D6ABB5 /* Montserrat-SemiBold.ttf */; };
+		1AEEE2F92A7B81FD00D6ABB5 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AEEE2F42A7B81FD00D6ABB5 /* Montserrat-Medium.ttf */; };
+		1AEEE2FA2A7B81FD00D6ABB5 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AEEE2F52A7B81FD00D6ABB5 /* Montserrat-Thin.ttf */; };
+		1AEEE2FB2A7B81FD00D6ABB5 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AEEE2F62A7B81FD00D6ABB5 /* Montserrat-Regular.ttf */; };
+		1C884E9CEC8E476F87791E25 /* gallery.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD4ED3016204D9DA083DBB7 /* gallery.png */; };
+		1E10855E956040A4B4D55500 /* tutorials.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D573F68F36141229F7E12C6 /* tutorials.png */; };
+		1E345F85441445B2BF5FF903 /* nav_report.png in Resources */ = {isa = PBXBuildFile; fileRef = 84AF7EC5C1E844FC8AE97CC8 /* nav_report.png */; };
+		1EB453CD384343B3A764E5E4 /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 214ABC1CF2D54069B97D0014 /* done.png */; };
+		1F2FD78216A145E8BAAE7AD2 /* s_food.png in Resources */ = {isa = PBXBuildFile; fileRef = 340664CA339D45F3AA09DACE /* s_food.png */; };
+		1F4D28E0B48445B49BC14C7E /* two_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BCBFED7AB774B47803A2392 /* two_1.png */; };
+		1F6BF70E32C746A785CB562B /* onex.png in Resources */ = {isa = PBXBuildFile; fileRef = 51DB1AAECF7141D8A8B1F1F0 /* onex.png */; };
+		2006964FFC46424FAD86ABDB /* bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 339828A65BD04AC9806E801B /* bar.png */; };
+		21285ECB162E4779BA209638 /* app_theme.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EA327792EAD4A09A05644C0 /* app_theme.png */; };
+		24314C889F234913B9C82F74 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 5557464A774B4EF28FE7EF60 /* eye.png */; };
+		24A6C4F2A2A3561648F775EE /* libPods-FlockBusiness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FF4F6771E20F5E995A845A /* libPods-FlockBusiness.a */; };
+		253ED90E15254ECEBD3A6055 /* tutorials1.png in Resources */ = {isa = PBXBuildFile; fileRef = 40CBAFA7A9024B3EB9BCE977 /* tutorials1.png */; };
+		25C68731C31542789BBC320A /* filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B5E59759E24F6DA90CE7C6 /* filter.png */; };
+		25EE2D836F3B41D189A22C33 /* bottom_bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 9116F8FF88184313B5C6BBEB /* bottom_bird.png */; };
+		29001E5978AD4CCE9EDF0A32 /* single_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 17027028E80D4E64854BC671 /* single_star.png */; };
+		2A0979F4E7E445169264962A /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8777F7C481A8471A9EEC16AC /* menu.png */; };
+		2AEE5D7816134165BF7B9764 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4764CF08A94966A51400F8 /* checkbox.png */; };
+		2F95816DCDED415CA9832CF2 /* banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F01BB0F111040419AFDF65B /* banner2.png */; };
+		301A1C5234CF48F781F88120 /* discount.png in Resources */ = {isa = PBXBuildFile; fileRef = E591364DC770426FBD4409EB /* discount.png */; };
+		329C7CFD3C3944B5AAA5FFCE /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = C7AA3534A96B4AAF928DD5CA /* delete.png */; };
+		3318CFF5C0A148D2BCEE4EFE /* feather_hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = 478B227D0F3142E898930257 /* feather_hotel.png */; };
+		33A64E2A6B644820B80538B8 /* offer3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BC70653B62148DC9B7371DE /* offer3.png */; };
+		36216D69D84148B699DB0178 /* white_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7557D63F53FA47519E25CF75 /* white_back.png */; };
+		3A8B8594FE6B45BCA2938265 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCE3A2D1F147129FB6BF60 /* logo.png */; };
+		3C3911239BB34E79AD18F3DC /* fav_hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = A19D141C2F4A423297AEDFF4 /* fav_hotel.png */; };
+		3C4910A633CA4CAF96F43B5C /* white_side_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A83A256BFAB4436A7279A78 /* white_side_arrow.png */; };
+		3E467CF2402E4C759DD2DA82 /* black_fav.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B15DCBD9084FA2A7889665 /* black_fav.png */; };
+		4075719D492B4175A6D12FB6 /* s_store.png in Resources */ = {isa = PBXBuildFile; fileRef = 638335F3FFCC4F9BA469414B /* s_store.png */; };
+		418B572C919C4138A9FDE12E /* s_hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F329136D8D34974B05B55FA /* s_hotel.png */; };
+		4199031FCE3A44499EC9F9D9 /* nav_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 328A9DFC4ED8459993555F0D /* nav_profile.png */; };
+		42A469B2A451496EB0CDE7C9 /* location_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6B364B55342D8BB26D7B3 /* location_pin.png */; };
+		43D5EFADCBEC4A0CA99E025F /* succ.json in Resources */ = {isa = PBXBuildFile; fileRef = 624731FBFDD449F88A977E19 /* succ.json */; };
+		43F8523A466C4C0AAE2EB3CD /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D4099D47684E24ABFDCEBA /* camera.png */; };
+		44E02137F7684D0485047FA8 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 14057795A48F4C39A840F6C4 /* close.png */; };
+		4AD7330AEA6144EFBE96F7AF /* four.png in Resources */ = {isa = PBXBuildFile; fileRef = B5009F25702B41BC90E98509 /* four.png */; };
+		4BE5C8FC9EB6431BBC5F5749 /* nav_logout.png in Resources */ = {isa = PBXBuildFile; fileRef = C1D8D68BABCB438A9EBBEC9D /* nav_logout.png */; };
+		4C1ADED6B059411684274AB4 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = 1566154C44344212B9C837FA /* food.png */; };
+		4C498E796FC4488D8249EDBB /* bird_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F0A2E558DAF54863AFBD9F31 /* bird_logo.png */; };
+		4F0ED3D25E8F48658594F8D4 /* bottom_nav.png in Resources */ = {isa = PBXBuildFile; fileRef = 91679D2139474E15BC56CC30 /* bottom_nav.png */; };
+		4F8157B4F1B2485FA62067B8 /* feather_entertain.png in Resources */ = {isa = PBXBuildFile; fileRef = 94667BB532694BA19CA8C547 /* feather_entertain.png */; };
+		5255157556214C2D91C8939B /* offer1.png in Resources */ = {isa = PBXBuildFile; fileRef = A99D4466DBEA4DDCB807AAF6 /* offer1.png */; };
+		529798166496427E8783645B /* business_eggs.png in Resources */ = {isa = PBXBuildFile; fileRef = B6798588F14D43DE982ABA0A /* business_eggs.png */; };
+		533C6BF00A424F8D8FE35C2E /* hotelback1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FD14E7C94E942CBAAA6A46B /* hotelback1.png */; };
+		55239CA25D3C4731A6ED25BF /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CD567262C24B3BB5C6648F /* settings.png */; };
+		5B83DE46CBCE47EEA4C07B63 /* fav_enter.png in Resources */ = {isa = PBXBuildFile; fileRef = E51CC723F0534FECA9A284CC /* fav_enter.png */; };
+		5BD1C1CA0CDE4C37ABF28651 /* orange_hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = C1CE2E4D1DCA42E0AAEB24C7 /* orange_hotel.png */; };
+		5D5C4D668A9F4DD08CAF3611 /* white_fav.png in Resources */ = {isa = PBXBuildFile; fileRef = A675FFD9E768486FB87C161B /* white_fav.png */; };
+		5F22A372DDD543BF8659D67D /* flockzzz.png in Resources */ = {isa = PBXBuildFile; fileRef = 594BA40B0D3B4CB1BE137159 /* flockzzz.png */; };
+		6292F031DE7449CE85D53012 /* threex.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4DB44BEFA476097B02180 /* threex.png */; };
+		62E6265C2C4B423CAD9E5E0B /* banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C4CF18C31254D558ACCFBFB /* banner1.png */; };
+		6324321AD36948C28B57BAA4 /* nearby.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B6C7B322D4F4605B62BE573 /* nearby.png */; };
+		646DA790DEE649EBB0BBB476 /* favourite.png in Resources */ = {isa = PBXBuildFile; fileRef = 3808E788BC2044809BB3AAB2 /* favourite.png */; };
+		69ABE794DD5B4C9F945171C2 /* checkbox_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB0D90C0E4D4411CB199112E /* checkbox_fill.png */; };
+		69C1DCB22F644AC38003BFAF /* del.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F318624B4A4730BE5DA725 /* del.png */; };
+		6B488DD38836440A9C500FE3 /* drop_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E28E8E4FF2B4AA3A0488384 /* drop_up.png */; };
+		6D6238A111E04920B4AD9785 /* fav.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C837532E64C49138927DCCE /* fav.png */; };
+		6F783039AA1A4312A4CEBD51 /* black_back.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7F64715AD8465DA9C206F1 /* black_back.png */; };
+		70723060AA2D4F98998ACF90 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 1295A9E7153C4CAAA0ABB450 /* back.png */; };
+		726BBC271DFC4A7BAD05BED5 /* three_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B51A4B550B22408799087E30 /* three_2.png */; };
+		72CB4847C6BC4D7F9C827515 /* venue_marker_3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0284342665224C6CB00409BF /* venue_marker_3x.png */; };
+		72D2DBA0C1564CFFB9C3E2E1 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D65227773340DDBDCB0780 /* add.png */; };
+		73EB6981A8C44B76BA6970F6 /* black_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = F0799E5FBC574041A79142DC /* black_arrow.png */; };
+		76259C9E1C9D45588580B55C /* one.png in Resources */ = {isa = PBXBuildFile; fileRef = 486845DBDBB548F0BA78BFFF /* one.png */; };
+		7AE0463A5A434FEFA72DDE7B /* flock_marker_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85B506C9C56748ECA9D12417 /* flock_marker_2x.png */; };
+		7BC46ED64EAC4C58BC429541 /* nav_faq.png in Resources */ = {isa = PBXBuildFile; fileRef = 395F4D488FC24246B234564A /* nav_faq.png */; };
+		7C36CC068F9747C888CE3F76 /* flock_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C139808F2ED456CA0677634 /* flock_marker.png */; };
+		80D1AF5FD73144D3B3BF28A7 /* map_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3687BAFB55004970A5795F33 /* map_icon.png */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		81ADFAFFBE4B4338A8DE0420 /* nav_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 997A135F7A544214A92C2EC6 /* nav_setting.png */; };
+		81C0FD0C5CD04A1CAAA9216D /* flock_bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C6C99994640B498B3C947 /* flock_bird.png */; };
+		8455E9A2D1654674BC5B7628 /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A136EB7C1624A0A8C8FC748 /* remove.png */; };
+		8718FC59E6904AD497132F04 /* venue_marker_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79D5780C2D314A46906499C6 /* venue_marker_2x.png */; };
+		88EF6B052B076695000D0619 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 88EF6B042B076695000D0619 /* main.jsbundle */; };
+		88FAD05B2B0DE84E00A15504 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 88FAD05A2B0DE84E00A15504 /* assets */; };
+		89814E99D7AE4B0EABB9CF81 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = B6464B0322184A67B0E6BBE6 /* facebook.png */; };
+		8A64F13E7F23DF7B73DBCDAE /* libPods-FlockBusiness-FlockBusinessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D6DB44279486D976043A223 /* libPods-FlockBusiness-FlockBusinessTests.a */; };
+		8DFADE44D9AD4CBD9A903933 /* fourx.png in Resources */ = {isa = PBXBuildFile; fileRef = C802632E03C74501A0A17B7F /* fourx.png */; };
+		8E56F8906F5E4AAEAA3CF849 /* qr_scanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 4014683FF97345A78A567398 /* qr_scanner.png */; };
+		8E908EC591334FBEAEC0300C /* ripple.json in Resources */ = {isa = PBXBuildFile; fileRef = EC3488BC19014EDAA65EB2B4 /* ripple.json */; };
+		917F3CF5AD214DAB85EE2928 /* points.png in Resources */ = {isa = PBXBuildFile; fileRef = 664900C7F9164D14B9931C80 /* points.png */; };
+		91E224E85BBF42D7AC55EBB3 /* fav_store.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CC932EDBC8A4C0E96E71DBC /* fav_store.png */; };
+		92522835FA8A444EA60B7103 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5EC4A27D8A44C9AB8DD779 /* search.png */; };
+		92713B6D72AF4901BBE6A23C /* venue_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4522D1F4D84F29A5068215 /* venue_marker.png */; };
+		9612A38BC51547359F8EC3B6 /* people.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F292F6DA1047A49B39248B /* people.png */; };
+		9677500B07F44088A92E4C0A /* available.png in Resources */ = {isa = PBXBuildFile; fileRef = 41A968C52F6A4E3585321B4E /* available.png */; };
+		967ECE5A3C9F41E9904F1771 /* notify.png in Resources */ = {isa = PBXBuildFile; fileRef = D04C3300937040989C7B10C3 /* notify.png */; };
+		99876CC665914813814F0ECD /* drop_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F190FE277248AAA49918DE /* drop_down.png */; };
+		9AB1418A40D144ABB99B0FF7 /* hot.png in Resources */ = {isa = PBXBuildFile; fileRef = C373E2F242064759B743A0B7 /* hot.png */; };
+		9AD95F352D5D4C16B1124AEF /* one_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 53C05B613DD24029BB28E780 /* one_1.png */; };
+		9F71FCEBD6F542B2A2EDF392 /* banner3.png in Resources */ = {isa = PBXBuildFile; fileRef = 10E91EFE2A8D44C89129D3E6 /* banner3.png */; };
+		A03F8789D5DD42D0856DD46F /* twox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A1DF86E34CD4538ABD8C83D /* twox.png */; };
+		A0F4FF4D32264B248A29A093 /* direction_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1646777A90304841B7A2BD2C /* direction_arrow.png */; };
+		A42C7B4BBAA0479AA2D94F0F /* blue_dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0505F0EB10F74B60BCD206DD /* blue_dropdown.png */; };
+		A4C97C2775B343319468C375 /* wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 5528506B56FB438DA3734F59 /* wifi.png */; };
+		A750B87CCE1D494BA58E54F8 /* beer.png in Resources */ = {isa = PBXBuildFile; fileRef = CE6CF4F31F8842BB98D96E29 /* beer.png */; };
+		A90FAE8A17B74C08A6D8F60A /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 62A7F7890D7944779D958FE5 /* background1.png */; };
+		AE6CA6E4EE7C46C3B3A773B9 /* app_offer.png in Resources */ = {isa = PBXBuildFile; fileRef = B5552627F61C4D24A7F9E8E4 /* app_offer.png */; };
+		AE728BE28C6C4ABFA3B4F403 /* sleepy.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E65C28DFEC64E6AA114AECB /* sleepy.png */; };
+		B152232CE5AE4E82803CC1FF /* hide.png in Resources */ = {isa = PBXBuildFile; fileRef = 6113428C80204C8CA72A95F6 /* hide.png */; };
+		B6599141D805453188C62681 /* profile_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50176422594D41DEB2A4F912 /* profile_img.jpg */; };
+		B80E17DC84AA4350A9D46189 /* two_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 68FBC799CAEB4073BFB05F69 /* two_2.png */; };
+		BA3E9F3B7D7A45C6A8536847 /* orange_club.png in Resources */ = {isa = PBXBuildFile; fileRef = 520250E933024F5085FAE12B /* orange_club.png */; };
+		BA73B50D88414C1CA4187900 /* entertainment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7700664D0EAC4860BCE8D66A /* entertainment.png */; };
+		C02C294391BD497CA1458016 /* support.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E185606541E4C249D6C09D5 /* support.png */; };
+		C31112C572DC4133A06C4008 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = EFFCDFE11B224F71BFE176CF /* star.png */; };
+		C435A81763834535B39FC001 /* fivex.png in Resources */ = {isa = PBXBuildFile; fileRef = A19C5AC3AF2440D99E5DC7C0 /* fivex.png */; };
+		C666EE12D29848DBB75D1D0B /* tutorials2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CD40F23689F4A658FE4C0F9 /* tutorials2.png */; };
+		C66E47EFFFF844C4A2633F41 /* two.png in Resources */ = {isa = PBXBuildFile; fileRef = E94D2C7FD3BE453BA694AFAE /* two.png */; };
+		C770C6DD4D2E4165A77C4F4C /* nav_dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 2575C7C002E34705A7BAE0A3 /* nav_dashboard.png */; };
+		C86640EC2DC5490D9232479E /* s_movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B57999B74A47E38427BEBF /* s_movie.png */; };
+		C9EF2092428D4108ABB9AD92 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = AED70B57B353402682F8DEEA /* edit.png */; };
+		CC2FF3214FCB4B18937405A9 /* three_1.png in Resources */ = {isa = PBXBuildFile; fileRef = E70A759B93654EFD9D81C0CF /* three_1.png */; };
+		CC36C804036F4E9A87A66B21 /* side_nav.png in Resources */ = {isa = PBXBuildFile; fileRef = 1291B5006C394E249AC72AA5 /* side_nav.png */; };
+		CD7D35F5BAA04A099C0173B5 /* spend.png in Resources */ = {isa = PBXBuildFile; fileRef = 8871EBBE96E444FFA84E48B6 /* spend.png */; };
+		CE138F9E810242A0BA0DEC6A /* suc.json in Resources */ = {isa = PBXBuildFile; fileRef = 469F3E16E3CC47DBBF041B7F /* suc.json */; };
+		CFEE264668A44889A23001E7 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1C505C284149ADA9E04916 /* home.png */; };
+		D10047AD8FD448A68D1ACA92 /* feather_night.png in Resources */ = {isa = PBXBuildFile; fileRef = F0A2089396204CACB2002514 /* feather_night.png */; };
+		D18869398D914942A9A07B99 /* food_single.png in Resources */ = {isa = PBXBuildFile; fileRef = 925D67759AE2477987C6CCF7 /* food_single.png */; };
+		D4F75C9D55664095B84F08A2 /* clubs.png in Resources */ = {isa = PBXBuildFile; fileRef = 75582EA4484F45CE8EB0DE34 /* clubs.png */; };
+		D9A628A23AE2405AB5CCEA97 /* grey_food.png in Resources */ = {isa = PBXBuildFile; fileRef = 216D506059B9470787A48827 /* grey_food.png */; };
+		DC471B65A87D4151A901FD57 /* login_back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5361EC27FE914E6380D53361 /* login_back.jpg */; };
+		DF309A09B3664A73B27AC93D /* venue_offer.png in Resources */ = {isa = PBXBuildFile; fileRef = 12998CE4451B475C9CAF289C /* venue_offer.png */; };
+		E2ECB7278DDA4E16B3E16490 /* play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A513FEA18F48C8B11680A3 /* play_button.png */; };
+		E337DF1B653D4C7A86CA7FF3 /* scanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 014E4EBADF3B40659780476A /* scanner.png */; };
+		E7864041FF30485CB74ECD5F /* fav_night.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC1272FFE5D400D90942057 /* fav_night.png */; };
+		EC8056D72B4C4B6894135F9A /* offer2.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4209EBF98F453E872F9684 /* offer2.png */; };
+		EF5872CC518846398CB48DE9 /* rating_star.png in Resources */ = {isa = PBXBuildFile; fileRef = AB7F7D1EB121497982282021 /* rating_star.png */; };
+		F024123DA6114A68873E9A37 /* four_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 21B948B842D44EE5A8BE49B2 /* four_1.png */; };
+		F0C5717F399D40E896425FF3 /* three.png in Resources */ = {isa = PBXBuildFile; fileRef = 3041EE675F35400B8F9F44BF /* three.png */; };
+		F431500FDF80455196579FFB /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = E53E3EABAF0B4D8F853D1D7F /* apple.png */; };
+		F71C074FDF9B467381E192ED /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = C25675B79FDE4BBA9D85E0ED /* google.png */; };
+		F899CB6985744D15A6D0E4F0 /* scan.png in Resources */ = {isa = PBXBuildFile; fileRef = A09EED6B35454E848EC51462 /* scan.png */; };
+		FB8F905A0E1A49B7B1B13644 /* slider2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C8581E7BCAA42F586036077 /* slider2.png */; };
+		FC1B3CB87EFB4DC78B84823D /* grey_shop.png in Resources */ = {isa = PBXBuildFile; fileRef = 84808529092C44FEB717DA37 /* grey_shop.png */; };
+		FC4474B9829046559E754E0D /* orange_entertain.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C447F4533D34C22B3CABA42 /* orange_entertain.png */; };
+		FD5BB27A8D3E4E62A09581B2 /* pool.png in Resources */ = {isa = PBXBuildFile; fileRef = 32937A27E7394A2185F1DD7C /* pool.png */; };
+		FE8A4A8F28F0436C98934195 /* favv.png in Resources */ = {isa = PBXBuildFile; fileRef = AC4C8CC94DFD495D8D94408F /* favv.png */; };
+		FEEB3E500DFF46E09B089A6F /* side_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A389CCA3564AE0B4380A42 /* side_arrow.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = FlockBusiness;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* FlockBusinessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlockBusinessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* FlockBusinessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlockBusinessTests.m; sourceTree = "<group>"; };
+		014E4EBADF3B40659780476A /* scanner.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = scanner.png; path = ../src/assets/scanner.png; sourceTree = "<group>"; };
+		0284342665224C6CB00409BF /* venue_marker_3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = venue_marker_3x.png; path = ../src/assets/venue_marker_3x.png; sourceTree = "<group>"; };
+		0505F0EB10F74B60BCD206DD /* blue_dropdown.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = blue_dropdown.png; path = ../src/assets/blue_dropdown.png; sourceTree = "<group>"; };
+		058EDE0143494B5EBACBA329 /* location.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = location.png; path = ../src/assets/location.png; sourceTree = "<group>"; };
+		07F292F6DA1047A49B39248B /* people.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = people.png; path = ../src/assets/people.png; sourceTree = "<group>"; };
+		0B34CB290D754BD68C108592 /* verify.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = verify.png; path = ../src/assets/verify.png; sourceTree = "<group>"; };
+		0B6C7B322D4F4605B62BE573 /* nearby.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nearby.png; path = ../src/assets/nearby.png; sourceTree = "<group>"; };
+		0C8581E7BCAA42F586036077 /* slider2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = slider2.png; path = ../src/assets/slider2.png; sourceTree = "<group>"; };
+		0CD40F23689F4A658FE4C0F9 /* tutorials2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tutorials2.png; path = ../src/assets/tutorials2.png; sourceTree = "<group>"; };
+		0EA327792EAD4A09A05644C0 /* app_theme.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = app_theme.png; path = ../src/assets/app_theme.png; sourceTree = "<group>"; };
+		10E91EFE2A8D44C89129D3E6 /* banner3.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = banner3.png; path = ../src/assets/banner3.png; sourceTree = "<group>"; };
+		11A6E7814D00030A3B6748D2 /* Pods-FlockBusiness-FlockBusinessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlockBusiness-FlockBusinessTests.debug.xcconfig"; path = "Target Support Files/Pods-FlockBusiness-FlockBusinessTests/Pods-FlockBusiness-FlockBusinessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		11C6FE228D8219F4347299FC /* Pods-FlockBusiness-FlockBusinessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlockBusiness-FlockBusinessTests.release.xcconfig"; path = "Target Support Files/Pods-FlockBusiness-FlockBusinessTests/Pods-FlockBusiness-FlockBusinessTests.release.xcconfig"; sourceTree = "<group>"; };
+		1291B5006C394E249AC72AA5 /* side_nav.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = side_nav.png; path = ../src/assets/side_nav.png; sourceTree = "<group>"; };
+		1295A9E7153C4CAAA0ABB450 /* back.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = back.png; path = ../src/assets/back.png; sourceTree = "<group>"; };
+		12998CE4451B475C9CAF289C /* venue_offer.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = venue_offer.png; path = ../src/assets/venue_offer.png; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* FlockBusiness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlockBusiness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FlockBusiness/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = FlockBusiness/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FlockBusiness/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FlockBusiness/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FlockBusiness/main.m; sourceTree = "<group>"; };
+		14057795A48F4C39A840F6C4 /* close.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = close.png; path = ../src/assets/close.png; sourceTree = "<group>"; };
+		14B5E59759E24F6DA90CE7C6 /* filter.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = filter.png; path = ../src/assets/filter.png; sourceTree = "<group>"; };
+		1566154C44344212B9C837FA /* food.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = food.png; path = ../src/assets/food.png; sourceTree = "<group>"; };
+		1646777A90304841B7A2BD2C /* direction_arrow.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = direction_arrow.png; path = ../src/assets/direction_arrow.png; sourceTree = "<group>"; };
+		17027028E80D4E64854BC671 /* single_star.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = single_star.png; path = ../src/assets/single_star.png; sourceTree = "<group>"; };
+		17D65227773340DDBDCB0780 /* add.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = add.png; path = ../src/assets/add.png; sourceTree = "<group>"; };
+		18CD567262C24B3BB5C6648F /* settings.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = settings.png; path = ../src/assets/settings.png; sourceTree = "<group>"; };
+		1A1FF4182A7EA17600CD1562 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "NotificationCertificate/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1A6414581B214587B47DC725 /* gaming.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = gaming.png; path = ../src/assets/gaming.png; sourceTree = "<group>"; };
+		1A68DEDA2A7CCF7A0097E212 /* FlockBusiness.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FlockBusiness.entitlements; path = FlockBusiness/FlockBusiness.entitlements; sourceTree = "<group>"; };
+		1AEEE2F22A7B81F800D6ABB5 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		1AEEE2F32A7B81FD00D6ABB5 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		1AEEE2F42A7B81FD00D6ABB5 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		1AEEE2F52A7B81FD00D6ABB5 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		1AEEE2F62A7B81FD00D6ABB5 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		1D1F1E17E9854DDDBD017478 /* unchecked.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = unchecked.png; path = ../src/assets/unchecked.png; sourceTree = "<group>"; };
+		1F329136D8D34974B05B55FA /* s_hotel.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = s_hotel.png; path = ../src/assets/s_hotel.png; sourceTree = "<group>"; };
+		1FD14E7C94E942CBAAA6A46B /* hotelback1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = hotelback1.png; path = ../src/assets/hotelback1.png; sourceTree = "<group>"; };
+		214ABC1CF2D54069B97D0014 /* done.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = done.png; path = ../src/assets/done.png; sourceTree = "<group>"; };
+		216D506059B9470787A48827 /* grey_food.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = grey_food.png; path = ../src/assets/grey_food.png; sourceTree = "<group>"; };
+		21B948B842D44EE5A8BE49B2 /* four_1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = four_1.png; path = ../src/assets/four_1.png; sourceTree = "<group>"; };
+		2575C7C002E34705A7BAE0A3 /* nav_dashboard.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nav_dashboard.png; path = ../src/assets/nav_dashboard.png; sourceTree = "<group>"; };
+		2A83A256BFAB4436A7279A78 /* white_side_arrow.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = white_side_arrow.png; path = ../src/assets/white_side_arrow.png; sourceTree = "<group>"; };
+		2C4CF18C31254D558ACCFBFB /* banner1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = banner1.png; path = ../src/assets/banner1.png; sourceTree = "<group>"; };
+		3041EE675F35400B8F9F44BF /* three.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = three.png; path = ../src/assets/three.png; sourceTree = "<group>"; };
+		328A9DFC4ED8459993555F0D /* nav_profile.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nav_profile.png; path = ../src/assets/nav_profile.png; sourceTree = "<group>"; };
+		32937A27E7394A2185F1DD7C /* pool.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = pool.png; path = ../src/assets/pool.png; sourceTree = "<group>"; };
+		339828A65BD04AC9806E801B /* bar.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = bar.png; path = ../src/assets/bar.png; sourceTree = "<group>"; };
+		340664CA339D45F3AA09DACE /* s_food.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = s_food.png; path = ../src/assets/s_food.png; sourceTree = "<group>"; };
+		34D0823B160DE03494A06E17 /* Pods-FlockBusiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlockBusiness.release.xcconfig"; path = "Target Support Files/Pods-FlockBusiness/Pods-FlockBusiness.release.xcconfig"; sourceTree = "<group>"; };
+		3687BAFB55004970A5795F33 /* map_icon.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = map_icon.png; path = ../src/assets/map_icon.png; sourceTree = "<group>"; };
+		376DCC629AC948298FF77652 /* hotelback2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = hotelback2.png; path = ../src/assets/hotelback2.png; sourceTree = "<group>"; };
+		37A36D4761E947338421DAB4 /* grid_icon.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = grid_icon.svg; path = ../src/assets/grid_icon.svg; sourceTree = "<group>"; };
+		3808E788BC2044809BB3AAB2 /* favourite.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = favourite.png; path = ../src/assets/favourite.png; sourceTree = "<group>"; };
+		38B15DCBD9084FA2A7889665 /* black_fav.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = black_fav.png; path = ../src/assets/black_fav.png; sourceTree = "<group>"; };
+		395F4D488FC24246B234564A /* nav_faq.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nav_faq.png; path = ../src/assets/nav_faq.png; sourceTree = "<group>"; };
+		3BC70653B62148DC9B7371DE /* offer3.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = offer3.png; path = ../src/assets/offer3.png; sourceTree = "<group>"; };
+		3D6DB44279486D976043A223 /* libPods-FlockBusiness-FlockBusinessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlockBusiness-FlockBusinessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E1C505C284149ADA9E04916 /* home.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = home.png; path = ../src/assets/home.png; sourceTree = "<group>"; };
+		3E28E8E4FF2B4AA3A0488384 /* drop_up.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = drop_up.png; path = ../src/assets/drop_up.png; sourceTree = "<group>"; };
+		4014683FF97345A78A567398 /* qr_scanner.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = qr_scanner.png; path = ../src/assets/qr_scanner.png; sourceTree = "<group>"; };
+		40CBAFA7A9024B3EB9BCE977 /* tutorials1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tutorials1.png; path = ../src/assets/tutorials1.png; sourceTree = "<group>"; };
+		41A968C52F6A4E3585321B4E /* available.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = available.png; path = ../src/assets/available.png; sourceTree = "<group>"; };
+		469F3E16E3CC47DBBF041B7F /* suc.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = suc.json; path = ../src/assets/suc.json; sourceTree = "<group>"; };
+		478B227D0F3142E898930257 /* feather_hotel.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = feather_hotel.png; path = ../src/assets/feather_hotel.png; sourceTree = "<group>"; };
+		486845DBDBB548F0BA78BFFF /* one.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = one.png; path = ../src/assets/one.png; sourceTree = "<group>"; };
+		4A1DF86E34CD4538ABD8C83D /* twox.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = twox.png; path = ../src/assets/twox.png; sourceTree = "<group>"; };
+		4B5EC4A27D8A44C9AB8DD779 /* search.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = search.png; path = ../src/assets/search.png; sourceTree = "<group>"; };
+		4DE6B364B55342D8BB26D7B3 /* location_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = location_pin.png; path = ../src/assets/location_pin.png; sourceTree = "<group>"; };
+		4FFCE3A2D1F147129FB6BF60 /* logo.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = logo.png; path = ../src/assets/logo.png; sourceTree = "<group>"; };
+		50176422594D41DEB2A4F912 /* profile_img.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = profile_img.jpg; path = ../src/assets/profile_img.jpg; sourceTree = "<group>"; };
+		50B57999B74A47E38427BEBF /* s_movie.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = s_movie.png; path = ../src/assets/s_movie.png; sourceTree = "<group>"; };
+		51DB1AAECF7141D8A8B1F1F0 /* onex.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = onex.png; path = ../src/assets/onex.png; sourceTree = "<group>"; };
+		520250E933024F5085FAE12B /* orange_club.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = orange_club.png; path = ../src/assets/orange_club.png; sourceTree = "<group>"; };
+		5361EC27FE914E6380D53361 /* login_back.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = login_back.jpg; path = ../src/assets/login_back.jpg; sourceTree = "<group>"; };
+		53C05B613DD24029BB28E780 /* one_1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = one_1.png; path = ../src/assets/one_1.png; sourceTree = "<group>"; };
+		5528506B56FB438DA3734F59 /* wifi.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = wifi.png; path = ../src/assets/wifi.png; sourceTree = "<group>"; };
+		5557464A774B4EF28FE7EF60 /* eye.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = eye.png; path = ../src/assets/eye.png; sourceTree = "<group>"; };
+		57F190FE277248AAA49918DE /* drop_down.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = drop_down.png; path = ../src/assets/drop_down.png; sourceTree = "<group>"; };
+		594BA40B0D3B4CB1BE137159 /* flockzzz.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flockzzz.png; path = ../src/assets/flockzzz.png; sourceTree = "<group>"; };
+		5C447F4533D34C22B3CABA42 /* orange_entertain.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = orange_entertain.png; path = ../src/assets/orange_entertain.png; sourceTree = "<group>"; };
+		5E185606541E4C249D6C09D5 /* support.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = support.png; path = ../src/assets/support.png; sourceTree = "<group>"; };
+		6113428C80204C8CA72A95F6 /* hide.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = hide.png; path = ../src/assets/hide.png; sourceTree = "<group>"; };
+		624731FBFDD449F88A977E19 /* succ.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = succ.json; path = ../src/assets/succ.json; sourceTree = "<group>"; };
+		62A7F7890D7944779D958FE5 /* background1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = background1.png; path = ../src/assets/background1.png; sourceTree = "<group>"; };
+		638335F3FFCC4F9BA469414B /* s_store.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = s_store.png; path = ../src/assets/s_store.png; sourceTree = "<group>"; };
+		6572F36E1C1549E2AF941CD6 /* night_life.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = night_life.png; path = ../src/assets/night_life.png; sourceTree = "<group>"; };
+		664900C7F9164D14B9931C80 /* points.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = points.png; path = ../src/assets/points.png; sourceTree = "<group>"; };
+		68FBC799CAEB4073BFB05F69 /* two_2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = two_2.png; path = ../src/assets/two_2.png; sourceTree = "<group>"; };
+		70FF4F6771E20F5E995A845A /* libPods-FlockBusiness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlockBusiness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7364257F654D44BD9E8632F7 /* slider1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = slider1.png; path = ../src/assets/slider1.png; sourceTree = "<group>"; };
+		7557D63F53FA47519E25CF75 /* white_back.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = white_back.png; path = ../src/assets/white_back.png; sourceTree = "<group>"; };
+		75582EA4484F45CE8EB0DE34 /* clubs.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = clubs.png; path = ../src/assets/clubs.png; sourceTree = "<group>"; };
+		7700664D0EAC4860BCE8D66A /* entertainment.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = entertainment.png; path = ../src/assets/entertainment.png; sourceTree = "<group>"; };
+		79D5780C2D314A46906499C6 /* venue_marker_2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = venue_marker_2x.png; path = ../src/assets/venue_marker_2x.png; sourceTree = "<group>"; };
+		7CD4ED3016204D9DA083DBB7 /* gallery.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = gallery.png; path = ../src/assets/gallery.png; sourceTree = "<group>"; };
+		804DF1988D7A4638964C74CA /* feather_food.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = feather_food.png; path = ../src/assets/feather_food.png; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FlockBusiness/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		84808529092C44FEB717DA37 /* grey_shop.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = grey_shop.png; path = ../src/assets/grey_shop.png; sourceTree = "<group>"; };
+		84AF7EC5C1E844FC8AE97CC8 /* nav_report.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nav_report.png; path = ../src/assets/nav_report.png; sourceTree = "<group>"; };
+		85B506C9C56748ECA9D12417 /* flock_marker_2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flock_marker_2x.png; path = ../src/assets/flock_marker_2x.png; sourceTree = "<group>"; };
+		8777F7C481A8471A9EEC16AC /* menu.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = menu.png; path = ../src/assets/menu.png; sourceTree = "<group>"; };
+		8871EBBE96E444FFA84E48B6 /* spend.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = spend.png; path = ../src/assets/spend.png; sourceTree = "<group>"; };
+		8890F5A9E70E47958B3512C1 /* flock_marker_3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flock_marker_3x.png; path = ../src/assets/flock_marker_3x.png; sourceTree = "<group>"; };
+		88EF6B042B076695000D0619 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		88FAD05A2B0DE84E00A15504 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		8BCBFED7AB774B47803A2392 /* two_1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = two_1.png; path = ../src/assets/two_1.png; sourceTree = "<group>"; };
+		8C139808F2ED456CA0677634 /* flock_marker.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flock_marker.png; path = ../src/assets/flock_marker.png; sourceTree = "<group>"; };
+		8C837532E64C49138927DCCE /* fav.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fav.png; path = ../src/assets/fav.png; sourceTree = "<group>"; };
+		8CC932EDBC8A4C0E96E71DBC /* fav_store.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fav_store.png; path = ../src/assets/fav_store.png; sourceTree = "<group>"; };
+		9094BBB2BDD14B49A375D4E8 /* fav_food.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fav_food.png; path = ../src/assets/fav_food.png; sourceTree = "<group>"; };
+		9116F8FF88184313B5C6BBEB /* bottom_bird.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = bottom_bird.png; path = ../src/assets/bottom_bird.png; sourceTree = "<group>"; };
+		91679D2139474E15BC56CC30 /* bottom_nav.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = bottom_nav.png; path = ../src/assets/bottom_nav.png; sourceTree = "<group>"; };
+		925D67759AE2477987C6CCF7 /* food_single.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = food_single.png; path = ../src/assets/food_single.png; sourceTree = "<group>"; };
+		94667BB532694BA19CA8C547 /* feather_entertain.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = feather_entertain.png; path = ../src/assets/feather_entertain.png; sourceTree = "<group>"; };
+		94A4DB44BEFA476097B02180 /* threex.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = threex.png; path = ../src/assets/threex.png; sourceTree = "<group>"; };
+		957C6C99994640B498B3C947 /* flock_bird.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flock_bird.png; path = ../src/assets/flock_bird.png; sourceTree = "<group>"; };
+		997A135F7A544214A92C2EC6 /* nav_setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nav_setting.png; path = ../src/assets/nav_setting.png; sourceTree = "<group>"; };
+		9A136EB7C1624A0A8C8FC748 /* remove.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = remove.png; path = ../src/assets/remove.png; sourceTree = "<group>"; };
+		9D573F68F36141229F7E12C6 /* tutorials.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = tutorials.png; path = ../src/assets/tutorials.png; sourceTree = "<group>"; };
+		9D77561F1A59424296864B29 /* no_data.gif */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = no_data.gif; path = ../src/assets/no_data.gif; sourceTree = "<group>"; };
+		9E65C28DFEC64E6AA114AECB /* sleepy.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = sleepy.png; path = ../src/assets/sleepy.png; sourceTree = "<group>"; };
+		9F01BB0F111040419AFDF65B /* banner2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = banner2.png; path = ../src/assets/banner2.png; sourceTree = "<group>"; };
+		A09EED6B35454E848EC51462 /* scan.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = scan.png; path = ../src/assets/scan.png; sourceTree = "<group>"; };
+		A19C5AC3AF2440D99E5DC7C0 /* fivex.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fivex.png; path = ../src/assets/fivex.png; sourceTree = "<group>"; };
+		A19D141C2F4A423297AEDFF4 /* fav_hotel.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fav_hotel.png; path = ../src/assets/fav_hotel.png; sourceTree = "<group>"; };
+		A3F318624B4A4730BE5DA725 /* del.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = del.png; path = ../src/assets/del.png; sourceTree = "<group>"; };
+		A5D4099D47684E24ABFDCEBA /* camera.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = camera.png; path = ../src/assets/camera.png; sourceTree = "<group>"; };
+		A675FFD9E768486FB87C161B /* white_fav.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = white_fav.png; path = ../src/assets/white_fav.png; sourceTree = "<group>"; };
+		A7A389CCA3564AE0B4380A42 /* side_arrow.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = side_arrow.png; path = ../src/assets/side_arrow.png; sourceTree = "<group>"; };
+		A99D4466DBEA4DDCB807AAF6 /* offer1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = offer1.png; path = ../src/assets/offer1.png; sourceTree = "<group>"; };
+		AAC1272FFE5D400D90942057 /* fav_night.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fav_night.png; path = ../src/assets/fav_night.png; sourceTree = "<group>"; };
+		AB005B428855438483C6F6C3 /* stays.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = stays.png; path = ../src/assets/stays.png; sourceTree = "<group>"; };
+		AB7F7D1EB121497982282021 /* rating_star.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = rating_star.png; path = ../src/assets/rating_star.png; sourceTree = "<group>"; };
+		AC4C8CC94DFD495D8D94408F /* favv.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = favv.png; path = ../src/assets/favv.png; sourceTree = "<group>"; };
+		AED70B57B353402682F8DEEA /* edit.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = edit.png; path = ../src/assets/edit.png; sourceTree = "<group>"; };
+		AF4209EBF98F453E872F9684 /* offer2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = offer2.png; path = ../src/assets/offer2.png; sourceTree = "<group>"; };
+		B0153AC4EC2442FDAA566BBC /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../src/assets/setting.png; sourceTree = "<group>"; };
+		B287132DE3523BA46858E47D /* Pods-FlockBusiness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlockBusiness.debug.xcconfig"; path = "Target Support Files/Pods-FlockBusiness/Pods-FlockBusiness.debug.xcconfig"; sourceTree = "<group>"; };
+		B5009F25702B41BC90E98509 /* four.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = four.png; path = ../src/assets/four.png; sourceTree = "<group>"; };
+		B51A4B550B22408799087E30 /* three_2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = three_2.png; path = ../src/assets/three_2.png; sourceTree = "<group>"; };
+		B5552627F61C4D24A7F9E8E4 /* app_offer.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = app_offer.png; path = ../src/assets/app_offer.png; sourceTree = "<group>"; };
+		B6464B0322184A67B0E6BBE6 /* facebook.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = facebook.png; path = ../src/assets/facebook.png; sourceTree = "<group>"; };
+		B6798588F14D43DE982ABA0A /* business_eggs.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = business_eggs.png; path = ../src/assets/business_eggs.png; sourceTree = "<group>"; };
+		B840DA72874E47C78610DF38 /* splash.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash.png; path = ../src/assets/splash.png; sourceTree = "<group>"; };
+		B97A091B43CF4888AF3D2689 /* five.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = five.png; path = ../src/assets/five.png; sourceTree = "<group>"; };
+		C1CE2E4D1DCA42E0AAEB24C7 /* orange_hotel.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = orange_hotel.png; path = ../src/assets/orange_hotel.png; sourceTree = "<group>"; };
+		C1D8D68BABCB438A9EBBEC9D /* nav_logout.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = nav_logout.png; path = ../src/assets/nav_logout.png; sourceTree = "<group>"; };
+		C25675B79FDE4BBA9D85E0ED /* google.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = google.png; path = ../src/assets/google.png; sourceTree = "<group>"; };
+		C373E2F242064759B743A0B7 /* hot.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = hot.png; path = ../src/assets/hot.png; sourceTree = "<group>"; };
+		C4F5FBEC45034C7288742C70 /* bird.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = bird.png; path = ../src/assets/bird.png; sourceTree = "<group>"; };
+		C7AA3534A96B4AAF928DD5CA /* delete.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = delete.png; path = ../src/assets/delete.png; sourceTree = "<group>"; };
+		C802632E03C74501A0A17B7F /* fourx.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fourx.png; path = ../src/assets/fourx.png; sourceTree = "<group>"; };
+		CB0D90C0E4D4411CB199112E /* checkbox_fill.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = checkbox_fill.png; path = ../src/assets/checkbox_fill.png; sourceTree = "<group>"; };
+		CE6CF4F31F8842BB98D96E29 /* beer.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = beer.png; path = ../src/assets/beer.png; sourceTree = "<group>"; };
+		D04C3300937040989C7B10C3 /* notify.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = notify.png; path = ../src/assets/notify.png; sourceTree = "<group>"; };
+		D4905401FDD44C57A44098D9 /* profile.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = profile.png; path = ../src/assets/profile.png; sourceTree = "<group>"; };
+		D85D4A3E4DE64110AD88AE1B /* slider3.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = slider3.png; path = ../src/assets/slider3.png; sourceTree = "<group>"; };
+		DC4764CF08A94966A51400F8 /* checkbox.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = checkbox.png; path = ../src/assets/checkbox.png; sourceTree = "<group>"; };
+		DE4522D1F4D84F29A5068215 /* venue_marker.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = venue_marker.png; path = ../src/assets/venue_marker.png; sourceTree = "<group>"; };
+		E51CC723F0534FECA9A284CC /* fav_enter.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = fav_enter.png; path = ../src/assets/fav_enter.png; sourceTree = "<group>"; };
+		E53E3EABAF0B4D8F853D1D7F /* apple.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = apple.png; path = ../src/assets/apple.png; sourceTree = "<group>"; };
+		E591364DC770426FBD4409EB /* discount.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = discount.png; path = ../src/assets/discount.png; sourceTree = "<group>"; };
+		E70A759B93654EFD9D81C0CF /* three_1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = three_1.png; path = ../src/assets/three_1.png; sourceTree = "<group>"; };
+		E94D2C7FD3BE453BA694AFAE /* two.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = two.png; path = ../src/assets/two.png; sourceTree = "<group>"; };
+		E9A513FEA18F48C8B11680A3 /* play_button.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = play_button.png; path = ../src/assets/play_button.png; sourceTree = "<group>"; };
+		EA701B3F73CF4049B46CD501 /* map.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = map.png; path = ../src/assets/map.png; sourceTree = "<group>"; };
+		EC3488BC19014EDAA65EB2B4 /* ripple.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = ripple.json; path = ../src/assets/ripple.json; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED7F64715AD8465DA9C206F1 /* black_back.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = black_back.png; path = ../src/assets/black_back.png; sourceTree = "<group>"; };
+		EFFCDFE11B224F71BFE176CF /* star.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = star.png; path = ../src/assets/star.png; sourceTree = "<group>"; };
+		F0799E5FBC574041A79142DC /* black_arrow.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = black_arrow.png; path = ../src/assets/black_arrow.png; sourceTree = "<group>"; };
+		F0A2089396204CACB2002514 /* feather_night.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = feather_night.png; path = ../src/assets/feather_night.png; sourceTree = "<group>"; };
+		F0A2E558DAF54863AFBD9F31 /* bird_logo.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = bird_logo.png; path = ../src/assets/bird_logo.png; sourceTree = "<group>"; };
+		FCA7312912374444BBC73DA0 /* earned.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = earned.png; path = ../src/assets/earned.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A64F13E7F23DF7B73DBCDAE /* libPods-FlockBusiness-FlockBusinessTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24A6C4F2A2A3561648F775EE /* libPods-FlockBusiness.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* FlockBusinessTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* FlockBusinessTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = FlockBusinessTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* FlockBusiness */ = {
+			isa = PBXGroup;
+			children = (
+				1A68DEDA2A7CCF7A0097E212 /* FlockBusiness.entitlements */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				1A1FF4182A7EA17600CD1562 /* GoogleService-Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = FlockBusiness;
+			sourceTree = "<group>";
+		};
+		1AEEE2F12A7B81C300D6ABB5 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1AEEE2F22A7B81F800D6ABB5 /* Montserrat-Bold.ttf */,
+				1AEEE2F42A7B81FD00D6ABB5 /* Montserrat-Medium.ttf */,
+				1AEEE2F62A7B81FD00D6ABB5 /* Montserrat-Regular.ttf */,
+				1AEEE2F32A7B81FD00D6ABB5 /* Montserrat-SemiBold.ttf */,
+				1AEEE2F52A7B81FD00D6ABB5 /* Montserrat-Thin.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				70FF4F6771E20F5E995A845A /* libPods-FlockBusiness.a */,
+				3D6DB44279486D976043A223 /* libPods-FlockBusiness-FlockBusinessTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				88FAD05A2B0DE84E00A15504 /* assets */,
+				88EF6B042B076695000D0619 /* main.jsbundle */,
+				1AEEE2F12A7B81C300D6ABB5 /* fonts */,
+				13B07FAE1A68108700A75B9A /* FlockBusiness */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* FlockBusinessTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				8F81B07E216E4152A6C068EA /* Resources */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* FlockBusiness.app */,
+				00E356EE1AD99517003FC87E /* FlockBusinessTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F81B07E216E4152A6C068EA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				17D65227773340DDBDCB0780 /* add.png */,
+				E53E3EABAF0B4D8F853D1D7F /* apple.png */,
+				41A968C52F6A4E3585321B4E /* available.png */,
+				1295A9E7153C4CAAA0ABB450 /* back.png */,
+				62A7F7890D7944779D958FE5 /* background1.png */,
+				2C4CF18C31254D558ACCFBFB /* banner1.png */,
+				9F01BB0F111040419AFDF65B /* banner2.png */,
+				10E91EFE2A8D44C89129D3E6 /* banner3.png */,
+				339828A65BD04AC9806E801B /* bar.png */,
+				CE6CF4F31F8842BB98D96E29 /* beer.png */,
+				C4F5FBEC45034C7288742C70 /* bird.png */,
+				A5D4099D47684E24ABFDCEBA /* camera.png */,
+				DC4764CF08A94966A51400F8 /* checkbox.png */,
+				CB0D90C0E4D4411CB199112E /* checkbox_fill.png */,
+				14057795A48F4C39A840F6C4 /* close.png */,
+				A3F318624B4A4730BE5DA725 /* del.png */,
+				C7AA3534A96B4AAF928DD5CA /* delete.png */,
+				E591364DC770426FBD4409EB /* discount.png */,
+				214ABC1CF2D54069B97D0014 /* done.png */,
+				FCA7312912374444BBC73DA0 /* earned.png */,
+				AED70B57B353402682F8DEEA /* edit.png */,
+				7700664D0EAC4860BCE8D66A /* entertainment.png */,
+				5557464A774B4EF28FE7EF60 /* eye.png */,
+				B6464B0322184A67B0E6BBE6 /* facebook.png */,
+				8C837532E64C49138927DCCE /* fav.png */,
+				3808E788BC2044809BB3AAB2 /* favourite.png */,
+				AC4C8CC94DFD495D8D94408F /* favv.png */,
+				14B5E59759E24F6DA90CE7C6 /* filter.png */,
+				B97A091B43CF4888AF3D2689 /* five.png */,
+				B5009F25702B41BC90E98509 /* four.png */,
+				21B948B842D44EE5A8BE49B2 /* four_1.png */,
+				7CD4ED3016204D9DA083DBB7 /* gallery.png */,
+				1A6414581B214587B47DC725 /* gaming.png */,
+				C25675B79FDE4BBA9D85E0ED /* google.png */,
+				6113428C80204C8CA72A95F6 /* hide.png */,
+				3E1C505C284149ADA9E04916 /* home.png */,
+				C373E2F242064759B743A0B7 /* hot.png */,
+				1FD14E7C94E942CBAAA6A46B /* hotelback1.png */,
+				376DCC629AC948298FF77652 /* hotelback2.png */,
+				058EDE0143494B5EBACBA329 /* location.png */,
+				5361EC27FE914E6380D53361 /* login_back.jpg */,
+				4FFCE3A2D1F147129FB6BF60 /* logo.png */,
+				EA701B3F73CF4049B46CD501 /* map.png */,
+				0B6C7B322D4F4605B62BE573 /* nearby.png */,
+				9D77561F1A59424296864B29 /* no_data.gif */,
+				D04C3300937040989C7B10C3 /* notify.png */,
+				A99D4466DBEA4DDCB807AAF6 /* offer1.png */,
+				AF4209EBF98F453E872F9684 /* offer2.png */,
+				3BC70653B62148DC9B7371DE /* offer3.png */,
+				486845DBDBB548F0BA78BFFF /* one.png */,
+				53C05B613DD24029BB28E780 /* one_1.png */,
+				07F292F6DA1047A49B39248B /* people.png */,
+				664900C7F9164D14B9931C80 /* points.png */,
+				32937A27E7394A2185F1DD7C /* pool.png */,
+				D4905401FDD44C57A44098D9 /* profile.png */,
+				9A136EB7C1624A0A8C8FC748 /* remove.png */,
+				EC3488BC19014EDAA65EB2B4 /* ripple.json */,
+				A09EED6B35454E848EC51462 /* scan.png */,
+				014E4EBADF3B40659780476A /* scanner.png */,
+				4B5EC4A27D8A44C9AB8DD779 /* search.png */,
+				B0153AC4EC2442FDAA566BBC /* setting.png */,
+				18CD567262C24B3BB5C6648F /* settings.png */,
+				9E65C28DFEC64E6AA114AECB /* sleepy.png */,
+				7364257F654D44BD9E8632F7 /* slider1.png */,
+				0C8581E7BCAA42F586036077 /* slider2.png */,
+				D85D4A3E4DE64110AD88AE1B /* slider3.png */,
+				8871EBBE96E444FFA84E48B6 /* spend.png */,
+				B840DA72874E47C78610DF38 /* splash.png */,
+				EFFCDFE11B224F71BFE176CF /* star.png */,
+				AB005B428855438483C6F6C3 /* stays.png */,
+				469F3E16E3CC47DBBF041B7F /* suc.json */,
+				624731FBFDD449F88A977E19 /* succ.json */,
+				5E185606541E4C249D6C09D5 /* support.png */,
+				3041EE675F35400B8F9F44BF /* three.png */,
+				E70A759B93654EFD9D81C0CF /* three_1.png */,
+				B51A4B550B22408799087E30 /* three_2.png */,
+				9D573F68F36141229F7E12C6 /* tutorials.png */,
+				40CBAFA7A9024B3EB9BCE977 /* tutorials1.png */,
+				0CD40F23689F4A658FE4C0F9 /* tutorials2.png */,
+				E94D2C7FD3BE453BA694AFAE /* two.png */,
+				8BCBFED7AB774B47803A2392 /* two_1.png */,
+				68FBC799CAEB4073BFB05F69 /* two_2.png */,
+				1D1F1E17E9854DDDBD017478 /* unchecked.png */,
+				0B34CB290D754BD68C108592 /* verify.png */,
+				5528506B56FB438DA3734F59 /* wifi.png */,
+				B5552627F61C4D24A7F9E8E4 /* app_offer.png */,
+				0EA327792EAD4A09A05644C0 /* app_theme.png */,
+				F0799E5FBC574041A79142DC /* black_arrow.png */,
+				0505F0EB10F74B60BCD206DD /* blue_dropdown.png */,
+				9116F8FF88184313B5C6BBEB /* bottom_bird.png */,
+				91679D2139474E15BC56CC30 /* bottom_nav.png */,
+				B6798588F14D43DE982ABA0A /* business_eggs.png */,
+				75582EA4484F45CE8EB0DE34 /* clubs.png */,
+				1646777A90304841B7A2BD2C /* direction_arrow.png */,
+				57F190FE277248AAA49918DE /* drop_down.png */,
+				3E28E8E4FF2B4AA3A0488384 /* drop_up.png */,
+				E51CC723F0534FECA9A284CC /* fav_enter.png */,
+				9094BBB2BDD14B49A375D4E8 /* fav_food.png */,
+				A19D141C2F4A423297AEDFF4 /* fav_hotel.png */,
+				AAC1272FFE5D400D90942057 /* fav_night.png */,
+				8CC932EDBC8A4C0E96E71DBC /* fav_store.png */,
+				94667BB532694BA19CA8C547 /* feather_entertain.png */,
+				804DF1988D7A4638964C74CA /* feather_food.png */,
+				478B227D0F3142E898930257 /* feather_hotel.png */,
+				F0A2089396204CACB2002514 /* feather_night.png */,
+				A19C5AC3AF2440D99E5DC7C0 /* fivex.png */,
+				957C6C99994640B498B3C947 /* flock_bird.png */,
+				8C139808F2ED456CA0677634 /* flock_marker.png */,
+				85B506C9C56748ECA9D12417 /* flock_marker_2x.png */,
+				8890F5A9E70E47958B3512C1 /* flock_marker_3x.png */,
+				1566154C44344212B9C837FA /* food.png */,
+				925D67759AE2477987C6CCF7 /* food_single.png */,
+				C802632E03C74501A0A17B7F /* fourx.png */,
+				216D506059B9470787A48827 /* grey_food.png */,
+				84808529092C44FEB717DA37 /* grey_shop.png */,
+				37A36D4761E947338421DAB4 /* grid_icon.svg */,
+				4DE6B364B55342D8BB26D7B3 /* location_pin.png */,
+				3687BAFB55004970A5795F33 /* map_icon.png */,
+				8777F7C481A8471A9EEC16AC /* menu.png */,
+				2575C7C002E34705A7BAE0A3 /* nav_dashboard.png */,
+				395F4D488FC24246B234564A /* nav_faq.png */,
+				C1D8D68BABCB438A9EBBEC9D /* nav_logout.png */,
+				328A9DFC4ED8459993555F0D /* nav_profile.png */,
+				84AF7EC5C1E844FC8AE97CC8 /* nav_report.png */,
+				997A135F7A544214A92C2EC6 /* nav_setting.png */,
+				6572F36E1C1549E2AF941CD6 /* night_life.png */,
+				51DB1AAECF7141D8A8B1F1F0 /* onex.png */,
+				520250E933024F5085FAE12B /* orange_club.png */,
+				5C447F4533D34C22B3CABA42 /* orange_entertain.png */,
+				C1CE2E4D1DCA42E0AAEB24C7 /* orange_hotel.png */,
+				50176422594D41DEB2A4F912 /* profile_img.jpg */,
+				AB7F7D1EB121497982282021 /* rating_star.png */,
+				340664CA339D45F3AA09DACE /* s_food.png */,
+				1F329136D8D34974B05B55FA /* s_hotel.png */,
+				50B57999B74A47E38427BEBF /* s_movie.png */,
+				638335F3FFCC4F9BA469414B /* s_store.png */,
+				A7A389CCA3564AE0B4380A42 /* side_arrow.png */,
+				1291B5006C394E249AC72AA5 /* side_nav.png */,
+				17027028E80D4E64854BC671 /* single_star.png */,
+				94A4DB44BEFA476097B02180 /* threex.png */,
+				4A1DF86E34CD4538ABD8C83D /* twox.png */,
+				DE4522D1F4D84F29A5068215 /* venue_marker.png */,
+				79D5780C2D314A46906499C6 /* venue_marker_2x.png */,
+				0284342665224C6CB00409BF /* venue_marker_3x.png */,
+				12998CE4451B475C9CAF289C /* venue_offer.png */,
+				7557D63F53FA47519E25CF75 /* white_back.png */,
+				A675FFD9E768486FB87C161B /* white_fav.png */,
+				2A83A256BFAB4436A7279A78 /* white_side_arrow.png */,
+				4014683FF97345A78A567398 /* qr_scanner.png */,
+				F0A2E558DAF54863AFBD9F31 /* bird_logo.png */,
+				E9A513FEA18F48C8B11680A3 /* play_button.png */,
+				ED7F64715AD8465DA9C206F1 /* black_back.png */,
+				38B15DCBD9084FA2A7889665 /* black_fav.png */,
+				594BA40B0D3B4CB1BE137159 /* flockzzz.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B287132DE3523BA46858E47D /* Pods-FlockBusiness.debug.xcconfig */,
+				34D0823B160DE03494A06E17 /* Pods-FlockBusiness.release.xcconfig */,
+				11A6E7814D00030A3B6748D2 /* Pods-FlockBusiness-FlockBusinessTests.debug.xcconfig */,
+				11C6FE228D8219F4347299FC /* Pods-FlockBusiness-FlockBusinessTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* FlockBusinessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FlockBusinessTests" */;
+			buildPhases = (
+				E223112C416BEED266219332 /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				D9D4D2D3E587C9CEB5B5F3CF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = FlockBusinessTests;
+			productName = FlockBusinessTests;
+			productReference = 00E356EE1AD99517003FC87E /* FlockBusinessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* FlockBusiness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FlockBusiness" */;
+			buildPhases = (
+				B005EBD6FD507D7ABD741775 /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				18EC29CBAA94073859ABE62E /* [CP] Copy Pods Resources */,
+				6311781466868110B6E12577 /* [CP-User] [RNFB] Core Configuration */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlockBusiness;
+			productName = FlockBusiness;
+			productReference = 13B07F961A680F5B00A75B9A /* FlockBusiness.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FlockBusiness" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* FlockBusiness */,
+				00E356ED1AD99517003FC87E /* FlockBusinessTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88FAD05B2B0DE84E00A15504 /* assets in Resources */,
+				88EF6B052B076695000D0619 /* main.jsbundle in Resources */,
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				1A1FF4192A7EA17600CD1562 /* GoogleService-Info.plist in Resources */,
+				1AEEE2F92A7B81FD00D6ABB5 /* Montserrat-Medium.ttf in Resources */,
+				1AEEE2FB2A7B81FD00D6ABB5 /* Montserrat-Regular.ttf in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				1AEEE2F82A7B81FD00D6ABB5 /* Montserrat-SemiBold.ttf in Resources */,
+				1AEEE2FA2A7B81FD00D6ABB5 /* Montserrat-Thin.ttf in Resources */,
+				1AEEE2F72A7B81FD00D6ABB5 /* Montserrat-Bold.ttf in Resources */,
+				72D2DBA0C1564CFFB9C3E2E1 /* add.png in Resources */,
+				F431500FDF80455196579FFB /* apple.png in Resources */,
+				9677500B07F44088A92E4C0A /* available.png in Resources */,
+				70723060AA2D4F98998ACF90 /* back.png in Resources */,
+				A90FAE8A17B74C08A6D8F60A /* background1.png in Resources */,
+				62E6265C2C4B423CAD9E5E0B /* banner1.png in Resources */,
+				2F95816DCDED415CA9832CF2 /* banner2.png in Resources */,
+				9F71FCEBD6F542B2A2EDF392 /* banner3.png in Resources */,
+				2006964FFC46424FAD86ABDB /* bar.png in Resources */,
+				A750B87CCE1D494BA58E54F8 /* beer.png in Resources */,
+				166FBBD2CF874B6E8D41F474 /* bird.png in Resources */,
+				43F8523A466C4C0AAE2EB3CD /* camera.png in Resources */,
+				2AEE5D7816134165BF7B9764 /* checkbox.png in Resources */,
+				69ABE794DD5B4C9F945171C2 /* checkbox_fill.png in Resources */,
+				44E02137F7684D0485047FA8 /* close.png in Resources */,
+				69C1DCB22F644AC38003BFAF /* del.png in Resources */,
+				329C7CFD3C3944B5AAA5FFCE /* delete.png in Resources */,
+				301A1C5234CF48F781F88120 /* discount.png in Resources */,
+				1EB453CD384343B3A764E5E4 /* done.png in Resources */,
+				0368B463FE21403DA53686F7 /* earned.png in Resources */,
+				C9EF2092428D4108ABB9AD92 /* edit.png in Resources */,
+				BA73B50D88414C1CA4187900 /* entertainment.png in Resources */,
+				24314C889F234913B9C82F74 /* eye.png in Resources */,
+				89814E99D7AE4B0EABB9CF81 /* facebook.png in Resources */,
+				6D6238A111E04920B4AD9785 /* fav.png in Resources */,
+				646DA790DEE649EBB0BBB476 /* favourite.png in Resources */,
+				FE8A4A8F28F0436C98934195 /* favv.png in Resources */,
+				25C68731C31542789BBC320A /* filter.png in Resources */,
+				0188F53BB944402CB32025CE /* five.png in Resources */,
+				4AD7330AEA6144EFBE96F7AF /* four.png in Resources */,
+				F024123DA6114A68873E9A37 /* four_1.png in Resources */,
+				1C884E9CEC8E476F87791E25 /* gallery.png in Resources */,
+				160EF9EF63BC4F88A0094E61 /* gaming.png in Resources */,
+				F71C074FDF9B467381E192ED /* google.png in Resources */,
+				B152232CE5AE4E82803CC1FF /* hide.png in Resources */,
+				CFEE264668A44889A23001E7 /* home.png in Resources */,
+				9AB1418A40D144ABB99B0FF7 /* hot.png in Resources */,
+				533C6BF00A424F8D8FE35C2E /* hotelback1.png in Resources */,
+				0EB073B6026B47C4992F07B6 /* hotelback2.png in Resources */,
+				10CFA7888CE147F7A58E4E7F /* location.png in Resources */,
+				DC471B65A87D4151A901FD57 /* login_back.jpg in Resources */,
+				3A8B8594FE6B45BCA2938265 /* logo.png in Resources */,
+				18BBF1D459D34D4E939EE0AC /* map.png in Resources */,
+				6324321AD36948C28B57BAA4 /* nearby.png in Resources */,
+				17064F1751A241FD8AE06D67 /* no_data.gif in Resources */,
+				967ECE5A3C9F41E9904F1771 /* notify.png in Resources */,
+				5255157556214C2D91C8939B /* offer1.png in Resources */,
+				EC8056D72B4C4B6894135F9A /* offer2.png in Resources */,
+				33A64E2A6B644820B80538B8 /* offer3.png in Resources */,
+				76259C9E1C9D45588580B55C /* one.png in Resources */,
+				9AD95F352D5D4C16B1124AEF /* one_1.png in Resources */,
+				9612A38BC51547359F8EC3B6 /* people.png in Resources */,
+				917F3CF5AD214DAB85EE2928 /* points.png in Resources */,
+				FD5BB27A8D3E4E62A09581B2 /* pool.png in Resources */,
+				004FCD303FAD431B8C0DB00A /* profile.png in Resources */,
+				8455E9A2D1654674BC5B7628 /* remove.png in Resources */,
+				8E908EC591334FBEAEC0300C /* ripple.json in Resources */,
+				F899CB6985744D15A6D0E4F0 /* scan.png in Resources */,
+				E337DF1B653D4C7A86CA7FF3 /* scanner.png in Resources */,
+				92522835FA8A444EA60B7103 /* search.png in Resources */,
+				0BD28C5A4FA84566BF3E4A1B /* setting.png in Resources */,
+				55239CA25D3C4731A6ED25BF /* settings.png in Resources */,
+				AE728BE28C6C4ABFA3B4F403 /* sleepy.png in Resources */,
+				1827370B268C452B9FFB40DB /* slider1.png in Resources */,
+				FB8F905A0E1A49B7B1B13644 /* slider2.png in Resources */,
+				09ABED22F2CA42F395EC2D19 /* slider3.png in Resources */,
+				CD7D35F5BAA04A099C0173B5 /* spend.png in Resources */,
+				1036750769814EA7A07B405A /* splash.png in Resources */,
+				C31112C572DC4133A06C4008 /* star.png in Resources */,
+				115A212690904E14A7CF8CBF /* stays.png in Resources */,
+				CE138F9E810242A0BA0DEC6A /* suc.json in Resources */,
+				43D5EFADCBEC4A0CA99E025F /* succ.json in Resources */,
+				C02C294391BD497CA1458016 /* support.png in Resources */,
+				F0C5717F399D40E896425FF3 /* three.png in Resources */,
+				CC2FF3214FCB4B18937405A9 /* three_1.png in Resources */,
+				726BBC271DFC4A7BAD05BED5 /* three_2.png in Resources */,
+				1E10855E956040A4B4D55500 /* tutorials.png in Resources */,
+				253ED90E15254ECEBD3A6055 /* tutorials1.png in Resources */,
+				C666EE12D29848DBB75D1D0B /* tutorials2.png in Resources */,
+				C66E47EFFFF844C4A2633F41 /* two.png in Resources */,
+				1F4D28E0B48445B49BC14C7E /* two_1.png in Resources */,
+				B80E17DC84AA4350A9D46189 /* two_2.png in Resources */,
+				0816A78E09A6434E922D1B65 /* unchecked.png in Resources */,
+				121F77FA3EB34436B487F87E /* verify.png in Resources */,
+				A4C97C2775B343319468C375 /* wifi.png in Resources */,
+				AE6CA6E4EE7C46C3B3A773B9 /* app_offer.png in Resources */,
+				21285ECB162E4779BA209638 /* app_theme.png in Resources */,
+				73EB6981A8C44B76BA6970F6 /* black_arrow.png in Resources */,
+				A42C7B4BBAA0479AA2D94F0F /* blue_dropdown.png in Resources */,
+				25EE2D836F3B41D189A22C33 /* bottom_bird.png in Resources */,
+				4F0ED3D25E8F48658594F8D4 /* bottom_nav.png in Resources */,
+				529798166496427E8783645B /* business_eggs.png in Resources */,
+				D4F75C9D55664095B84F08A2 /* clubs.png in Resources */,
+				A0F4FF4D32264B248A29A093 /* direction_arrow.png in Resources */,
+				99876CC665914813814F0ECD /* drop_down.png in Resources */,
+				6B488DD38836440A9C500FE3 /* drop_up.png in Resources */,
+				5B83DE46CBCE47EEA4C07B63 /* fav_enter.png in Resources */,
+				112E5A43C66140DBB2720603 /* fav_food.png in Resources */,
+				3C3911239BB34E79AD18F3DC /* fav_hotel.png in Resources */,
+				E7864041FF30485CB74ECD5F /* fav_night.png in Resources */,
+				91E224E85BBF42D7AC55EBB3 /* fav_store.png in Resources */,
+				4F8157B4F1B2485FA62067B8 /* feather_entertain.png in Resources */,
+				14C8252EEF9D464BABD0CFEA /* feather_food.png in Resources */,
+				3318CFF5C0A148D2BCEE4EFE /* feather_hotel.png in Resources */,
+				D10047AD8FD448A68D1ACA92 /* feather_night.png in Resources */,
+				C435A81763834535B39FC001 /* fivex.png in Resources */,
+				81C0FD0C5CD04A1CAAA9216D /* flock_bird.png in Resources */,
+				7C36CC068F9747C888CE3F76 /* flock_marker.png in Resources */,
+				7AE0463A5A434FEFA72DDE7B /* flock_marker_2x.png in Resources */,
+				16EA2E88813042B28558100C /* flock_marker_3x.png in Resources */,
+				4C1ADED6B059411684274AB4 /* food.png in Resources */,
+				D18869398D914942A9A07B99 /* food_single.png in Resources */,
+				8DFADE44D9AD4CBD9A903933 /* fourx.png in Resources */,
+				D9A628A23AE2405AB5CCEA97 /* grey_food.png in Resources */,
+				FC1B3CB87EFB4DC78B84823D /* grey_shop.png in Resources */,
+				180CE0A79166423FACC48AE2 /* grid_icon.svg in Resources */,
+				42A469B2A451496EB0CDE7C9 /* location_pin.png in Resources */,
+				80D1AF5FD73144D3B3BF28A7 /* map_icon.png in Resources */,
+				2A0979F4E7E445169264962A /* menu.png in Resources */,
+				C770C6DD4D2E4165A77C4F4C /* nav_dashboard.png in Resources */,
+				7BC46ED64EAC4C58BC429541 /* nav_faq.png in Resources */,
+				4BE5C8FC9EB6431BBC5F5749 /* nav_logout.png in Resources */,
+				4199031FCE3A44499EC9F9D9 /* nav_profile.png in Resources */,
+				1E345F85441445B2BF5FF903 /* nav_report.png in Resources */,
+				81ADFAFFBE4B4338A8DE0420 /* nav_setting.png in Resources */,
+				106CAD2CAC58404C8AAE18A9 /* night_life.png in Resources */,
+				1F6BF70E32C746A785CB562B /* onex.png in Resources */,
+				BA3E9F3B7D7A45C6A8536847 /* orange_club.png in Resources */,
+				FC4474B9829046559E754E0D /* orange_entertain.png in Resources */,
+				5BD1C1CA0CDE4C37ABF28651 /* orange_hotel.png in Resources */,
+				B6599141D805453188C62681 /* profile_img.jpg in Resources */,
+				EF5872CC518846398CB48DE9 /* rating_star.png in Resources */,
+				1F2FD78216A145E8BAAE7AD2 /* s_food.png in Resources */,
+				418B572C919C4138A9FDE12E /* s_hotel.png in Resources */,
+				C86640EC2DC5490D9232479E /* s_movie.png in Resources */,
+				4075719D492B4175A6D12FB6 /* s_store.png in Resources */,
+				FEEB3E500DFF46E09B089A6F /* side_arrow.png in Resources */,
+				CC36C804036F4E9A87A66B21 /* side_nav.png in Resources */,
+				29001E5978AD4CCE9EDF0A32 /* single_star.png in Resources */,
+				6292F031DE7449CE85D53012 /* threex.png in Resources */,
+				A03F8789D5DD42D0856DD46F /* twox.png in Resources */,
+				92713B6D72AF4901BBE6A23C /* venue_marker.png in Resources */,
+				8718FC59E6904AD497132F04 /* venue_marker_2x.png in Resources */,
+				72CB4847C6BC4D7F9C827515 /* venue_marker_3x.png in Resources */,
+				DF309A09B3664A73B27AC93D /* venue_offer.png in Resources */,
+				36216D69D84148B699DB0178 /* white_back.png in Resources */,
+				5D5C4D668A9F4DD08CAF3611 /* white_fav.png in Resources */,
+				3C4910A633CA4CAF96F43B5C /* white_side_arrow.png in Resources */,
+				8E56F8906F5E4AAEAA3CF849 /* qr_scanner.png in Resources */,
+				4C498E796FC4488D8249EDBB /* bird_logo.png in Resources */,
+				E2ECB7278DDA4E16B3E16490 /* play_button.png in Resources */,
+				6F783039AA1A4312A4CEBD51 /* black_back.png in Resources */,
+				3E467CF2402E4C759DD2DA82 /* black_fav.png in Resources */,
+				5F22A372DDD543BF8659D67D /* flockzzz.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		18EC29CBAA94073859ABE62E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlockBusiness/Pods-FlockBusiness-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlockBusiness/Pods-FlockBusiness-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlockBusiness/Pods-FlockBusiness-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6311781466868110B6E12577 /* [CP-User] [RNFB] Core Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "[CP-User] [RNFB] Core Configuration";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
+		};
+		B005EBD6FD507D7ABD741775 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlockBusiness-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9D4D2D3E587C9CEB5B5F3CF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlockBusiness-FlockBusinessTests/Pods-FlockBusiness-FlockBusinessTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlockBusiness-FlockBusinessTests/Pods-FlockBusiness-FlockBusinessTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlockBusiness-FlockBusinessTests/Pods-FlockBusiness-FlockBusinessTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E223112C416BEED266219332 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlockBusiness-FlockBusinessTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* FlockBusinessTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* FlockBusiness */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11A6E7814D00030A3B6748D2 /* Pods-FlockBusiness-FlockBusinessTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FlockBusinessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlockBusiness.app/FlockBusiness";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11C6FE228D8219F4347299FC /* Pods-FlockBusiness-FlockBusinessTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = FlockBusinessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlockBusiness.app/FlockBusiness";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B287132DE3523BA46858E47D /* Pods-FlockBusiness.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FlockBusiness/FlockBusiness.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 50;
+				DEVELOPMENT_TEAM = JN2M628ZFL;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = FlockBusiness/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Flock;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.5.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flock-App";
+				PRODUCT_NAME = FlockBusiness;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34D0823B160DE03494A06E17 /* Pods-FlockBusiness.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FlockBusiness/FlockBusiness.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 50;
+				DEVELOPMENT_TEAM = JN2M628ZFL;
+				INFOPLIST_FILE = FlockBusiness/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Flock;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.5.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flock-App";
+				PRODUCT_NAME = FlockBusiness;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FlockBusinessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FlockBusiness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FlockBusiness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}
