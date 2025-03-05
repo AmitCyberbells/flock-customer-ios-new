@@ -1,2 +1,2 @@
-# flock-ios-customer
-flock ios is a repo to store ios application (react-native)
+# flock-android-customer
+This is repo for customer android application

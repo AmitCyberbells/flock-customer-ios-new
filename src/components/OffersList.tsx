@@ -1,0 +1,121 @@
+import { FlatList, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import ScreenProps from "../types/ScreenProps";
+import RootStackParamList from "../types/RootStackParamList";
+import OfferItem from "./OfferItem";
+import { Offer } from "../types/Venue";
+import { useEffect, useState } from "react";
+import RedeemOfferDialog from "./RedeemOfferDialog";
+import Toast from "react-native-toast-message";
+import Request from "../services/Request";
+import OfferRedeemBy from "../types/RedeemBy";
+import MtToast from "../constants/MtToast";
+import WalletService from "../services/WalletService";
+
+type OffersListProps = {
+    offersData: Array<Offer>,
+    columnStyle?: StyleProp<ViewStyle>,
+    setLoader: (isLoading: boolean) => void
+} & ScreenProps<keyof RootStackParamList>;
+
+const OffersList: React.FC<OffersListProps> = (props) => {
+    const { offersData, setLoader, columnStyle } = props;
+    const [offers, setOffers] = useState<Array<Offer>>(offersData);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [selectedOffer, setSelectedOffer] = useState<Offer>();
+    const {updateWalletBalances} = WalletService();
+
+    useEffect(() => {
+        updateWalletBalances();
+
+    }, [])
+
+    const showRedeemDialog = (offer: Offer) => {
+        setSelectedOffer(offer);
+        setModalVisible(true);
+    }
+
+    const redeemOffer = (redeemBy: OfferRedeemBy) => {
+        setModalVisible(false);
+        setLoader(true);
+
+        if (!selectedOffer) {
+            return MtToast.error('Please select offer first!');
+        }
+
+        Request.redeemOffer(
+            { offer_id: selectedOffer.id, redeem_by: redeemBy },
+            (success, error) => {
+                setLoader(false);
+
+                if (success) {
+                    Toast.show({
+                        type: 'MtToastSuccess',
+                        text1: success.message,
+                        position: 'bottom'
+                    })
+
+                    setOffers(prev => prev.map(offer => offer.id === selectedOffer.id ? { ...offer, redeemed: true } : offer))
+
+                } else {
+
+                    Toast.show({
+                        type: 'MtToastError',
+                        text1: error.message,
+                        position: 'bottom'
+                    })
+                }
+            })
+
+    }
+
+    return (
+        <View>
+            <FlatList
+                horizontal={false}
+                numColumns={2}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                columnWrapperStyle={[style.columns, columnStyle]}
+                style={{
+                    marginTop: 10
+                }}
+                data={offers}
+                renderItem={({ item }) => (
+                    <OfferItem
+                        offer={item}
+                        onToggleOffer={updatedOffer => {
+                            setOffers(prevOffers =>
+                                prevOffers.map(offer =>
+                                    offer.id === updatedOffer.id ? updatedOffer : offer,
+                                ),
+                            );
+                        }}
+                        redeemOffer={() => showRedeemDialog(item)}
+                        onLoader={setLoader}
+
+                        {...props}
+                    />
+                )}
+                keyExtractor={(item, index) => index.toString()}
+            />
+
+            <RedeemOfferDialog
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                offer={selectedOffer}
+                onRedeem={redeemOffer}
+            />
+        </View>
+    )
+}
+
+export default OffersList;
+
+const style = StyleSheet.create({
+    columns: {
+        justifyContent: 'space-between',
+        paddingHorizontal: 2,
+        paddingVertical: 5,
+        gap: 10
+    },
+});

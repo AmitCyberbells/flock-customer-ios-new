@@ -1,0 +1,94 @@
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  Platform,
+  Image,
+  Alert,
+  ImageBackground,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import {StyleSheet} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
+import {Fonts} from '../../constants/Fonts';
+import {Colors} from '../../constants/Colors';
+import Images from '../../constants/Images';
+import {CSS} from '../../constants/CSS';
+import Imageview from '../../components/Imageview';
+import Textview from '../../components/Textview';
+import BoxView from '../../components/BoxView';
+import Loader from '../../components/Loader';
+import AuthLayout from './Layout';
+import ScreenProps from '../../types/ScreenProps';
+import Guest from '../../middleware/Guest';
+import Request from '../../services/Request';
+import Toast from 'react-native-toast-message';
+import MtToast from '../../constants/MtToast';
+
+const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
+  const [email, setemail] = useState('');
+  const [loader, setLoader] = useState(false);
+
+  useEffect(() => {}, []);
+
+  function continueClick() {
+    setLoader(true);
+
+    Request.forgotPassword({email}, (success, error) => {
+      setLoader(false);
+      
+      if (success) {
+        MtToast.success(success.message)
+
+        props.navigation?.navigate('Otp', {
+          screenType: 'ForgotPassword',
+          verifyEmail: true,
+          verifyPhone: false,
+          email: email,
+        });
+      } else {
+        MtToast.error(error.message);
+      }
+    });
+  }
+
+  return (
+    <AuthLayout isLoading={loader}>
+      <Textview
+        text={'Forgot Password'}
+        style={CSS.title}
+        text_click={() => {}}
+      />
+
+      <BoxView cardStyle={styles.boxView}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Enter email address"
+          placeholderTextColor={Colors.grey}
+          keyboardType="email-address"
+          onChangeText={value => setemail(value)}
+        />
+      </BoxView>
+
+      <Textview
+        text={'Continue'}
+        style={[CSS.themeButton, {marginTop: 30}]}
+        text_click={continueClick}
+      />
+    </AuthLayout>
+  );
+};
+
+const styles = StyleSheet.create({
+  boxView: {
+    paddingVertical: Platform.OS == 'ios' ? 17 : 0,
+    marginTop: 30,
+  },
+  textInput: {
+    height: 40,
+  },
+});
+
+export default ForgotPassword;

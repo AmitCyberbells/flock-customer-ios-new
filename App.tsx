@@ -1,5 +1,10 @@
-import React, { Component } from "react";
-import Route from "./route";
+import React from 'react';
+import Router from './src/Router';
 
-const App = () => <Route />;
+function App(): React.JSX.Element {
+  return (
+    <Router />
+  );
+}
+
 export default App;
