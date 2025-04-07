@@ -1,28 +1,45 @@
-import React, { useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
+import React from "react";
+//import LottieView from "lottie-react-native";
+import { View, StyleSheet, Image } from "react-native";
+import Images from "../constants/Images";
+import Imageview from "./Imageview";
 
-type loaderProps = {
-  isLoading: boolean
-}
+const Loader = ({ isLoading }: { isLoading: boolean }) => {
+  if (!isLoading) return null;
 
-const AnimatedLoader: React.FC<loaderProps> = ({isLoading}) => {
   return (
-    isLoading ? (
-      <View style={{ 
-        position: 'absolute', 
-        top: 0, 
-        left: 0, 
-        right: 0, 
-        bottom: 0,
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 9999,
-      }}>
-        <ActivityIndicator size="large" color="#00ff00" />
-      </View>
-    ) : null
+    <View style={styles.overlay}>
+      {/* <LottieView
+        source={require("../assets/loader.json")}
+        autoPlay
+        loop
+        style={styles.animation}
+      /> */}
+      <Imageview
+        style={{
+          width: 200,
+          height: 200
+        }}
+        imageType={'local'}
+        url={Images.loader}
+        resizeMode="cover"
+      />
+    </View>
   );
-}
+};
 
-export default React.memo(AnimatedLoader);
+const styles = StyleSheet.create({
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 99
+  },
+  animation: {
+    width: 200,
+    height: 200,
+  },
+});
+
+export default React.memo(Loader);

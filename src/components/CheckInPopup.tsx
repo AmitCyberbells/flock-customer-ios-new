@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import Images from "../constants/Images";
 import Venue from '../types/Venue';
+import Icon from '@react-native-vector-icons/fontawesome6';
+import { Colors } from '../constants/Colors';
 
 // Get device dimensions
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -23,7 +25,7 @@ const normalize = (size: number) => Math.round(scale * size);
 // App Bird Icon Component
 const AppBirdIcon = () => (
   <View style={styles.smallBirdCircle}>
-    <Image 
+    <Image
       source={Images.birdapp}
       style={styles.iconImage}
       resizeMode="contain"
@@ -34,7 +36,7 @@ const AppBirdIcon = () => (
 // Building/Venue Icon Component
 const BuildingIcon = () => (
   <View style={styles.buildingCircle}>
-    <Image 
+    <Image
       source={Images.buildingapp}
       style={styles.iconImage}
       resizeMode="contain"
@@ -60,39 +62,48 @@ const CheckInPopup = ({ visible, onClose, venue }: CheckInPopupProps) => {
       <SafeAreaView style={styles.modalContainer}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
+            {/* Close button */}
+            <TouchableOpacity onPress={onClose} style={{
+              position: 'absolute',
+              right: 20,
+              top: 20,
+            }}>
+              <Icon name='circle-xmark' color={Colors.crimson} iconStyle='solid' size={25} />
+            </TouchableOpacity>
+
             {/* Header */}
             <Text style={styles.headerTitle}>Check in Successful</Text>
             <Text style={styles.headerSubtitle}>Enjoy Your Rewards!</Text>
-            
+
             {/* Success Image */}
             <View style={styles.birdContainer}>
-              <Image 
-                source={Images.success} 
+              <Image
+                source={Images.success}
                 style={styles.birdImage}
                 resizeMode="contain"
               />
             </View>
-            
+
             {/* Venue name - left aligned */}
             <Text style={styles.venueName}>{venue.name}</Text>
-            
+
             {/* Points earned row */}
             <View style={styles.pointsRow}>
               {/* App points */}
               <View style={styles.appPointCard}>
                 <AppBirdIcon />
-                <Text style={styles.appPointText}>+{venue.feather_points} Feather Points</Text>
+                <Text style={styles.appPointText}>+{venue.feather_points} Feathers</Text>
               </View>
-              
+
               {/* Venue points */}
               <View style={styles.venuePointCard}>
                 <BuildingIcon />
                 <Text style={styles.venuePointText}>+{venue.venue_points} Venue Points</Text>
               </View>
             </View>
-            
+
             {/* Done button */}
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.doneButton}
               onPress={onClose}
               activeOpacity={0.8}
@@ -122,7 +133,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxHeight: SCREEN_HEIGHT * 0.9,
     borderRadius: normalize(24),
-    paddingVertical: normalize(24),
+    paddingVertical: normalize(20),
     paddingHorizontal: normalize(20),
     alignItems: 'center',
     ...Platform.select({
@@ -138,13 +149,13 @@ const styles = StyleSheet.create({
     }),
   },
   headerTitle: {
-    fontSize: normalize(26),
+    fontSize: normalize(22),
     fontWeight: '700',
     color: '#000',
     textAlign: 'center',
   },
   headerSubtitle: {
-    fontSize: normalize(18),
+    fontSize: normalize(16),
     color: '#000',
     marginTop: normalize(4),
     marginBottom: normalize(16),
@@ -158,8 +169,8 @@ const styles = StyleSheet.create({
     marginVertical: normalize(10),
   },
   birdImage: {
-    width: normalize(100),
-    height: normalize(100),
+    width: normalize(130),
+    height: normalize(130),
   },
   venueName: {
     fontSize: normalize(20),
@@ -189,7 +200,7 @@ const styles = StyleSheet.create({
   },
   venuePointCard: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#2B51FC',
     borderRadius: normalize(12),
     padding: normalize(16),
     alignItems: 'center',
@@ -229,7 +240,7 @@ const styles = StyleSheet.create({
   venuePointText: {
     fontSize: normalize(14),
     fontWeight: '600',
-    color: '#333',
+    color: '#fff',
     textAlign: 'center',
   },
   doneButton: {

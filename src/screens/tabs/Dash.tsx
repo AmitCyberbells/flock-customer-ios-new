@@ -34,8 +34,10 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
     props.navigation?.navigate('EditProfile');
   };
 
-  const openFeathers = () => { };
-  
+  const openFeathers = () => {
+    props.navigation?.navigate('FeathersHistory');
+  };
+
   const seeAllTransactions = () => {
     props.navigation?.navigate('TransactionHistory');
   };
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     marginBottom: isIos ? 30 : 20,
   },
   headerTitle: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_25,
   },
@@ -219,13 +221,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   balanceLabel: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.light_grey,
     textAlign: 'center',
     fontSize: Fonts.fs_14,
   },
   balanceAmount: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_25,
     marginTop: isIos ? 10 : 0,
@@ -256,7 +258,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   statLabel: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.light_grey,
     fontSize: Fonts.fs_14,
     marginBottom: isIos ? 5 : 0,
@@ -270,7 +272,7 @@ const styles = StyleSheet.create({
     marginTop: isIos ? 2 : 3,
   },
   pointsText: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_17,
     marginTop: isIos ? 2 : 0,
@@ -283,13 +285,13 @@ const styles = StyleSheet.create({
     marginTop: isIos ? 20 : 15,
   },
   transactionsTitle: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_18,
     marginHorizontal: isIos ? 17 : 15,
   },
   seeAllText: {
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     color: Colors.light_grey,
     fontSize: Fonts.fs_14,
     marginHorizontal: isIos ? 17 : 15,
@@ -324,18 +326,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   transactionName: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_17,
   },
-  transactionDate: {
-    fontFamily: 'regular',
-    color: Colors.grey,
-    fontSize: Fonts.fs_13,
-    marginTop: isIos ? 5 : 0,
-  },
   transactionAmount: {
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     fontSize: Fonts.fs_16,
   },
 });

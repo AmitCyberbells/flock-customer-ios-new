@@ -5,39 +5,48 @@ import Images from '../constants/Images';
 import {CSS} from '../constants/CSS';
 import ScreenProps from '../types/ScreenProps';
 import RootStackParamList from '../types/RootStackParamList';
+import { isIos } from '../constants/IsPlatform';
+import { Colors } from '../constants/Colors';
 
 type TabHeaderProps = {
   title?: string;
   nearByVenues?: () => void;
+  hideSideMenuButton?: boolean
 };
 
 const TabHeader: React.FC<ScreenProps<keyof RootStackParamList> & TabHeaderProps> = props => {
+  const {title, nearByVenues, hideSideMenuButton, navigation} = props;
+
   return (
-    <View style={[CSS.home_toolbar]}>
-      <TouchableOpacity onPress={() => props?.navigation?.openDrawer()} style={{flex: 1}}>
+    <View style={[CSS.home_toolbar, {zIndex: 1}]}>
+
+      {hideSideMenuButton ? null : 
+      <TouchableOpacity onPress={() => navigation?.openDrawer()} style={{flex: 1}}>
         <Imageview
           style={styles.navIcon}
           imageType={'local'}
           url={Images.sideNav}
         />
-      </TouchableOpacity>
+      </TouchableOpacity>}
 
-      {props.title ? (
+      {title ? (
         <View style={{flex: 1, justifyContent: 'center'}}>
           <Text
             style={{
+              color: Colors.black,
+              fontFamily: Fonts.medium,
               fontSize: Fonts.fs_20,
               textAlign: 'left',
-              marginLeft: -45,
+              marginLeft: hideSideMenuButton ? 0 : -45,
             }}>
-            {props.title || ''}
+            {title || ''}
           </Text>
         </View>
       ) : null}
 
-      {props.nearByVenues ? (
+      {nearByVenues ? (
         <View style={CSS.home_mapicon}>
-          <TouchableOpacity onPress={props.nearByVenues}>
+          <TouchableOpacity onPress={nearByVenues}>
             <Imageview
               style={styles.navIcon}
               imageType={'local'}
@@ -52,8 +61,8 @@ const TabHeader: React.FC<ScreenProps<keyof RootStackParamList> & TabHeaderProps
 
 const styles = StyleSheet.create({
   navIcon: {
-    width: Platform.OS === 'ios' ? 45 : 40,
-    height: Platform.OS === 'ios' ? 45 : 40,
+    width: isIos ? 45 : 30,
+    height: isIos ? 45 : 30,
   },
 });
 

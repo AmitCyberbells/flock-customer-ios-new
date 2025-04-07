@@ -26,7 +26,7 @@ const VenueOffers: React.FC<
       <Textview
         text={offers?.length + ' Active offers'}
         style={{
-          fontFamily: Fonts.android_medium,
+          fontFamily: Fonts.medium,
           color: Colors.grey,
           fontSize: Fonts.fs_12,
           marginTop: 15,

@@ -22,6 +22,7 @@ import Profile from './tabs/Profile';
 import Dash from './tabs/Dash';
 import ScreenProps from '../types/ScreenProps';
 import {CSS} from '../constants/CSS';
+import { isIos } from '../constants/IsPlatform';
 
 const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
   const {navigation} = props;
@@ -73,8 +74,7 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
                 ]}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => openTab(1)}
+            <TouchableOpacity onPress={() => openTab(1)}
               style={[CSS.tab, styles.notificationsTab]}>
               <Imageview
                 style={styles.icon}
@@ -174,21 +174,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     shadowColor: '#dcdcdc',
     shadowOpacity: 4,
-    height: Platform.OS == 'ios' ? 80 : 70,
+    height: isIos ? 80 : 70,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: Platform.OS == 'ios' ? 23 : 15,
-    marginVertical: 8,
+    marginHorizontal: isIos ? 23 : 15,
+    marginVertical: 0,
   },
   icon: {
-    width: Platform.OS == 'ios' ? 30 : 25,
-    height: Platform.OS == 'ios' ? 30 : 25,
+    width: isIos ? 30 : 25,
+    height: isIos ? 30 : 25,
   },
   tabText: {
     fontSize: Fonts.fs_10,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     marginTop: 3,
   },
   notificationsTab: {
@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
   },
   floatingButton: {
     position: 'absolute',
-    bottom: 19,
-    left: "40.3%",
+    bottom: 22,
+    alignSelf: 'center'
   },
   floatingButtonImage: {
     width: 70,

@@ -1,4 +1,4 @@
-import Utils from "./Util";
+import Utils from "./Utils";
 
 export interface ValidationRule {
     validate: (value: any) => boolean;
@@ -28,7 +28,7 @@ const Validator = {
     },
     phone: {
         validate: (value: any) => Utils.isPhone(value),
-        message: 'Please enter a valid phone number.'
+        message: 'Please enter a 10 digit phone number.'
     },
 };
 

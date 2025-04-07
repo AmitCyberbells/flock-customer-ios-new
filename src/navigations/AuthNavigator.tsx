@@ -5,6 +5,8 @@ import ForgotPassword from '../screens/auth/ForgotPassword';
 import Login from '../screens/auth/Login';
 import OTPScreen from '../screens/auth/Otp';
 import ResetPassword from '../screens/auth/ResetPassword';
+import WebPage from '../screens/pages/WebPage';
+import StartupAd from '../screens/auth/StartupAd';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,11 +38,8 @@ const AuthNavigator = () => {
         component={OTPScreen}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
-          name="Tabs"
-          component={CustomTabBar}
-          options={{headerShown:false}}
-        /> */}
+      <Stack.Screen name="StartupAd" component={StartupAd} options={{ headerShown: false }} />
+      <Stack.Screen name="WebPage" component={WebPage} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };

@@ -3,26 +3,23 @@ import {
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {useDispatch, useSelector} from 'react-redux';
-import {logout} from '../store/authReducer';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/authReducer';
 import Imageview from '../components/Imageview';
-import {Image, Platform, View} from 'react-native';
-import {Colors} from '../constants/Colors';
+import { Alert, View } from 'react-native';
+import { Colors } from '../constants/Colors';
 import Images from '../constants/Images';
 import {
   useNavigationState,
 } from '@react-navigation/native';
-import {useEffect, useState} from 'react';
+import { useEffect } from 'react';
 import UserCard from '../components/UserCard';
-import Dialog from 'react-native-dialog';
 import { isIos } from '../constants/IsPlatform';
 
 export default function CustomDrawerContent(
   props: DrawerContentComponentProps,
 ) {
   const dispatch = useDispatch();
-
-  const [confirmLogout, setConfirmLogout] = useState<boolean>(false);
 
   const currentRoute = useNavigationState(
     state => state?.routes[state.index]?.state?.routes,
@@ -32,17 +29,34 @@ export default function CustomDrawerContent(
     ? currentRoute[currentRoute?.length - 1]?.name
     : '';
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const navigate = (screen: string) => {
-    props.navigation.navigate('Main', {screen});
+    props.navigation.navigate('Main', { screen });
   };
+
+  const confirmLogout = (done: () => void) => {
+    Alert.alert(
+      "Confirm logout", // Title
+      "Are you sure you want to logout?", // Message
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes, Please",
+          onPress: () => { done() },
+          style: "destructive",
+        },
+      ]
+    );
+  }
 
   const signOut = () => {
     // take confirmation before logout
     // api to revoke server sessions
     dispatch(logout());
-
   };
 
   return (
@@ -54,21 +68,31 @@ export default function CustomDrawerContent(
           <DrawerItem
             key={index}
             icon={() => (
-              <Imageview
-                style={{
-                  width: isIos ? 27 : 23,
-                  height: isIos ? 27 : 23,
-                }}
-                url={item.img}
-                imageType={'local'}
-                resizeMode={'contain'}
-                tintColor={routeName === item.slug ? Colors.white : Colors.grey}
-              />
+              <View>
+                {item.slug !== 'VenueRequest' ? <Imageview
+                  style={{
+                    width: isIos ? 27 : 23,
+                    height: isIos ? 27 : 23,
+                  }}
+                  url={item.img}
+                  imageType={'local'}
+                  resizeMode={'contain'}
+                  tintColor={routeName === item.slug ? Colors.white : Colors.grey}
+                /> : <Imageview
+                  style={{
+                    width: isIos ? 27 : 23,
+                    height: isIos ? 27 : 23,
+                  }}
+                  url={routeName === item.slug ? Images.FlockBird : item.img}
+                  imageType={'local'}
+                  resizeMode={'contain'}
+                />}
+              </View>
             )}
             label={item.title}
             onPress={() => {
               if (item.slug === 'logout') {
-                setConfirmLogout(true);
+                confirmLogout(signOut)
               } else {
                 navigate(item.slug);
               }
@@ -80,21 +104,7 @@ export default function CustomDrawerContent(
         );
       })}
 
-      <Dialog.Container visible={confirmLogout}>
-        <Dialog.Title>{'Confirmation'}</Dialog.Title>
-        <Dialog.Description>{'Are you sure to logout?'}</Dialog.Description>
-        <Dialog.Button
-          label={'No'}
-          onPress={() => setConfirmLogout(false)}
-        />
-        <Dialog.Button
-          label={'Yes'}
-          onPress={() => {
-            setConfirmLogout(false);
-            signOut();
-          }}
-        />
-      </Dialog.Container>
+
     </DrawerContentScrollView>
   );
 }
@@ -126,8 +136,8 @@ const SideMenuList = [
     slug: 'Tutorials',
   },
   {
-    img: Images.bird,
-    title: 'Request venue',
+    img: Images.venue_request,
+    title: 'Request Venue',
     slug: 'VenueRequest',
   },
   {

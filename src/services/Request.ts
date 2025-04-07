@@ -4,9 +4,9 @@ import User from '../types/User';
 import { API } from './API';
 import Toast from 'react-native-toast-message';
 import Venue, { Offer } from '../types/Venue';
-import store from '../store/store';
+import store, { StoreStates } from '../store/store';
 import Category from '../types/Category';
-import Utils from './Util';
+import Utils from './Utils';
 import AdBanner from '../types/AdBanner';
 import Device from '../types/Device';
 import Tutorial from '../types/Tutorial';
@@ -18,63 +18,10 @@ import SupportRequest, { SupportReply } from '../types/SupportRequest';
 import ReportedVenue from '../types/ReportedVenue';
 import Notification from '../types/Notification';
 import AppLog from '../types/AppLog';
+import { Environment } from '../../env';
+import FeatherHistoryType from '../types/FeatherHistoryType';
 
 export default class Request {
-  static getRequest = async (
-    url: string,
-    callback: (success: any, error: any) => void,
-  ) => {
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-      //console.log(response);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const json = await response.json();
-      //console.log(json);
-      callback(json, undefined);
-    } catch (error) {
-      //console.log(error);
-      callback(undefined, error);
-    }
-  };
-
-  static postRequest = async (
-    url: string,
-    body: any,
-    callback: (success: any, error: any) => void,
-  ) => {
-    //console.log(body);
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          ...(body instanceof FormData
-            ? {}
-            : { 'Content-Type': 'application/json' }),
-        },
-        body: JSON.stringify(body),
-      });
-      //console.log(response);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const json = await response.json();
-      //console.log(json);
-      callback(json, undefined);
-    } catch (error) {
-      //console.log(error);
-      callback(undefined, error);
-    }
-  };
 
   static _getRequest = (
     url: string,
@@ -83,6 +30,7 @@ export default class Request {
     const storex = store.getState();
     //console.log(url);
     const xhr = new XMLHttpRequest();
+
     xhr.open('GET', url, true);
     xhr.setRequestHeader('Accept', 'application/json');
     if (storex.auth.accessToken) {
@@ -92,8 +40,12 @@ export default class Request {
       );
     }
 
+    xhr.timeout = Environment.getApiTimeout();
+    let timeoutId: NodeJS.Timeout;
+
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (timeoutId) clearTimeout(timeoutId);
         ////console.log('xhr>response-ou- ', xhr)
         if (xhr.status >= 200 && xhr.status < 500) {
           try {
@@ -112,8 +64,22 @@ export default class Request {
     };
 
     xhr.onerror = () => {
+      if (timeoutId) clearTimeout(timeoutId);
       callback(undefined, new Error('Network error'));
     };
+
+    // Handle timeout errors
+    xhr.ontimeout = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      callback(undefined, new Error('Slow network connection or server issue. Please try again later.'));
+    };
+
+    timeoutId = setTimeout(() => {
+      if (xhr.readyState !== XMLHttpRequest.DONE) {
+        xhr.abort(); // Cancel the request
+        callback(undefined, new Error("Request taking too long. Please try again."));
+      }
+    }, Environment.getApiTimeout());
 
     xhr.send();
   };
@@ -127,7 +93,7 @@ export default class Request {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Accept', 'application/json');
-    console.log({ body })
+    //console.log({ body })
     if (uploadFiles) {
       xhr.setRequestHeader('Content-Type', 'multipart/form-data');
 
@@ -135,7 +101,7 @@ export default class Request {
       xhr.setRequestHeader('Content-Type', 'application/json');
     }
 
-    const storex = store.getState();
+    const storex: StoreStates = store.getState();
 
     if (storex.auth.accessToken) {
       xhr.setRequestHeader(
@@ -145,9 +111,12 @@ export default class Request {
     }
 
     //console.log(xhr)
+    xhr.timeout = Environment.getApiTimeout(uploadFiles);
+    let timeoutId: NodeJS.Timeout;
 
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (timeoutId) clearTimeout(timeoutId);
         ////console.log('xhr>response-ou- ', xhr)
         if (xhr.status >= 200 && xhr.status < 500) {
           try {
@@ -161,13 +130,29 @@ export default class Request {
           } catch (error) {
             callback(undefined, error);
           }
+        } else {
+          //console.error("HTTP Error status < 500:", xhr.status, xhr);
         }
       }
     };
 
     xhr.onerror = () => {
+      if (timeoutId) clearTimeout(timeoutId);
       callback(undefined, new Error('Network error'));
     };
+
+    // Handle timeout errors
+    xhr.ontimeout = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      callback(undefined, new Error('Slow network connection or server issue. Please try again later.'));
+    };
+
+    timeoutId = setTimeout(() => {
+      if (xhr.readyState !== XMLHttpRequest.DONE) {
+        xhr.abort(); // Cancel the request
+        callback(undefined, new Error("Request taking too long. Please try again."));
+      }
+    }, Environment.getApiTimeout(uploadFiles));
 
     xhr.send(body instanceof FormData ? body : JSON.stringify(body));
   };
@@ -259,7 +244,11 @@ export default class Request {
   static login = async (
     body: any,
     callback: (
-      success: SuccessResponse<[]>,
+      success: SuccessResponse<{
+        access_token: string;
+        token_type: string;
+        user: User;
+      }>,
       error: ErrorResponse<{ [key: string]: string }>,
     ) => void,
   ) => {
@@ -488,7 +477,7 @@ export default class Request {
       redeem_by: OfferRedeemBy
     },
     callback: (
-      success: SuccessResponse<any>,
+      success: SuccessResponse<RedeemedOffers>,
       error: ErrorResponse<{ [key: string]: string }>,
     ) => void,
   ) => {
@@ -526,6 +515,15 @@ export default class Request {
     this.checkInternet(() => this._getRequest(API.walletLogs + params, callback));
   };
 
+  static feathersHistory = async (
+    callback: (
+      success: SuccessResponse<Array<FeatherHistoryType>>,
+      error: ErrorResponse<{ [key: string]: string }>,
+    ) => void,
+  ) => {
+    this.checkInternet(() => this._getRequest(API.feathersHistory, callback));
+  };
+
   static updateProfile = async (
     body: FormData,
     callback: (
@@ -555,6 +553,16 @@ export default class Request {
     ) => void,
   ) => {
     this.checkInternet(() => this._getRequest(API.supportList, callback));
+  };
+
+  static supportReplies = async (
+    params: { ticket_id: number },
+    callback: (
+      success: SuccessResponse<SupportRequest>,
+      error: ErrorResponse<{ [key: string]: string }>,
+    ) => void,
+  ) => {
+    this.checkInternet(() => this._getRequest(API.supportReplies + params.ticket_id, callback));
   };
 
   static createSupportTicket = async (

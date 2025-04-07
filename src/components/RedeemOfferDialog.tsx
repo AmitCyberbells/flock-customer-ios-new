@@ -205,7 +205,7 @@ const RedeemOfferDialog: React.FC<RedeemOfferDialogProps> = ({
               style={styles.redeemButton}
               onPress={() => onRedeem(redeemBy)}
               activeOpacity={offer?.redeemed ? 0.5 : 0.8}
-              disabled={offer?.redeemed}
+              disabled={offer?.redeemed ? true : false}
             >
               <Text style={styles.redeemButtonText}>Redeem Now</Text>
             </TouchableOpacity>

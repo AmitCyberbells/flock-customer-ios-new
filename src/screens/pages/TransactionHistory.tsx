@@ -3,8 +3,8 @@ import ScreenProps from "../../types/ScreenProps";
 import VirtualizedList from "../../components/VirtualizedList";
 import Loader from "../../components/Loader";
 import TransactionList from "../../components/TransactionList";
-import { View } from "react-native";
-
+import { Dimensions, View } from "react-native";
+import Utils from "../../services/Utils";
 
 const TransactionHistory: React.FC<ScreenProps<'TransactionHistory'>> = (props) => {
     const [loader, setLoader] = useState(false);
@@ -14,8 +14,9 @@ const TransactionHistory: React.FC<ScreenProps<'TransactionHistory'>> = (props) 
             <Loader isLoading={loader} />
 
             <VirtualizedList>
-
-                <TransactionList setLoader={setLoader} />
+                <View style={{ height: Utils.DEVICE_HEIGHT-150 }}>
+                    <TransactionList setLoader={setLoader} />
+                </View>
             </VirtualizedList>
         </View>
     )

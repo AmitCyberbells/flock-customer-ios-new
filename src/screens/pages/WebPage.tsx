@@ -8,7 +8,6 @@ import PageHeader from "../../navigations/PageHeader";
 
 const WebPage: React.FC<ScreenProps<'WebPage'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
-    const isIos = Platform.OS === 'ios';
     const pageTitle = props.route?.params['title'] || '';
     const link = props.route?.params['link'] || '';
    

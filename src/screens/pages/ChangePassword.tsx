@@ -4,7 +4,7 @@ import { Colors } from "../../constants/Colors";
 import ScreenProps from "../../types/ScreenProps";
 import Icon from "@react-native-vector-icons/fontawesome6";
 import { useEffect, useState } from "react";
-import Utils from "../../services/Util";
+import Utils from "../../services/Utils";
 import Toast from "react-native-toast-message";
 import Request from "../../services/Request";
 import { Fonts } from "../../constants/Fonts";
@@ -74,11 +74,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
 
                 <ShadowCard
                     style={[
-                        styles.inputCard,
-                        {
-                            borderBottomColor: Colors.red,
-                            borderBottomWidth: Utils.isPassword(old_password || '') ? 0 : 0.5,
-                        }
+                        styles.inputCard
                     ]}
                 >
                     <TextInput
@@ -94,7 +90,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         onPress={() => setShowPassword({ ...showPassword, old: !showPassword.old })}
                     >
                         <Icon
-                            name={showPassword.old ? 'eye-slash' : 'eye'}
+                            name={!showPassword.old ? 'eye-slash' : 'eye'}
                             size={15}
                             color={Colors.grey}
                         />
@@ -106,7 +102,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         styles.inputCard,
                         {
                             borderBottomColor: Colors.red,
-                            borderBottomWidth: Utils.isPassword(password || '') ? 0 : 0.5,
+                            borderBottomWidth: !Utils.isEmpty(password) && !Utils.isPassword(password || '') ? 0.5 : 0,
                         }
                     ]}
                 >
@@ -123,7 +119,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         onPress={() => setShowPassword({ ...showPassword, new: !showPassword.new })}
                     >
                         <Icon
-                            name={showPassword.new ? 'eye-slash' : 'eye'}
+                            name={!showPassword.new ? 'eye-slash' : 'eye'}
                             size={15}
                             color={Colors.grey}
                         />
@@ -135,7 +131,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         styles.inputCard,
                         {
                             borderBottomColor: Colors.red,
-                            borderBottomWidth: (password === password_confirmation) ? 0 : 0.5,
+                            borderBottomWidth: !Utils.isEmpty(password_confirmation) && (password !== password_confirmation) ? 0.5 : 0,
                         }
                     ]}
                 >
@@ -152,7 +148,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         onPress={() => setShowPassword({ ...showPassword, confirm: !showPassword.confirm })}
                     >
                         <Icon
-                            name={showPassword.confirm ? 'eye-slash' : 'eye'}
+                            name={!showPassword.confirm ? 'eye-slash' : 'eye'}
                             size={15}
                             color={Colors.grey}
                         />
@@ -168,7 +164,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         style={{
                             fontSize: Fonts.fs_17,
                             color: Colors.white,
-                            fontFamily: 'regular',
+                            fontFamily: Fonts.regular,
                             textAlign: 'center',
                             backgroundColor: Colors.primary_color_orange,
                             padding: 10,
@@ -189,7 +185,7 @@ const styles = StyleSheet.create({
     },
     inputCard: {
         backgroundColor: Colors.white,
-        paddingVertical: Platform.OS == 'ios' ? 17 : 10,
+        paddingVertical: Platform.OS == 'ios' ? 17 : 0,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -199,8 +195,7 @@ const styles = StyleSheet.create({
         flex: 1,
         color: Colors.black,
         fontSize: Fonts.fs_14,
-        fontFamily:
-            Platform.OS == 'ios' ? Fonts.ios_regular : Fonts.android_regular,
+        fontFamily: Fonts.regular,
     },
     eyeIcon: {
         alignItems: 'center',

@@ -16,10 +16,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({buttonText, callback, button
             styles.text,
             {
               color: Colors.black,
-              fontFamily:
-                Platform.OS === 'ios'
-                  ? Fonts.ios_regular
-                  : Fonts.android_regular,
+              fontFamily: Fonts.regular,
               fontSize: Fonts.fs_14,
             },
           ]}>

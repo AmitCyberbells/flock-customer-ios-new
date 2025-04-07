@@ -12,7 +12,7 @@ import Tutorial from "../../types/Tutorial";
 import Request from "../../services/Request";
 import Toast from "react-native-toast-message";
 import BoxView from "../../components/BoxView";
-import Utils from "../../services/Util";
+import Utils from "../../services/Utils";
 import WebView from "react-native-webview";
 import TutorialItem from "../../components/TutorialItem";
 import { Environment } from "../../../env";

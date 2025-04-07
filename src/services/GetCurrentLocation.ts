@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
-import Utils from './Util';
+import Utils from './Utils';
 import { setLocation } from '../store/locationReducer';
 import { StoreStates } from '../store/store';
 import { isIos } from '../constants/IsPlatform';

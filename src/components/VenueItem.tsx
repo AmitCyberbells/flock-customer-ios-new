@@ -17,7 +17,7 @@ import Images from '../constants/Images';
 import IsVenueOpened from '../constants/IsVenueOpened';
 import { isIos } from '../constants/IsPlatform';
 import MtToast from '../constants/MtToast';
-import Utils from '../services/Util';
+import Utils from '../services/Utils';
 
 type VenueItem = {
   venue: Venue;
@@ -59,7 +59,7 @@ const VenueItem: React.FC<VenueItem> = ({
 
   const tags = (venue.tags?.length || 0) > 0 ? venue.tags?.map(t => t.name).join(' | ') : ''
 
-  const source = venue.images.length > 0 ? venue.images[0].file_name : Images.uri(Images.placeholder);
+  const source = venue.images.length > 0 ? venue.images[0].image : Images.uri(Images.placeholder);
 
   return (
     <TouchableOpacity
@@ -141,35 +141,33 @@ const VenueItem: React.FC<VenueItem> = ({
           </View>
 
           <View style={{ marginHorizontal: 5, marginTop: 5 }}>
-            <Textview
-              lines={2}
-              text={venue.name}
+            <Text
+              numberOfLines={2}
               style={{
-                fontFamily: Fonts.android_medium,
+                fontFamily: Fonts.medium,
                 color: Colors.white,
                 fontSize: Fonts.fs_14,
                 marginHorizontal: 5,
               }}
-            />
+            >{venue.name}</Text>
 
-            {venueSubTitle != '' ? <Textview
-              lines={2}
-              text={venueSubTitle}
+            {venueSubTitle != '' ? <Text
+              numberOfLines={2}
               style={{
-                fontFamily: Fonts.android_regular,
+                fontFamily: Fonts.regular,
                 color: Colors.white,
                 fontSize: Fonts.fs_11,
                 marginHorizontal: 5,
                 marginTop: isIos ? 3 : 0,
               }}
-            />: null}
+            >{venueSubTitle}</Text>: null}
 
-            {(venue.tags?.length || 0) > 0 ?
+            {/* {(venue.tags?.length || 0) > 0 ?
               <Textview
                 lines={1}
                 text={tags || ''}
                 style={{
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   color: Colors.whitesmoke,
                   fontSize: Fonts.fs_11,
                   marginHorizontal: 5,
@@ -177,7 +175,7 @@ const VenueItem: React.FC<VenueItem> = ({
                 }}
               />
               : null
-            }
+            } */}
           </View>
 
           <View
@@ -213,7 +211,7 @@ const VenueItem: React.FC<VenueItem> = ({
                     <Textview
                       text={'Boosted'}
                       style={{
-                        fontFamily: 'regular',
+                        fontFamily: Fonts.regular,
                         color: Colors.white,
                         fontSize: Fonts.fs_11,
                         marginHorizontal: 5,
@@ -242,7 +240,7 @@ const VenueItem: React.FC<VenueItem> = ({
                     <Textview
                       text={'Hot'}
                       style={{
-                        fontFamily: 'regular',
+                        fontFamily: Fonts.regular,
                         color: Colors.white,
                         fontSize: Fonts.fs_11,
                         marginHorizontal: 5,

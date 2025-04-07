@@ -32,6 +32,10 @@ export const Environment = {
 
     UserGuideLink: 'https://getflock.io/user-guide',
 
+    Terms: "https://web.cyberbells.com/DitroInfotech/Projects/flock/terms-customer",
+
+    getApiTimeout: (file: boolean = false) => file ? 40000 : 20000,
+
     Location: {
         Default: {
             latitude: -33.865143, // 'Sydney, Australia'

@@ -11,6 +11,12 @@ export const Colors = {
   light_color_orange: '#ffe6cf',
   orange_shade1: '#facea5',
 
+  color_one:'#ffdfc3',
+	color_two:'#cad2f7',
+	color_three:'#c3ced6',
+	color_four:'#fff2be',
+	color_five:'#ffdfc3',
+
   blue: '#007AFF',
   black: '#000000',
   red: '#ff0000',

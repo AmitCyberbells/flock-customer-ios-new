@@ -60,7 +60,12 @@ type RootStackParamList = {
     TransactionHistory: undefined,
     DeleteAccount: undefined,
     SupportList: undefined,
-    SupportForm: undefined
+    SupportTicket: {
+        ticket_id: number
+    },
+    SupportForm: undefined,
+    FeathersHistory: undefined,
+    StartupAd: undefined,
 };
 
 export default RootStackParamList;

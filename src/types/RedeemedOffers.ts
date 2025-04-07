@@ -3,12 +3,12 @@ import User from "./User";
 import { Offer } from "./Venue";
 
 type RedeemedOffers = {
-    id: number,
+    id?: number,
     offer_id: number, 
     user_id: number, 
     redeemed_by: OfferRedeemBy, 
     points: number,
-    offer: Offer,
+    offer?: Offer,
     user?: User
 }
 

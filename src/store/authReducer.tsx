@@ -23,6 +23,9 @@ const authSlice = createSlice({
     },
     logout: () => {
       AsyncStorage.removeItem('auth');
+      AsyncStorage.removeItem('user');
+      AsyncStorage.removeItem('wallet');
+      AsyncStorage.removeItem('location');
       return initialState
     },
     refreshDeviceToken:

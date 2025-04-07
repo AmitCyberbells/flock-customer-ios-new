@@ -21,6 +21,8 @@ import Loader from '../../components/Loader';
 import Request from '../../services/Request';
 import Toast from 'react-native-toast-message';
 import MtToast from '../../constants/MtToast';
+import DropdownMenu from '../../components/DropdownMenu';
+import { isAndroid, isIos } from '../../constants/IsPlatform';
 
 interface DeleteAccountProps extends ScreenProps<'DeleteAccount'> { }
 
@@ -78,9 +80,9 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
     const deleteAccountApi = () => {
         setIsSubmitting(true);
 
-        Request.archiveProfile({reason}, (success, error) => {
+        Request.archiveProfile({ reason }, (success, error) => {
             setIsSubmitting(false);
-            
+
             if (success) {
                 dispatch(logout());
 
@@ -88,6 +90,24 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
                 MtToast.error(error.message);
             }
         })
+    }
+
+    const confirm = (done: () => void) => {
+        Alert.alert(
+            "Confirm Delete account!", // Title
+            "Are you sure you want to delete your account?", // Message
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Yes, I want",
+                    onPress: () => { done() },
+                    style: "destructive",
+                },
+            ]
+        );
     }
 
     return (
@@ -111,7 +131,7 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
 
                 <View style={styles.reasonContainer}>
                     <Text style={styles.reasonLabel}>Choose reason</Text>
-                    <View style={styles.pickerContainer}>
+                    {isAndroid ? <View style={styles.pickerContainer}>
                         <Picker
                             selectedValue={reason}
                             onValueChange={(itemValue) => setReason(itemValue)}
@@ -121,15 +141,17 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
                                 <Picker.Item key={index} label={item} value={item} />
                             ))}
                         </Picker>
-                    </View>
+                    </View> :
+                    <DropdownMenu options={deleteReasons.map(r => ({label: r, value: r}))} onSelect={(item) => setReason(item.value)} selectedValue={reason} />}
                 </View>
+
 
                 <TouchableOpacity
                     style={[
                         styles.continueButton,
                         (!reason || reason === deleteReasons[0]) && styles.continueButtonDisabled
                     ]}
-                    onPress={handleContinue}
+                    onPress={() => confirm(handleContinue)}
                     disabled={!reason || reason === deleteReasons[0] || isSubmitting}
                 >
                     {isSubmitting ? (
@@ -205,6 +227,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     picker: {
+        color: Colors.grey,
         height: 56,
     },
     continueButton: {

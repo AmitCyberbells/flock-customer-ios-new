@@ -5,6 +5,7 @@ import Loader from '../../components/Loader';
 import {
   Dimensions,
   FlatList,
+  Linking,
   Text,
   TouchableOpacity,
   View,
@@ -26,6 +27,10 @@ import MtToast from '../../constants/MtToast';
 import { getCurrentLocation } from '../../services/GetCurrentLocation';
 import { isIos } from '../../constants/IsPlatform';
 import FallbackSvg from '../../components/FallbackSvg';
+import { CSS } from '../../constants/CSS';
+import Utils from '../../services/Utils';
+import VenueTags from '../../components/Chips';
+import Chips from '../../components/Chips';
 
 const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
   const [venue_id, setVenueId] = useState<number>(
@@ -64,33 +69,6 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
     //console.log(value.toFixed(0));
   };
 
-  const renderItem_banner = useCallback(
-    ({ item, index }: { item: Imageable, index: number }) => (
-      <TouchableOpacity
-        activeOpacity={1}
-        style={{
-          alignItems: 'center',
-          marginTop: isIos ? 30 : 20,
-          borderRadius: 10,
-          overflow: 'hidden',
-          marginRight: 5,
-        }}>
-        <Imageview
-          url={item.file_name}
-          style={{
-            width: (Dimensions.get('window').width * 92) / 100,
-            height: isIos ? 380 : 320,
-            borderRadius: 10
-          }}
-          imageType={'server'}
-          resizeMode={'cover'}
-        />
-      </TouchableOpacity>
-    ),
-    [venue?.images],
-  );
-
-  const keyExtractor_banner = (item: Imageable, index: number) => index.toString();
 
   const toggleVenue = (venue: Venue) => {
     setIsLoading(true);
@@ -176,6 +154,45 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
     setInformationTab(true);
   }
 
+  const locationBtn = (lat: string, lng: string, label: string) => {
+
+    const scheme = isIos ? 'maps:' : 'geo:';
+    const query = isIos
+      ? `daddr=${lat},${lng}&dirflg=d`
+      : `?q=${lat},${lng}(${label})&mode=d`;
+
+    const url = scheme + (isIos ? '?' : '') + query;
+    Linking.openURL(url);
+  }
+
+  const renderItem_banner = useCallback(
+    ({ item, index }: { item: Imageable, index: number }) => (
+      <TouchableOpacity
+        activeOpacity={1}
+        style={{
+          alignItems: 'center',
+          borderRadius: 10,
+          overflow: 'hidden',
+          marginRight: 5,
+        }}>
+        <Imageview
+          url={item.image}
+          style={{
+            width: (Dimensions.get('window').width * 92) / 100,
+            height: isIos ? 380 : 320,
+            borderRadius: 10
+          }}
+          imageType={'server'}
+          resizeMode={'cover'}
+        />
+      </TouchableOpacity>
+    ),
+    [venue?.images],
+  );
+
+  const keyExtractor_banner = (item: Imageable, index: number) => index.toString();
+
+
   return (
     <View
       style={{
@@ -187,7 +204,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
         <VirtualizedList>
           <View
             style={{
-              marginTop: isIos ? 20 : -5,
+              marginTop: isIos ? 50 : 20,
               position: 'relative',
             }}>
             {/** Start header */}
@@ -195,24 +212,24 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               style={{
                 width: '100%',
                 position: 'absolute',
-                zIndex: 999,
-                top: 19,
+                zIndex: 10,
+                top: 0,
                 right: 0,
                 left: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 borderTopRightRadius: 10,
-                borderTopLeftRadius: 10
+                borderTopLeftRadius: 10,
               }}>
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  paddingHorizontal: isIos ? 5 : 10,
+                  justifyContent: 'space-between',
+                  paddingHorizontal: isIos ? 10 : 10,
                   paddingTop: isIos ? 15 : 10,
                   paddingBottom: isIos ? 10 : 10,
                 }}>
                 <TouchableOpacity
-                  style={{ flex: 1 }}
                   onPress={() => props.navigation?.goBack()}>
                   <Imageview
                     style={{
@@ -220,7 +237,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                       height: isIos ? 37 : 30,
                     }}
                     imageType={'local'}
-                    url={Images.whiteBack}
+                    url={Images.blackBack}
                   />
                 </TouchableOpacity>
 
@@ -229,8 +246,8 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                   <Icon
                     name="heart"
                     style={{
-                      fontSize: 25,
-                      color: Colors.white
+                      fontSize: isIos ? 30 : 25,
+                      color: Colors.black
                     }}
                     iconStyle={venue?.favourite ? 'solid' : 'regular'}
                   />
@@ -255,7 +272,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 onScroll={event => handleScroll(event)}
               /> :
 
-              <FallbackSvg />
+              <FallbackSvg wrapperStyle={{ marginTop: 0 }} />
             }
           </View>
 
@@ -270,59 +287,58 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               style={{
                 fontSize: Fonts.fs_25,
                 color: Colors.black,
-                fontFamily: Fonts.android_medium,
+                fontFamily: Fonts.medium,
               }}
             />
-            <TouchableOpacity
-              onPress={() => { props.navigation?.navigate('Map', { venues: [venue] }) }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginHorizontal: isIos ? 0 : 0,
-                  width: '90%',
-                }}>
-                <Icon
-                  name="location-dot"
-                  iconStyle="solid"
-                  style={{
-                    width: 15,
-                    height: 15,
-                  }}
-                />
 
-                <Textview
-                  text={venue?.location || ''}
-                  style={{
-                    fontSize: Fonts.fs_13,
-                    color: Colors.black,
-                    fontFamily: 'medium',
-                    //marginLeft: 5,
-                  }}
-                />
-              </View>
+            <TouchableOpacity
+              style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 5, marginVertical: isIos ? 10 : 5 }}
+              onPress={() => { locationBtn(venue.lat, venue.lon, venue.name) }}>
+              <Icon
+                name="location-dot"
+                iconStyle="solid"
+                size={Fonts.fs_16}
+              />
+
+              <Textview
+                text={venue?.location || ''}
+                style={{
+                  fontSize: Fonts.fs_14,
+                  color: Colors.black,
+                  fontFamily: Fonts.medium
+                }}
+                lines={1}
+              />
             </TouchableOpacity>
+
+            <View style={{ flex: 1, flexDirection: 'row', marginTop: 5 }}>
+               {venue.tags?.length ?
+                <Chips items={venue.tags}/> : null}
+              
+              {venue.dietary?.length ?
+                <Chips items={venue.dietary} /> : null} 
+            </View>
 
             <View
               style={{
                 flex: 1,
-                marginTop: isIos ? 15 : 5
+                marginTop: isIos ? 15 : 10
               }}>
               <Textview
                 text={'Important Notice'}
                 style={{
                   fontSize: Fonts.fs_15,
                   color: Colors.black,
-                  fontFamily: 'medium',
+                  fontFamily: Fonts.medium,
                 }}
               />
 
               <Textview
-                text={venue?.notice || ''}
+                text={venue?.notice || 'No important notices at the moment. Stay tuned for updates!'}
                 style={{
                   fontSize: Fonts.fs_13,
                   color: Colors.light_grey,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}
                 lines={4}
@@ -358,7 +374,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                     fontSize: Fonts.fs_15,
                     color: informationTab ? Colors.white : Colors.grey,
                     textAlign: 'center',
-                    fontFamily: Fonts.android_medium,
+                    fontFamily: Fonts.medium,
                   }}>
                   {'Information'}
                 </Text>
@@ -380,7 +396,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                     fontWeight: 600,
                     color: offersTab ? Colors.white : Colors.grey,
                     textAlign: 'center',
-                    fontFamily: Fonts.android_medium,
+                    fontFamily: Fonts.medium,
                   }}>
                   {'Offers'}
                 </Text>
@@ -419,13 +435,13 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 style={{
                   fontSize: Fonts.fs_18,
                   color: Colors.white,
-                  fontFamily: 'medium',
+                  fontFamily: Fonts.medium,
                   textAlign: 'center',
                   backgroundColor: venue.checkedin_count ? Colors.orange_shade1 : Colors.primary_color_orange,
                   paddingVertical: isIos ? 20 : 17,
                   borderRadius: 10,
                 }}>
-                {venue.checkedin_count ? 'Checkedin' : 'Checkin'}
+                {venue.checkedin_count ? 'Checked-in' : 'Check-in'}
               </Text>
             </TouchableOpacity>
           </View>

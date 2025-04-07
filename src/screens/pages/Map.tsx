@@ -10,7 +10,6 @@ import Request from "../../services/Request";
 import Loader from "../../components/Loader";
 import { Colors } from "../../constants/Colors";
 import Icon from "@react-native-vector-icons/fontawesome6";
-import { Fonts } from "../../constants/Fonts";
 import 'react-native-get-random-values';
 import useLocation, { getCurrentLocation } from "../../services/GetCurrentLocation";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,13 +23,17 @@ import MtToast from "../../constants/MtToast";
 import FallbackSvg from "../../components/FallbackSvg";
 import ActionSheet, { ActionSheetRef } from "react-native-actions-sheet";
 import NoData from "../../components/NoData";
+import ShadowCard from "../../components/ShadowCard";
+import Textview from "../../components/Textview";
+import { Fonts } from "../../constants/Fonts";
+import RippleLoader from "../../components/RippleLoader";
 
 const { width, height } = Dimensions.get('window');
 
 const Map: React.FC<ScreenProps<'Map'>> = (props) => {
     const { radius: INITIAL_RADIUS } = Environment.Location.Default;
     const { MinRadius: MIN_RADIUS, MaxRadius: MAX_RADIUS } = Environment.Location;
-    const { area: AREA_ZOOM, place: PLACE_ZOOM } = Environment.Location.Zoom;
+    const { area: AREA_ZOOM } = Environment.Location.Zoom;
 
     const location = useSelector((state: StoreStates) => state.location);
     const { requestLocationPermission } = useLocation();
@@ -53,30 +56,18 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
         fetch_venues();
     }, [location, radius])
 
-    const navigateToVenues = (data: Venue[]) => {
-        console.log('navigating to venues: ', data)
+    const navigateToLocation = (data: Venue[]) => {
+        console.log('navigating to venues: ', data.map(d => d.name).join(', '))
 
-        if (data.length > 0) {
-            mapRef.current?.animateToRegion(
-                {
-                    latitude: parseFloat(data[0].lat),
-                    longitude: parseFloat(data[0].lon),
-                    latitudeDelta: PLACE_ZOOM.lat,
-                    longitudeDelta: PLACE_ZOOM.lon
-                },
-                1000,
-            );
-        } else {
-            mapRef.current?.animateToRegion(
-                {
-                    latitude: location.latitude ?? 0,
-                    longitude: location.longitude ?? 0,
-                    latitudeDelta: PLACE_ZOOM.lat,
-                    longitudeDelta: PLACE_ZOOM.lon
-                },
-                1000,
-            );
-        }
+        /* mapRef.current?.animateToRegion(
+            {
+                latitude: location.latitude ?? 0,
+                longitude: location.longitude ?? 0,
+                latitudeDelta: AREA_ZOOM.lat,
+                longitudeDelta: AREA_ZOOM.lon
+            },
+            1000,
+        ); */
 
     };
 
@@ -89,12 +80,13 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
 
             if (error) {
                 MtToast.error(error.message);
-            } else {
-                console.log(success.data.map(venue => venue.name))
+
+            } else if (success.data.length > 0) {
+                console.log(success.data.map(venue => venue.name), success.data.length)
                 // calculate the each venue distance from user current location
                 updateVenues(success.data);
-
-
+            } else {
+                MtToast.success('No venue found for this location!')
             }
         });
     };
@@ -106,7 +98,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
         }).catch(error => {
             setVenues(venues)
 
-        }).finally(() => navigateToVenues(venues))
+        }).finally(() => navigateToLocation(venues))
     }, [venues])
 
     const onMarkerPress = (venue: Venue, index: number) => {
@@ -198,7 +190,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
         <View>
 
             {venue.images.length > 0 ?
-                <Image source={{ uri: venue.images[0].file_name }} style={styles.cardImage} />
+                <Image source={{ uri: venue.images[0].image }} style={styles.cardImage} />
                 : <FallbackSvg
                     wrapperStyle={{ marginTop: 0 }}
                     overlayStyle={{ borderRadius: 0 }}
@@ -217,7 +209,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                     </View> */}
                 </View>
 
-                <TouchableOpacity onPress={() => props.navigation?.navigate('VenueDetails', {venue_id: venue.id}) }>
+                <TouchableOpacity onPress={() => props.navigation?.navigate('VenueDetails', { venue_id: venue.id })}>
                     <Text style={styles.cardTitle}>{venue.name}</Text>
                 </TouchableOpacity>
 
@@ -244,7 +236,44 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
 
     return (
         <View style={styles.container}>
-            <Loader isLoading={isLoading} />
+            {isLoading && <RippleLoader />}
+
+            {isLoading && <ShadowCard
+                    style={{
+                        backgroundColor: Colors.white,
+                        height: isIos ? 110 : 90,
+                        width: '90%',
+                        borderRadius: 10,
+                        overflow: 'hidden',
+                        position: 'absolute',
+                        top: isIos ? 130 : 90,
+                        left: '5%',
+                        zIndex: 1
+                    }}
+                >
+                    <View>
+                        <Textview
+                            text={'Hold On !'}
+                            style={{
+                                fontSize: Fonts.fs_18,
+                                color: Colors.black,
+                                fontFamily: Fonts.medium,
+                                alignSelf: 'center'
+                            }}
+                        />
+                        <Textview
+                            text={'We are finding Venues around you'}
+                            style={{
+                                fontSize: Fonts.fs_15,
+                                color: Colors.black,
+                                fontFamily: Fonts.medium,
+                                alignSelf: 'center',
+                                marginTop: isIos ? 10 : 2
+                            }}
+                        />
+                    </View>
+
+                </ShadowCard>}
 
             <View style={[styles.headerContainer, { zIndex: 999 }]}>
                 <TouchableOpacity onPress={() => props.navigation?.goBack()} style={{ width: 50 }}>
@@ -284,8 +313,12 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                 <Marker
                     coordinate={{ latitude: location.latitude, longitude: location.longitude }}
                     image={Images.flock_marker}
-                    style={{ width: 40, height: 40 }}
                 />
+                {/* <Image
+                        source={Images.flock_marker} venue_marker
+                        style={{ width: 30, height: 30, resizeMode: 'cover' }}
+                    /> */}
+                {/* </Marker> */}
 
                 {
                     venues.map((venue, index) => {
@@ -296,19 +329,10 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                                     latitude: parseFloat(venue.lat),
                                     longitude: parseFloat(venue.lon),
                                 }}
-                                style={{ zIndex: 999 }}
                                 title={venue.name}
-                                onPress={() => onMarkerPress(venue, index)}>
-                                <View
-                                    style={[
-                                        styles.markerContainer
-                                    ]}>
-                                    <Icon name='location-dot' iconStyle="solid" style={[{
-                                        fontSize: selectedVenue?.id !== venue.id ? Fonts.fs_30 : 32,
-                                        color: Colors.primary_color_orange
-                                    }]} />
-                                </View>
-                            </Marker>
+                                onPress={() => onMarkerPress(venue, index)}
+                                image={Images.venue_marker}
+                            />
                         )
                     })
                 }
@@ -357,9 +381,11 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                             position: 'absolute',
                             top: 5,
                             right: 5,
-                            zIndex: 10
+                            zIndex: 10,
+                            backgroundColor: Colors.black,
+                            borderRadius: 20
                         }} onPress={() => actionSheetRef.current?.hide()}>
-                            <Icon name="circle-xmark" iconStyle="solid" size={30} color={'white'} />
+                            <Icon name="circle-xmark" iconStyle="solid" size={30} color={'white'}  />
                         </Pressable>
 
                         {selectedVenue ? renderVenueCard(selectedVenue, 0) : <NoData />}
@@ -580,7 +606,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.8)',
         paddingVertical: 5,
         paddingRight: 10,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingTop: isIos ? 50 : 10
     },
     headerSearchBox: {
         flexDirection: 'row',

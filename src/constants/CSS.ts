@@ -1,31 +1,37 @@
-import {Platform, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 import {Colors} from './Colors';
 import { Fonts } from './Fonts';
+import { isIos } from './IsPlatform';
+
+const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
+
+const scale = DEVICE_WIDTH / 375; // Using 375 as base width
+const normalize = (size: number) => Math.round(scale * size);
 
 export const CSS = StyleSheet.create({
   themeButton: {
     fontSize: Fonts.fs_17,
     color: Colors.white,
-    fontFamily: Platform.OS == 'ios' ? Fonts.ios_regular : Fonts.android_regular,
+    fontFamily: Fonts.regular,
     textAlign: 'center',
     backgroundColor: Colors.primary_color_orange,
     marginHorizontal: 17,
-    paddingVertical: Platform.OS == 'ios' ? 15 : 10,
+    paddingVertical: isIos ? 15 : 10,
     borderRadius: 10,
   },
   title: {
     fontSize: Fonts.fs_25,
     color: Colors.black,
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     alignSelf: 'center',
     marginTop: 35,
   },
   subTitle: {
     fontSize: Fonts.fs_18,
     color: Colors.black,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 15 : 5,
+    marginTop: isIos ? 15 : 5,
   },
   flex: {
     flex: 1,
@@ -41,7 +47,10 @@ export const CSS = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.whitesmoke,
   },
-
+  showGrid: {
+    borderWidth: 1,
+    borderColor: Colors.black
+  },
   Homecontainer: {
     flex: 1,
     backgroundColor: Colors.white,
@@ -61,8 +70,7 @@ export const CSS = StyleSheet.create({
   ForgetPass: {
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    marginRight: 20,
-    marginTop: Platform.OS == 'ios' ? 10 : 13,
+    marginRight: 20
   },
 
   SocilaLogin: {
@@ -75,14 +83,14 @@ export const CSS = StyleSheet.create({
   DontHaveAccount: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 50 : 40,
+    marginTop: isIos ? 50 : 40,
     marginBottom: 40,
   },
 
   HaveAccount: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 30 : 20,
+    marginTop: isIos ? 30 : 20,
     marginBottom: 30,
   },
 
@@ -120,7 +128,7 @@ export const CSS = StyleSheet.create({
   home_toolbar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: Platform.OS == 'ios' ? 53 : 15,
+    marginTop: isIos ? 53 : 15,
   },
   home_mapicon: {
     flexDirection: 'row',
@@ -131,15 +139,15 @@ export const CSS = StyleSheet.create({
   home_title: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 53 : 30,
+    marginTop: isIos ? 53 : 30,
   },
   cat_list: {
     flexGrow: 0,
-    marginTop: Platform.OS == 'ios' ? 18 : 15,
+    marginTop: isIos ? 18 : 15,
   },
   home_tab_click: {
     flexDirection: 'row',
-    marginTop: Platform.OS == 'ios' ? 20 : 15,
+    marginTop: isIos ? 20 : 20,
   },
 
   hot_button: {
@@ -149,9 +157,8 @@ export const CSS = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
-    paddingVertical: Platform.OS == 'ios' ? 8 : 5,
+    paddingVertical: isIos ? 8 : 5,
     borderRadius: 10,
-    marginHorizontal: 5,
   },
   dot_view: {
     position: 'absolute',
@@ -164,6 +171,7 @@ export const CSS = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 10,
     marginHorizontal: 3,
+    marginBottom: -40
   },
   inactive_dot_view: {
     width: 6,
@@ -171,10 +179,11 @@ export const CSS = StyleSheet.create({
     backgroundColor: Colors.grey,
     borderRadius: 10,
     marginHorizontal: 3,
+    marginBottom: -40
   },
   home_value_image: {
     width: '100%',
-    height: 210,
+    height: DEVICE_HEIGHT > 716 ? 250 : 180,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -190,8 +199,8 @@ export const CSS = StyleSheet.create({
   },
   no_data_view: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   qr_code_container: {
@@ -201,19 +210,19 @@ export const CSS = StyleSheet.create({
 
   qr_code_toolbar: {
     flexDirection: 'row',
-    marginTop: Platform.OS == 'ios' ? 30 : 10,
+    marginTop: isIos ? 30 : 10,
     alignItems: 'center',
-    marginHorizontal: Platform.OS == 'ios' ? 7 : 5,
+    marginHorizontal: isIos ? 7 : 5,
   },
 
   qr_code_view: {
     height: '60%',
     width: '75%',
-    overflow: 'hidden',
-    marginTop: 80,
+    //overflow: 'hidden',
+    marginVertical: 40,
     alignSelf: 'center',
-    borderRadius: 20,
-    borderColor: Colors.primary_color_orange,
-    borderWidth: 2,
+    //borderRadius: 20,
+    //borderColor: Colors.primary_color_orange,
+    //borderWidth: 2,
   },
 });

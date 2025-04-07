@@ -15,7 +15,7 @@ import { Colors } from '../../constants/Colors';
 import { isIos } from '../../constants/IsPlatform';
 import NoData from '../../components/NoData';
 import VirtualizedList from '../../components/VirtualizedList';
-import Utils from '../../services/Util';
+import Utils from '../../services/Utils';
 
 const ImageSkelton: React.FC<{ item: Notification }> = (props) => {
   const { item } = props;
@@ -88,7 +88,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
           <View style={{ marginHorizontal: 20 }}>
             <Text
               style={{
-                fontFamily: "regular",
+                fontFamily: Fonts.regular,
                 color: Colors.black,
                 fontSize: Fonts.fs_14
               }}
@@ -98,7 +98,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
 
             <Text
               style={{
-                fontFamily: "regular",
+                fontFamily: Fonts.regular,
                 color: Colors.grey,
                 fontSize: Fonts.fs_12
               }}
@@ -110,7 +110,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
 
         <Text
           style={{
-            fontFamily: "regular",
+            fontFamily: Fonts.regular,
             color: Colors.grey,
             fontSize: Fonts.fs_12,
             textAlign: 'right',
@@ -128,7 +128,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
 
   return (
     <View style={[CSS.Favcontainer, { paddingHorizontal: 15 }]}>
-      <TabHeader title="Notifications" navigation={props.navigation} />
+      <TabHeader title="Notifications" navigation={props.navigation} hideSideMenuButton={true}/>
 
       <Loader isLoading={isLoading} />
 
@@ -146,7 +146,10 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
               keyExtractor={keyExtractor_notificationList}
             />
 
-            : <NoData />
+            :
+            <View style={{ height: (Utils.DEVICE_HEIGHT - 150) }}>
+              <NoData isLoading={isLoading} />
+            </View>
         }
       </VirtualizedList>
     </View>

@@ -59,13 +59,13 @@ export const ToastView = (props: any) => {
         backgroundColor: props.bgColor,
         margin: 'auto',
         borderRadius: 10,
-        paddingHorizontal: 15,
+        paddingHorizontal: 10,
         paddingVertical: 15,
         flexDirection: 'row',
         alignItems: 'center',
       }}>
       <Icon name={props.icon} color={Colors.white} size={15} />
-      <View style={{marginLeft: 10}}>
+      <View style={{marginLeft: 5, flex: 1}}>
         <Text
           style={{
             color: Colors.white,

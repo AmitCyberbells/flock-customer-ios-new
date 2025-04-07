@@ -1,9 +1,9 @@
-import { Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import ScreenProps from "../../types/ScreenProps";
 import FormLayout from "./layouts/FormLayout";
 import Loader from "../../components/Loader";
 import { useEffect, useState } from "react";
-import Utils from "../../services/Util";
+import Utils from "../../services/Utils";
 import { Fonts } from "../../constants/Fonts";
 import { Colors } from "../../constants/Colors";
 import Request from "../../services/Request";
@@ -18,6 +18,7 @@ import { updateUserToStore } from "../../store/userReducer";
 import { OtpParams } from "../../types/RootStackParamList";
 import MtToast from "../../constants/MtToast";
 import { isIos } from "../../constants/IsPlatform";
+import { createLog, LOG_ACTIVITIES } from "../../services/AppLog";
 
 const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
     const [loader, setLoader] = useState<boolean>(false);
@@ -32,7 +33,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
     const [uploadedImage, setUploadedImage] = useState<Asset | undefined>();
     const dispatch = useDispatch();
 
-    const isFormValid = () => (!Utils.anyEmpty([first_name, last_name, email, contact]));
+    const isFormValid = () => (!Utils.anyEmpty([first_name, email, contact]));
 
     const OtpPageParams: OtpParams = {
         screenType: 'EditProfile',
@@ -54,8 +55,15 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
         }
 
         const body = new FormData();
-        body.append('first_name', first_name);
-        body.append('last_name', last_name);
+
+        if (!Utils.isEmpty(first_name)) {
+            body.append('first_name', first_name);
+        }
+
+        if (!Utils.isEmpty(last_name)) {
+            body.append('last_name', last_name);
+        }
+
 
         if (image !== user.image && uploadedImage) {
             body.append('image', {
@@ -65,7 +73,13 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
             });
         }
 
+        setLoader(true)
+
+        createLog(LOG_ACTIVITIES.PROFILE_UPDATE, body);
+
         Request.updateProfile(body, (success, error) => {
+            setLoader(false)
+
             if (success) {
                 MtToast.success(success.message);
                 dispatch(updateUserToStore(success.data))
@@ -74,6 +88,24 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                 MtToast.error(error.message);
             }
         })
+    }
+
+    const confirm = (done: () => void) => {
+        Alert.alert(
+            "Confirm Verify", // Title
+            "We are going to send you an OTP.", // Message
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "OK, Sure",
+                    onPress: () => { done() },
+                    style: "destructive",
+                },
+            ]
+        );
     }
 
     const verifyEmail = () => {
@@ -87,11 +119,11 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
         Request.sendEmailOtp({ email }, (success, error) => {
             setLoader(false);
 
-            if (success) {   
+            if (success) {
                 OtpPageParams.verifyEmail = true;
                 OtpPageParams.verifyPhone = false;
                 props.navigation?.navigate('Otp', OtpPageParams)
-  
+
             } else {
                 MtToast.error(error.message);
             }
@@ -129,10 +161,11 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
     return (
         <FormLayout>
-            <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-                <Loader isLoading={loader} />
+            <Loader isLoading={loader} />
 
-                <TouchableOpacity onPress={() => showImagePicker(true)} style={{ flex: 1 }}>
+            <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+
+                <Pressable onPress={() => showImagePicker(true)} style={{ flex: 1 }}>
                     <ShadowCard
                         style={{
                             backgroundColor: Colors.white,
@@ -145,13 +178,13 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                         }}
                     >
                         <Imageview
-                            url={image || Images.FlockBird}
+                            url={image || Images.profileImg}
                             style={{
                                 width: isIos ? 135 : 115,
                                 height: isIos ? 135 : 115,
                                 alignSelf: 'center'
                             }}
-                            imageStyle={{borderRadius: isIos ? 135 : 115}}
+                            imageStyle={{ borderRadius: isIos ? 135 : 115 }}
                             imageType={"server"}
                             resizeMode={"cover"}
                         />
@@ -159,16 +192,16 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
                     <Text
                         style={{
-                            fontFamily: "medium",
+                            fontFamily: Fonts.medium,
                             color: Colors.grey,
                             textAlign: 'center',
                             fontSize: Fonts.fs_14,
                             marginTop: 10
                         }}
                     >
-                        {"Update Photo"}
+                        {"Upload Photo"}
                     </Text>
-                </TouchableOpacity>
+                </Pressable>
 
                 <View style={{ paddingHorizontal: 15 }}>
                     <View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center', gap: 10 }}>
@@ -177,7 +210,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 backgroundColor: Colors.white,
-                                paddingVertical: isIos ? 17 : 10,
+                                paddingVertical: isIos ? 17 : 0,
                                 paddingHorizontal: 15,
                                 flex: 1,
                                 borderBottomColor: Colors.red,
@@ -187,9 +220,10 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
                             <TextInput
                                 style={{
+                                    width: '100%',
                                     color: Colors.black,
                                     fontSize: Fonts.fs_14,
-                                    fontFamily: isIos ? Fonts.ios_regular : Fonts.android_regular
+                                    fontFamily: Fonts.regular
                                 }}
                                 placeholder="First Name"
                                 editable={true}
@@ -202,15 +236,16 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
                             />
                         </ShadowCard>
+
                         <ShadowCard
                             style={{
                                 flex: 1,
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 backgroundColor: Colors.white,
-                                paddingVertical: isIos ? 17 : 10,
+                                paddingVertical: isIos ? 17 : 0,
                                 borderBottomColor: Colors.red,
-                                borderBottomWidth: Utils.isName(last_name || '') ? 0 : 0.5
+                                borderBottomWidth: !Utils.isEmpty(last_name) && !Utils.isName(last_name || '') ? 0.5 : 0
                             }}
                         >
 
@@ -219,7 +254,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                     flex: 1,
                                     color: Colors.black,
                                     fontSize: Fonts.fs_14,
-                                    fontFamily: isIos ? Fonts.ios_regular : Fonts.android_regular
+                                    fontFamily: Fonts.regular
                                 }}
                                 placeholder="Last Name"
                                 editable={true}
@@ -230,17 +265,17 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                 }}
                             />
                         </ShadowCard>
-                    </View>
 
+                    </View>
 
                     <ShadowCard
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            backgroundColor: Colors.white,
+                            backgroundColor: Colors.whitesmoke,
                             paddingHorizontal: 10,
-                            paddingVertical: isIos ? 17 : 10,
+                            paddingVertical: isIos ? 17 : 0,
                             marginTop: isIos ? 25 : 20,
                             borderBottomColor: Colors.red,
                             borderBottomWidth: Utils.isEmail(email || '') ? 0 : 0.5
@@ -250,7 +285,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             style={{
                                 color: Colors.black,
                                 fontSize: Fonts.fs_14,
-                                fontFamily: isIos ? Fonts.ios_regular : Fonts.android_regular,
+                                fontFamily: Fonts.regular,
                                 flex: 1
                             }}
                             placeholder="Enter email address"
@@ -277,7 +312,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
                                 :
 
-                                <TouchableOpacity onPress={verifyEmail} style={{ padding: 5 }}>
+                                <TouchableOpacity onPress={() => confirm(verifyEmail)} style={{ padding: 5 }}>
                                     <Text style={{ color: Colors.primary_color_orange }}>
                                         {"Verify"}
                                     </Text>
@@ -292,8 +327,8 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            backgroundColor: Colors.white,
-                            paddingVertical: isIos ? 17 : 10,
+                            backgroundColor: Colors.whitesmoke,
+                            paddingVertical: isIos ? 17 : 0,
                             marginTop: isIos ? 25 : 20,
                             borderBottomColor: Colors.red,
                             borderBottomWidth: Utils.isPhone(contact || '') ? 0 : 0.5
@@ -303,7 +338,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             style={{
                                 color: Colors.black,
                                 fontSize: Fonts.fs_14,
-                                fontFamily: isIos ? Fonts.ios_regular : Fonts.android_regular,
+                                fontFamily: Fonts.regular,
                                 flex: 1
                             }}
                             placeholder="Enter phone number"
@@ -329,7 +364,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                     resizeMode={"contain"}
                                 />
                                 :
-                                <TouchableOpacity onPress={verifyContact} style={{ padding: 5 }}>
+                                <TouchableOpacity onPress={() => confirm(verifyContact)} style={{ padding: 5 }}>
                                     <Text
                                         style={{
                                             color: Colors.primary_color_orange,
@@ -355,7 +390,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             style={{
                                 fontSize: Fonts.fs_17,
                                 color: Colors.white,
-                                fontFamily: 'regular',
+                                fontFamily: Fonts.regular,
                                 textAlign: 'center',
                             }}
                         > {'Update'} </Text>

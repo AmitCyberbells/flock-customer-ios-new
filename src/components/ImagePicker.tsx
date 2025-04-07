@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Button, Image, Alert } from 'react-native';
 import Dialog from 'react-native-dialog';
 import { Asset, launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { useCameraPermission } from 'react-native-vision-camera';
+import MtToast from '../constants/MtToast';
+import Utils from '../services/Utils';
 
 type ImagePickerDialogProps = {
     onCancel: () => void
@@ -11,7 +14,17 @@ type ImagePickerDialogProps = {
 const ImagePickerDialog: React.FC<ImagePickerDialogProps> = (props) => {
     const { onCancel, onImageSelect } = props;
 
-    const handleCamera = () => {
+    const { requestPermission } = useCameraPermission();
+
+    const handleCamera = async () => {
+        const hasPermission = await requestPermission();
+        
+        if (!hasPermission) {
+            MtToast.error('Please allow camera permission to this app!');
+            Utils.openPhoneSetting("Allow camera permission!");
+            return;
+        }
+
         launchCamera({ mediaType: 'photo' }, response => {
             if (!response.didCancel && !response.errorCode && response.assets) {
                 onImageSelect(response.assets);

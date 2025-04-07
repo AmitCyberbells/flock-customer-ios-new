@@ -40,7 +40,7 @@ const Typewriter = ({ text, delay, infinite }: TypeWriter) => {
        style={{
         fontSize: Fonts.fs_27,
         color: Colors.light_grey,
-        fontFamily: Platform.OS == 'ios' ? Fonts.ios_medium : Fonts.android_medium
+        fontFamily: Fonts.medium
        }} 
     >{currentText + '|'}</Text>)
 };

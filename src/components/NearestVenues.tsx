@@ -7,7 +7,7 @@ import Imageview from "./Imageview";
 import Images from "../constants/Images";
 import { Colors } from "../constants/Colors";
 import MapView, { Marker, Region } from "react-native-maps";
-import Utils from "../services/Util";
+import Utils from "../services/Utils";
 import { Environment } from "../../env";
 import { isIos } from "../constants/IsPlatform";
 
@@ -22,9 +22,11 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
     const { area: AREA_ZOOM } = Environment.Location.Zoom;
     const [mapKey, setMapKey] = useState<string>();
     const [region, setRegion] = useState<Region>();
+    const [toggleNearest, setToggleNearest] = useState<boolean>(false);
 
     useEffect(() => {
         setMapKey(Utils.generateUniqueString())
+        toggleNearestVenueList();
         setRegion({
             latitude: parseFloat(venue.lat),
             longitude: parseFloat(venue.lon),
@@ -35,6 +37,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
 
     const toggleNearestVenueList = () => {
         setNearestVenues(prev => venue.nearest_venues?.filter((v, i) => i <= (prev.length > 2 ? 1 : (venue.nearest_venues?.length || 1) - 1)) || [])
+        setToggleNearest(!toggleNearest);
     }
 
     const openExternalMap = () => {
@@ -58,13 +61,11 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                 paddingVertical: isIos ? 10 : 5,
             }}>
                 <Textview
-                    text={item.name}
+                    text={(item.name?.length || 0) > 30 ? item.name.substring(0, 30) + '...' : item.name}
                     style={{
-                        fontFamily: 'regular',
+                        fontFamily: Fonts.regular,
                         color: '#616161',
                         fontSize: Fonts.fs_15,
-                        flex: 1,
-                        maxWidth: '70%'
                     }}
                     lines={1}
                 />
@@ -75,7 +76,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                     <Textview
                         text={item.distance.toFixed(3) + 'km'}
                         style={{
-                            fontFamily: 'regular',
+                            fontFamily: Fonts.regular,
                             color: '#103E5B',
                             fontSize: Fonts.fs_12
                         }}
@@ -111,7 +112,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                     style={{
                         fontSize: Fonts.fs_15,
                         color: Colors.black,
-                        fontFamily: Fonts.android_medium,
+                        fontFamily: Fonts.medium,
                         marginTop: isIos ? 25 : 18,
                     }}
                 />
@@ -119,9 +120,9 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                 <TouchableOpacity onPress={openExternalMap}>
                     <Imageview
                         style={{
-                            width: isIos ? 15 : 20,
-                            height: isIos ? 15 : 20,
-                            marginTop: isIos ? 25 : 20,
+                            width: isIos ? 15 : 22,
+                            height: isIos ? 15 : 22,
+                            marginTop: isIos ? 25 : 20
                         }}
                         imageType={'local'}
                         url={Images.location}
@@ -194,9 +195,9 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                                 style={{
                                     fontSize: Fonts.fs_15,
                                     color: Colors.light_blue,
-                                    fontFamily: Fonts.android_regular,
+                                    fontFamily: Fonts.regular,
                                 }}>
-                                {'See all'}
+                                { toggleNearest ? 'See all' : 'See less'}
                             </Text>
                             <Imageview
                                 style={{
@@ -205,7 +206,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                                     height: isIos ? 15 : 12,
                                 }}
                                 imageType={'local'}
-                                url={nearestVenues.length <= 1 ? Images.blueDropdown : Images.dropUp}
+                                url={toggleNearest ? Images.blueDropdown : Images.dropUp}
                                 resizeMode={'contain'}
                                 tintColor={Colors.light_blue}
                             />

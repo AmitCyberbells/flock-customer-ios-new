@@ -28,6 +28,8 @@ import TransactionHistory from '../screens/pages/TransactionHistory';
 import DeleteAccount from '../screens/pages/DeleteAccount';
 import SupportList from '../screens/pages/SupportList';
 import SupportForm from '../screens/pages/SupportForm';
+import FeathersHistory from '../screens/pages/FeathersHistory';
+import SupportTicket from '../screens/pages/SupportTicket';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,7 +71,14 @@ export default function StackNavigator() {
         }}
       />
       <Stack.Screen name="FAQs" component={FAQs} options={{
-        headerShown: false,
+        header: props => (
+          <PageHeader
+            {...props}
+            title="FAQs"
+            showBackButton
+            backgroundColor={Colors.white}
+          />
+        ),
       }} />
       <Stack.Screen name="Report" component={Report}
         options={{
@@ -232,6 +241,20 @@ export default function StackNavigator() {
         name="SupportList"
         component={SupportList}
         options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="SupportTicket"
+        component={SupportTicket}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="SupportForm"
+        component={SupportForm}
+        options={{
           header: props => (
             <PageHeader
               {...props}
@@ -243,13 +266,13 @@ export default function StackNavigator() {
         }}
       />
       <Stack.Screen
-        name="SupportForm"
-        component={SupportForm}
+        name="FeathersHistory"
+        component={FeathersHistory}
         options={{
           header: props => (
             <PageHeader
               {...props}
-              title="Support"
+              title="Feathers"
               showBackButton
               backgroundColor={Colors.white}
             />

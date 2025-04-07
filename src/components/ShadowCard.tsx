@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import {View, StyleSheet, Image, StyleProp, ViewStyle} from 'react-native';
 
 type ShadowCardProps = {
-    style: StyleProp<ViewStyle>,
+    style?: StyleProp<ViewStyle>,
     children: ReactNode
 }
 

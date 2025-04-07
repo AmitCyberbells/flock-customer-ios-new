@@ -1,6 +1,7 @@
 import {
   Camera,
   useCameraDevice,
+  useCameraPermission,
   useCodeScanner,
 } from 'react-native-vision-camera';
 import ScreenProps from '../../types/ScreenProps';
@@ -18,15 +19,36 @@ import CheckInPopup from '../../components/CheckInPopup';
 import Loader from '../../components/Loader';
 import MtToast from '../../constants/MtToast';
 import { getCurrentLocation } from '../../services/GetCurrentLocation';
+import { isIos } from '../../constants/IsPlatform';
+import Utils from '../../services/Utils';
 
 const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
   const params = props.route?.params ? props.route?.params['venue'] : undefined;
   const [venue, setVenue] = useState<Venue | undefined>(params);
 
   const device = useCameraDevice('back');
+  const [cameraPermission, setCameraPermission] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [checkinDialog, showCheckinDialog] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(true);
+
+  const { requestPermission } = useCameraPermission();
+
+  useEffect(() => {
+    const checkCameraPermission = async () => {
+      const hasPermission = await requestPermission();
+      setCameraPermission(hasPermission);
+
+      if (!hasPermission) {
+        MtToast.error('Please allow camera permission to this app!');
+        Utils.openPhoneSetting("Allow camera permission!");
+        return;
+      }
+
+    }
+
+    checkCameraPermission();
+  })
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
@@ -48,7 +70,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
         return MtToast.error('Invalid QR code, not for this venue!');
       }
 
-      checkinApi();
+      checkinApi(venue);
       return;
     }
 
@@ -69,7 +91,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
 
       if (success) {
         setVenue(success.data);
-        checkinApi();
+        checkinApi(success.data);
 
       } else {
         MtToast.error(error.message)
@@ -77,7 +99,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
     });
   };
 
-  const checkinApi = async () => {
+  const checkinApi = async (venue: Venue) => {
     if (!venue) {
       return MtToast.error('Venue not found to checkin, please refresh the page!');
     }
@@ -126,7 +148,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
           'Please place the QR code within the frame. Avoid shaking for best results.'
         }
         style={{
-          fontFamily: Fonts.android_regular,
+          fontFamily: Fonts.regular,
           color: Colors.white,
           textAlign: 'center',
           fontSize: Fonts.fs_15,
@@ -135,55 +157,62 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
         }}
       />
 
-      <View style={{ position: 'relative' }}>
+      <View style={{ flex: 1 }}>
         <View style={CSS.qr_code_view}>
-          {device ? (
-            <Camera
+          <View
+            style={{
+              width: '100%',
+              position: 'absolute',
+              top: isIos ? -10 : -20,
+              zIndex: 1
+            }}>
+            <Imageview
               style={{
-                borderWidth: 1,
-                borderColor: Colors.red,
-                width: '100%',
-                height: '100%',
+                width: 50,
+                height: 50,
+                alignSelf: 'center',
               }}
-              {...props}
-              device={device}
-              isActive={isActive}
-              codeScanner={codeScanner}
+              imageType={'local'}
+              url={Images.FlockBird}
             />
+          </View>
+
+          {cameraPermission && device ? (
+            <View style={{
+              borderRadius: 20,
+              borderColor: Colors.primary_color_orange,
+              borderWidth: 2,
+              overflow: 'hidden'
+            }}>
+              <Camera
+                style={{
+                  borderWidth: 1,
+                  borderColor: Colors.red,
+                  width: '100%',
+                  height: '100%',
+                }}
+                {...props}
+                device={device}
+                isActive={isActive}
+                codeScanner={codeScanner}
+              />
+            </View>
           ) : (
             ''
           )}
         </View>
-        <View
-          style={{
-            width: '100%',
-            position: 'absolute',
-            justifyContent: 'center',
-            alignItems: 'center',
-            top: Platform.OS == 'ios' ? '9%' : '9%',
-          }}>
-          <Imageview
-            style={{
-              width: 60,
-              height: 60,
-              alignSelf: 'center',
-            }}
-            imageType={'local'}
-            url={Images.FlockBird}
-          />
-        </View>
+
 
         <Textview
           text={
             "If you can't find the QR code, please ask a staff member for assistance."
           }
           style={{
-            fontFamily: Fonts.android_regular,
+            fontFamily: Fonts.regular,
             color: Colors.white,
             textAlign: 'center',
             fontSize: Fonts.fs_14,
-            marginHorizontal: 30,
-            marginTop: 30,
+            marginHorizontal: 30
           }}
         />
       </View>

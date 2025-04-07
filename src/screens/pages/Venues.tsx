@@ -29,6 +29,8 @@ import { useSelector } from 'react-redux';
 import { StoreStates } from '../../store/store';
 import MtToast from '../../constants/MtToast';
 import { isIos } from '../../constants/IsPlatform';
+import Utils from '../../services/Utils';
+import IsVenueOpened from '../../constants/IsVenueOpened';
 
 const Venues: React.FC<ScreenProps<'Venues'>> = props => {
   const [categories, setCategories] = useState(
@@ -46,7 +48,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
 
   useEffect(() => {
     fetch_venues();
-  }, [selectedCategory, search]);
+  }, [selectedCategory, search, location]);
 
   const fetch_venues = async () => {
     setIsLoading(true);
@@ -58,7 +60,16 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
       if (error) {
         MtToast.error(error.message);
       } else {
-        setVenues(success.data);
+        console.log('venues', success.data.map(venue => venue.name), { category_id: selectedCategory, ...location, keywords: search });
+
+        setVenues(success.data.sort((a: Venue, b: Venue) => {
+          const aOpen = IsVenueOpened(a);
+          const bOpen = IsVenueOpened(b);
+
+          if (aOpen === bOpen) return 0;
+          return aOpen ? -1 : 1
+        }));
+
       }
     });
   };
@@ -73,7 +84,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
     props.navigation?.navigate('VenueDetails', { venue_id: item.id });
   };
 
-  const scanQR = async () => { 
+  const scanQR = async () => {
     props.navigation?.navigate('QrScanner');
   };
 
@@ -122,7 +133,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
         <Textview
           text={item.name}
           style={{
-            fontFamily: 'regular',
+            fontFamily: Fonts.regular,
             color: '#2b4ce0',
             marginTop: 5,
             textAlign: 'center',
@@ -140,7 +151,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
   return (
     <View style={[CSS.Favcontainer]}>
       <Loader isLoading={isLoading} />
-      
+
       <VirtualizedList>
         <View
           style={{
@@ -178,10 +189,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
                 color: Colors.black,
                 paddingLeft: 20,
                 fontSize: Fonts.fs_14,
-                fontFamily:
-                  isIos
-                    ? Fonts.ios_regular
-                    : Fonts.android_regular,
+                fontFamily: Fonts.regular,
               }}
               placeholder="Search here"
               placeholderTextColor={Colors.light_grey}
@@ -271,7 +279,9 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
               }
             />
           ) : (
-            <NoData />
+            <View style={{ height: Utils.DEVICE_HEIGHT / 2 }}>
+              <NoData isLoading={isLoading} />
+            </View>
           )}
         </View>
       </VirtualizedList>

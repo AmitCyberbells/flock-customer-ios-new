@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Platform, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Platform, Pressable, Text, TouchableOpacity, View } from "react-native";
 import ScreenProps from "../../types/ScreenProps";
 import Request from "../../services/Request";
 import Loader from "../../components/Loader";
@@ -10,9 +10,10 @@ import Textview from "../../components/Textview";
 import { Colors } from "../../constants/Colors";
 import { Fonts } from "../../constants/Fonts";
 import NoData from "../../components/NoData";
-import Toast from "react-native-toast-message";
 import FAQ from "../../types/FAQ";
-import Utils from "../../services/Util";
+import Utils from "../../services/Utils";
+import MtToast from "../../constants/MtToast";
+import PageHeader from "../../navigations/PageHeader";
 
 const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -31,14 +32,10 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
             setIsLoading(false);
 
             if (success) {
-                setFaqs(success.data.map(value => ({...value, status: 0})));
+                setFaqs(success.data.map(value => ({ ...value, status: 0 })));
 
             } else {
-                Toast.show({
-                    type: 'MtToastError',
-                    text1: error.message,
-                    position: 'bottom'
-                })
+                MtToast.error(error.message)
             }
 
         })
@@ -57,9 +54,15 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
     const renderItem_List = useCallback(
         ({ item, index }: { item: FAQ, index: number }) => (
 
-            <TouchableOpacity activeOpacity={0.8} style={{
+            <Pressable style={{
                 marginBottom: 13, flex: 1
             }}
+                pressRetentionOffset={{
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0
+                }}
                 onPress={() => openFAQ(item)}
             >
                 <View
@@ -67,7 +70,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        backgroundColor: Colors.blue3,
+                        backgroundColor: Colors.whitesmoke,
                         paddingVertical: isIos ? 20 : 13,
                         paddingHorizontal: isIos ? 20 : 20,
                         borderRadius: 10,
@@ -75,20 +78,22 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                     <Textview
                         text={item.question}
                         style={{
-                            fontFamily: 'medium',
+                            fontFamily: Fonts.medium,
                             color: Colors.black,
                             fontSize: Fonts.fs_17
                         }}
-                        
+
                     />
-                    <Imageview
-                        url={item.status ? Images.dropDown : Images.dropUp}
+
+                    <Image
+                        source={item.status ? Images.dropUp : Images.dropDown}
                         style={{
                             width: isIos ? 20 : 15,
                             height: isIos ? 20 : 15,
+                            backgroundColor: 'transparent'
                         }}
-                        imageType={"local"}
                         resizeMode={"contain"}
+                        tintColor={Colors.grey}
                     />
                 </View>
                 {
@@ -96,7 +101,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                         ?
                         <View
                             style={{
-                                backgroundColor: Colors.blue3,
+                                backgroundColor: Colors.whitesmoke,
                                 paddingVertical: 13,
                                 paddingHorizontal: isIos ? 20 : 20,
                                 borderRadius: 10,
@@ -107,12 +112,12 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                             <Textview
                                 text={item.answer}
                                 style={{
-                                    fontFamily: "regular",
+                                    fontFamily: Fonts.regular,
                                     color: Colors.black,
                                     fontSize: Fonts.fs_15,
                                     marginTop: isIos ? 10 : 0
                                 }}
-                                
+
                             />
 
                         </View>
@@ -120,7 +125,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                         null
                 }
 
-            </TouchableOpacity>
+            </Pressable>
 
         ), [faqs]);
     const keyExtractor_list = (item: FAQ, index: number) => index.toString();
@@ -130,45 +135,10 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
         <View style={CSS.Favcontainer}>
             <Loader isLoading={isLoading} />
 
-            <View style={{
-                flexDirection: 'row',
-                marginTop: isIos ? 50 : 5,
-                alignItems: 'center',
-                marginHorizontal: isIos ? 7 : 5
-            }}>
-                <TouchableOpacity
-                    onPress={() => props.navigation?.goBack()}
-                >
-                    <Imageview
-                        url={Images.back}
-                        style={{
-                            width: isIos ? 55 : 50,
-                            height: isIos ? 55 : 50
-                        }}
-                        imageType={"local"}
-                        resizeMode={"contain"}
-                    />
-                </TouchableOpacity>
-
-                <View style={{ flex: 1 }}>
-                    <Textview
-                        text={'FAQs'}
-                        style={{
-                            fontFamily: 'medium',
-                            color: Colors.black,
-                            textAlign: 'center',
-                            fontSize: Fonts.fs_20
-                        }}
-                    />
-                </View>
-                <View style={{ height: isIos ? 55 : 50, width: isIos ? 55 : 50 }} />
-
-
-            </View>
             <Textview
                 text={'Top questions '}
                 style={{
-                    fontFamily: "medium",
+                    fontFamily: Fonts.medium,
                     color: Colors.black,
                     marginTop: 25,
                     fontSize: Fonts.fs_18,

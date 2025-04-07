@@ -17,17 +17,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../constants/Colors';
 import Textview from '../../components/Textview';
 import { Fonts } from '../../constants/Fonts';
-import Icon from '@react-native-vector-icons/fontawesome6';
 import { CSS } from '../../constants/CSS';
 import AuthLayout from './Layout';
 import Request from '../../services/Request';
 import { updateUserToStore } from '../../store/userReducer';
 import { login } from '../../store/authReducer';
-import Toast from 'react-native-toast-message';
 import RootStackParamList from '../../types/RootStackParamList';
 import MtToast from '../../constants/MtToast';
 
-const OTPScreen: React.FC<ScreenProps<'Otp'>> = ({ route, navigation }) => {
+const OTPScreen: React.FC<ScreenProps<'Otp'>> = (props) => {
+  const { route, navigation } = props;
   const [loader, setLoader] = useState(false);
 
   const [verifyEmail, setVerifyEmail] = useState(false);
@@ -256,16 +255,8 @@ const OTPScreen: React.FC<ScreenProps<'Otp'>> = ({ route, navigation }) => {
   }
 
   return (
-    <AuthLayout isLoading={loader}>
-      <TouchableOpacity onPress={backButton} style={styles.backButton}>
-        <Icon
-          iconStyle={'solid'}
-          name={'chevron-left'}
-          size={20}
-          color={Colors.grey}
-        />
-      </TouchableOpacity>
-
+    <AuthLayout isLoading={loader} backButton={true} {...props}>
+      
       <View>
         <Textview
           text={'Verify ' + (verifyEmail ? 'email' : 'phone')}
@@ -282,7 +273,7 @@ const OTPScreen: React.FC<ScreenProps<'Otp'>> = ({ route, navigation }) => {
         />
 
         <Textview
-          text={verifyPhone ? phone : email}
+          text={verifyPhone ? phone + ' and ' + email : email}
           style={styles.otpInfoDetailText}
           text_click={() => { }}
         />
@@ -343,7 +334,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 8,
     borderColor: Colors.light_grey,
-    borderWidth: 1
+    borderWidth: 1,
+    color: Colors.black
   },
 
   focusedTextInput: {
@@ -385,7 +377,7 @@ const styles = StyleSheet.create({
   verifyText: {
     fontSize: Fonts.fs_25,
     color: Colors.black,
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     alignSelf: 'center',
     marginTop: 35,
   },
@@ -400,15 +392,16 @@ const styles = StyleSheet.create({
   otpInfoText: {
     color: Colors.black,
     fontSize: Fonts.fs_15,
-    fontFamily: 'semi_bold',
+    fontFamily: Fonts.semi_bold,
     marginTop: '15%',
   },
 
   otpInfoDetailText: {
     color: Colors.primary_color_orange,
     fontSize: Fonts.fs_16,
-    fontFamily: 'semi_bold',
+    fontFamily: Fonts.semi_bold,
     marginTop: 5,
+    textAlign: 'center'
   },
 
   otpInputContainer: {
@@ -432,7 +425,7 @@ const styles = StyleSheet.create({
   resendText: {
     color: Colors.black,
     fontSize: Fonts.fs_15,
-    fontFamily: 'semi_bold',
+    fontFamily: Fonts.semi_bold,
     textAlign: 'center',
     alignSelf: 'center',
   },
@@ -440,7 +433,7 @@ const styles = StyleSheet.create({
   resendLinkText: {
     color: Colors.primary_color_orange,
     fontSize: Fonts.fs_15,
-    fontFamily: 'semi_bold',
+    fontFamily: Fonts.semi_bold,
     textAlign: 'center',
     alignSelf: 'center',
   },

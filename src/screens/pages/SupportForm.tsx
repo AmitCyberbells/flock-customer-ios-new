@@ -18,6 +18,7 @@ import MtToast from '../../constants/MtToast';
 import Request from '../../services/Request';
 import Loader from '../../components/Loader';
 import InputField from '../../components/InputField';
+import { isIos } from '../../constants/IsPlatform';
 
 interface SupportProps extends ScreenProps<'SupportForm'> {
     initialData?: {
@@ -58,9 +59,8 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
 
         } catch (error) {
             MtToast.error('Failed to submit support request. Please try again.');
-        } finally {
             setLoader(false);
-        }
+        } 
     }, [subject, query, navigation]);
 
     return (
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     },
     scrollViewContent: {
         flexGrow: 1,
-        paddingBottom: Platform.OS === 'ios' ? 40 : 20,
+        paddingBottom: isIos ? 40 : 150,
     },
     backButton: {
         padding: 20,
@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     borderTransparent: {
+        color: Colors.black,
         borderColor: 'transparent'
     },
     inputWrapper: {

@@ -5,7 +5,8 @@ type AdBanner = {
     title: string,
     description: string, 
     image: string,
-    status: number
+    status: number,
+    position: number
 }
 
 export default AdBanner;

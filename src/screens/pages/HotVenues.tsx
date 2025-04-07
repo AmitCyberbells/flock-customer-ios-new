@@ -117,10 +117,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
                 color: Colors.black,
                 paddingLeft: 20,
                 fontSize: Fonts.fs_14,
-                fontFamily:
-                  isIos
-                    ? Fonts.ios_regular
-                    : Fonts.android_regular,
+                fontFamily: Fonts.regular,
               }}
               placeholder="Search here"
               placeholderTextColor={Colors.light_grey}
@@ -134,8 +131,8 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
               <Imageview
                 url={Images.scanner}
                 style={{
-                  width: isIos ? 40 : 35,
-                  height: isIos ? 40 : 35,
+                  width: isIos ? 40 : 37,
+                  height: isIos ? 40 : 37,
                   resizeMode: 'cover',
                   alignSelf: 'flex-start',
                 }}

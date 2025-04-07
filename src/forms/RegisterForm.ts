@@ -1,115 +1,97 @@
-import Utils from '../services/Util';
-import {ValidationRule, Validator} from '../services/Validator';
+import { ValidationRule, Validator } from '../services/Validator';
 
+// Define a type for each form field
+export interface FormField {
+  value: string;
+  error: string;
+  isValid: () => boolean;
+}
+
+// Define a type for all form fields
+export type FormFields = {
+  firstname: FormField;
+  lastname: FormField;
+  email: FormField;
+  phone: FormField;
+  password: FormField;
+  birthDate: FormField;
+};
+
+// Function to create a new form field
+const createField = (): FormField => ({
+  value: '',
+  error: '',
+  isValid() {
+    return this.error === '';
+  },
+});
+
+// Create form fields separately
+const formFields: FormFields = {
+  firstname: createField(),
+  lastname: createField(),
+  email: createField(),
+  phone: createField(),
+  password: createField(),
+  birthDate: createField(),
+};
+
+// Define validation rules separately
+const rules: Record<keyof FormFields, ValidationRule[]> = {
+  firstname: [Validator.required('firstname')],
+  lastname: [Validator.required('lastname')],
+  email: [Validator.required('email'), Validator.email],
+  phone: [Validator.required('phone'), Validator.phone],
+  password: [Validator.required('password'), Validator.password],
+  birthDate: [Validator.required('birthDate')],
+};
+
+// Define utility methods separately
 const RegisterForm = {
-  firstname: {
-    value: '',
-    error: '',
-    isValid: () => {
-      return RegisterForm.firstname.error === '';
-    },
-  },
-  lastname: {
-    value: '',
-    error: '',
-    isValid: () => {
-      return RegisterForm.lastname.error === '';
-    },
-  },
-  email: {
-    value: '',
-    error: '',
-    isValid: () => {
-      return RegisterForm.email.error === '';
-    },
-  },
-  phone: {
-    value: '',
-    error: '',
-    isValid: () => {
-      return RegisterForm.phone.error === '';
-    },
-  },
-  password: {
-    value: '',
-    error: '',
-    isValid: () => {
-      return RegisterForm.password.error === '';
-    },
-  },
-  birthDate: {
-    value: '',
-    error: '',
-    isValid: () => {
-      return RegisterForm.birthDate.error === '';
-    },
-  },
-  getFirstError: (): any => {
-    let error: string = '';
+  fields: formFields, // Store fields separately to avoid type conflicts
 
-    for (const key of Object.keys(RegisterForm)) {
-      const field = RegisterForm[key as keyof typeof RegisterForm];
-      if (typeof field === 'object' && field.error !== '') {
-        error = field.error;
-        break;
+  getFirstError(): string {
+    for (const key in this.fields) {
+      if (this.fields[key as keyof FormFields].error) {
+        return this.fields[key as keyof FormFields].error;
       }
     }
-
-    return error != '' ? error : 'Invalid form!';
+    return 'Invalid form!';
   },
-  getValue: () => {
+
+  getValue() {
     return {
-      first_name: RegisterForm.firstname.value,
-      last_name: RegisterForm.lastname.value,
-      email: RegisterForm.email.value,
-      contact: RegisterForm.phone.value,
-      password: RegisterForm.password.value,
-      dob: RegisterForm.birthDate.value,
-    }
+      first_name: this.fields.firstname.value,
+      last_name: this.fields.lastname.value,
+      email: this.fields.email.value,
+      contact: this.fields.phone.value,
+      password: this.fields.password.value,
+      dob: this.fields.birthDate.value,
+    };
   },
-  isValid: () => {
-    return (
-      RegisterForm.firstname.error == '' &&
-      RegisterForm.lastname.error == '' &&
-      RegisterForm.email.error == '' &&
-      RegisterForm.phone.error == '' &&
-      RegisterForm.password.error == '' &&
-      RegisterForm.birthDate.error == ''
-    );
+
+  isValid(): boolean {
+    return Object.values(this.fields).every(field => field.isValid());
   },
-  validateAll: () => {
-    Object.keys(RegisterForm).every(key => {
-      const field = RegisterForm[key as keyof typeof RegisterForm];
-      if (typeof field !== 'function') {
-        RegisterForm.validate(key, field.value);
-      }
+
+  validateAll() {
+    Object.keys(this.fields).forEach(field => {
+      this.validate(field as keyof FormFields, this.fields[field as keyof FormFields].value);
     });
   },
-  rules: () => ({
-    firstname: [Validator.required('firstname')],
-    //lastname: [Validator.required('lastname')],
-    email: [Validator.required('email'), Validator.email],
-    phone: [Validator.required('phone'), Validator.phone],
-    password: [Validator.required('password'), Validator.password],
-    birthDate: [Validator.required('birthDate')],
-  }),
-  validate: (field: string, value: any) => {
-    const rules =
-      RegisterForm.rules()[
-        field as keyof ReturnType<typeof RegisterForm.rules>
-      ] || [];
-    rules.forEach((rule: ValidationRule) => {
+
+  validate(field: keyof FormFields, value: string) {
+    const fieldObj = this.fields[field];
+    if (!fieldObj) return;
+
+    fieldObj.error = '';
+    rules[field]?.forEach(rule => {
       if (!rule.validate(value)) {
-        (RegisterForm[field as keyof typeof RegisterForm] as any).error =
-          rule.message;
-      } else {
-        (RegisterForm[field as keyof typeof RegisterForm] as any).error = '';
+        fieldObj.error = rule.message;
       }
     });
 
-    (RegisterForm[field as keyof typeof RegisterForm] as any).value = value;
-
-    return RegisterForm[field as keyof typeof RegisterForm];
+    fieldObj.value = value;
   },
 };
 

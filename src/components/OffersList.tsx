@@ -10,6 +10,7 @@ import Request from "../services/Request";
 import OfferRedeemBy from "../types/RedeemBy";
 import MtToast from "../constants/MtToast";
 import WalletService from "../services/WalletService";
+import RedeemedOffers from "../types/RedeemedOffers";
 
 type OffersListProps = {
     offersData: Array<Offer>,
@@ -48,21 +49,22 @@ const OffersList: React.FC<OffersListProps> = (props) => {
                 setLoader(false);
 
                 if (success) {
-                    Toast.show({
-                        type: 'MtToastSuccess',
-                        text1: success.message,
-                        position: 'bottom'
-                    })
+                    MtToast.success(success.message);
+                    const redeemedOffer: RedeemedOffers = success.data;
 
-                    setOffers(prev => prev.map(offer => offer.id === selectedOffer.id ? { ...offer, redeemed: true } : offer))
-
+                    const updatedOffer = {
+                        ...selectedOffer,
+                        redeemed: redeemedOffer,
+                    };
+                    setOffers(prevOffers =>
+                        prevOffers.map(offer =>
+                            offer.id === updatedOffer.id ? updatedOffer : offer,
+                        ),
+                    );
+                    
                 } else {
 
-                    Toast.show({
-                        type: 'MtToastError',
-                        text1: error.message,
-                        position: 'bottom'
-                    })
+                    MtToast.error(error.message);
                 }
             })
 

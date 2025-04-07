@@ -15,12 +15,14 @@ import {Colors} from '../../constants/Colors';
 import BoxView from '../../components/BoxView';
 import ScreenProps from '../../types/ScreenProps';
 import Icon from '@react-native-vector-icons/fontawesome6';
-import Toast from 'react-native-toast-message';
 import Request from '../../services/Request';
-import Utils from '../../services/Util';
-import RegisterForm from '../../forms/RegisterForm';
+import Utils from '../../services/Utils';
+import RegisterForm, { FormField, FormFields } from '../../forms/RegisterForm';
 import AuthLayout from './Layout';
-import { useDispatch } from 'react-redux';
+import MtToast from '../../constants/MtToast';
+import { isIos } from '../../constants/IsPlatform';
+import { Environment } from '../../../env';
+import { API } from '../../services/API';
 
 const Register: React.FC<ScreenProps<'Register'>> = props => {
   
@@ -38,7 +40,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
 
   const [form, setForm] = useState(RegisterForm);
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: keyof FormFields, value: any) => {
     const input = form.validate(field, value);
     console.log('after validation:>> ', input);
 
@@ -53,21 +55,17 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
     const body = form.getValue();
     console.log('register clicked', body, form);
 
+    setForm(prevForm => ({
+      ...prevForm
+    }));
+
     if (form.isValid() === false) {
-      Toast.show({
-        type: 'MtToastError',
-        text1: form.getFirstError(),
-        position: 'bottom',
-      });
+      MtToast.error(form.getFirstError());
       return;
     }
 
     if (!termsCondition) {
-      Toast.show({
-        type: 'MtToastError',
-        text1: 'Please accept terms and conditions to proceed',
-        position: 'bottom',
-      });
+      MtToast.error('Please accept terms and conditions to proceed');
       return;
     }
 
@@ -80,37 +78,24 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         if (error.errors) {
           const firstErrorKey = Object.keys(error.errors)[0];
           const firstErrorMessage = error.errors[firstErrorKey];
-          Toast.show({
-            type: 'MtToastError',
-            text1: firstErrorMessage,
-            position: 'bottom',
-          });
+          
+          MtToast.error(firstErrorMessage)
         } else {
-          Toast.show({
-            type: 'MtToastError',
-            text1: error.message,
-            position: 'bottom',
-          });
+          MtToast.error(error.message)
         }
       } else {
-        Toast.show({
-          type: 'MtToastSuccess',
-          text1: success.message,
-          position: 'bottom',
-        });
+        MtToast.success(success.message);
 
         console.log(success.data);
         props.navigation?.navigate('Otp', {
           screenType: 'Login',
           verifyEmail: true,
           verifyPhone: false,
-          email: form.email.value
+          email: form.fields.email.value
         });
       }
     });
   }
-
-  function OTPApi() {}
 
   function confirmDateTime(date: Date) {
     if (!date) return;
@@ -119,7 +104,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
     const isoDateString = date.toISOString().split('T')[0];
     setForm(prevForm => {
       const updatedForm = {...prevForm};
-      updatedForm.birthDate.value = isoDateString;
+      updatedForm.fields.birthDate.value = isoDateString;
       return updatedForm;
     });
 
@@ -131,13 +116,13 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
   }
 
   function openTermsPage() {
-    props?.navigation?.navigate('TermsConditionsWebview');
+    props?.navigation?.navigate('WebPage', {title: 'Terms & Conditions', link: API.terms});
   }
 
-  useEffect(() => {}, []);
+  const errorMsg = (msg: string) => (msg && <Text style={{fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{msg}</Text>)
 
   return (
-    <AuthLayout isLoading={loader}>
+    <AuthLayout isLoading={loader} backButton={true} {...props}>
       <DatePicker
         modal
         open={openDatePicker}
@@ -155,7 +140,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         style={{
           fontSize: Fonts.fs_25,
           color: Colors.black,
-          fontFamily: Fonts.android_medium,
+          fontFamily: Fonts.medium,
           alignSelf: 'center',
           marginTop: 35,
         }}>
@@ -165,29 +150,28 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         style={{
           fontSize: Fonts.fs_18,
           color: Colors.black,
-          fontFamily: Fonts.android_regular,
+          fontFamily: Fonts.regular,
           alignSelf: 'center',
-          marginTop: Platform.OS == 'ios' ? 15 : 5,
+          marginTop: isIos ? 15 : 5,
         }}>
         Create your account
       </Text>
+
       <View
         style={{
           marginHorizontal: 20,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          marginTop: isIos ? 15 : 5
         }}>
         <BoxView
           cardStyle={{
             ...styles.boxViewCard,
-            marginTop: 25,
             marginHorizontal: 0,
             width: '47.5%',
-            borderColor: form.firstname.isValid()
-              ? Colors.transparent
-              : Colors.red,
-            borderBottomWidth: form.firstname.isValid() ? 0 : 1,
+            borderColor: form.fields.firstname.isValid() ? Colors.transparent : Colors.red,
+            borderBottomWidth: form.fields.firstname.isValid() ? 0 : 1,
           }}>
           <TextInput
             style={styles.textInput}
@@ -201,12 +185,11 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         <BoxView
           cardStyle={{
             ...styles.boxViewCard,
-            marginTop: 25,
             width: '47.5%',
-            borderColor: form.lastname.isValid()
+            borderColor: form.fields.lastname.isValid()
               ? Colors.transparent
               : Colors.red,
-            borderBottomWidth: form.lastname.isValid() ? 0 : 1,
+            borderBottomWidth: form.fields.lastname.isValid() ? 0 : 1,
           }}>
           <TextInput
             style={styles.textInput}
@@ -216,14 +199,15 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           />
         </BoxView>
       </View>
+      {errorMsg(form.fields.firstname.error || form.fields.lastname.error)}
       <BoxView
         cardStyle={{
           marginHorizontal: 20,
-          paddingVertical: Platform.OS == 'ios' ? 16 : 5,
-          borderColor: form.birthDate.isValid()
+          paddingVertical: isIos ? 16 : 5,
+          borderColor: form.fields.birthDate.isValid()
             ? Colors.transparent
             : Colors.red,
-          borderBottomWidth: form.birthDate.isValid() ? 0 : 1,
+          borderBottomWidth: form.fields.birthDate.isValid() ? 0 : 1,
         }}
         bodyStyle={{
           flexDirection: 'row',
@@ -235,33 +219,32 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
             flex: 1,
             padding: 5,
             fontSize: Fonts.fs_14,
-            color: Utils.isEmpty(form.birthDate.value)
+            color: Utils.isEmpty(form.fields.birthDate.value)
               ? Colors.grey
               : Colors.black,
-            fontFamily: Fonts.android_regular,
+            fontFamily: Fonts.regular,
           }}
           onPress={() => setOpenDatePicker(!openDatePicker)}>
-          {Utils.isEmpty(form.birthDate.value)
+          {Utils.isEmpty(form.fields.birthDate.value)
             ? 'Date of Birth'
-            : form.birthDate.value}
+            : form.fields.birthDate.value}
         </Text>
         <TouchableOpacity
           style={{
             alignItems: 'center',
-            justifyContent: 'center',
-            padding: 10,
+            justifyContent: 'center'
           }}
           onPress={() => setOpenDatePicker(!openDatePicker)}>
           <Icon name={'calendar'} size={15} color={Colors.grey} />
         </TouchableOpacity>
       </BoxView>
-
+      {errorMsg(form.fields.birthDate.error)}
       <BoxView
         cardStyle={{
           ...styles.boxViewCard,
           marginHorizontal: 20,
-          borderColor: form.email.isValid() ? Colors.transparent : Colors.red,
-          borderBottomWidth: form.email.isValid() ? 0 : 1,
+          borderColor: form.fields.email.isValid() ? Colors.transparent : Colors.red,
+          borderBottomWidth: form.fields.email.isValid() ? 0 : 1,
         }}>
         <TextInput
           style={styles.textInput}
@@ -271,13 +254,13 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           onChangeText={value => handleInputChange('email', value || '')}
         />
       </BoxView>
-
+      {errorMsg(form.fields.email.error)}
       <BoxView
         cardStyle={{
           ...styles.boxViewCard,
           marginHorizontal: 20,
-          borderColor: form.phone.isValid() ? Colors.transparent : Colors.red,
-          borderBottomWidth: form.phone.isValid() ? 0 : 1,
+          borderColor: form.fields.phone.isValid() ? Colors.transparent : Colors.red,
+          borderBottomWidth: form.fields.phone.isValid() ? 0 : 1,
         }}>
         <TextInput
           style={styles.textInput}
@@ -287,17 +270,16 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           onChangeText={value => handleInputChange('phone', value || '')}
         />
       </BoxView>
-
+      {errorMsg(form.fields.phone.error)}
       <BoxView
         cardStyle={{
           marginHorizontal: 20,
           backgroundColor: Colors.white,
-          paddingVertical: Platform.OS == 'ios' ? 17 : 0,
-          marginTop: Platform.OS == 'ios' ? 25 : 20,
-          borderColor: form.password.isValid()
+          paddingVertical: isIos ? 10 : 0,
+          borderColor: form.fields.password.isValid()
             ? Colors.transparent
             : Colors.red,
-          borderBottomWidth: form.password.isValid() ? 0 : 1,
+          borderBottomWidth: form.fields.password.isValid() ? 0 : 1,
         }}
         bodyStyle={{
           flex: 1,
@@ -319,13 +301,13 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           }}
           onPress={() => setShowPassword(!showPassword)}>
           <Icon
-            name={showPassword ? 'eye-slash' : 'eye'}
+            name={!showPassword ? 'eye-slash' : 'eye'}
             size={15}
             color={Colors.grey}
           />
         </TouchableOpacity>
       </BoxView>
-
+      {errorMsg(form.fields.password.error)}
       <View
         style={{
           flexDirection: 'row',
@@ -377,7 +359,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
 
       <View style={{marginTop: 30, marginHorizontal: 17}}>
         <Textview
-          text={'Continue'}
+          text={'Sign Up'}
           style={styles.button}
           text_click={registerClick}
         />
@@ -408,12 +390,12 @@ const styles = StyleSheet.create({
     flex: 1,
     color: Colors.black,
     fontSize: Fonts.fs_14,
-    fontFamily:
-      Platform.OS == 'ios' ? Fonts.ios_regular : Fonts.android_regular,
+    fontFamily: Fonts.regular,
+    height: 40
   },
   boxViewCard: {
     backgroundColor: Colors.white,
-    paddingVertical: Platform.OS == 'ios' ? 17 : 0,
+    paddingVertical: isIos ? 10 : 0,
   },
   boxViewCardError: {
     borderColor: Colors.red,
@@ -422,7 +404,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: Fonts.fs_14,
     color: Colors.grey,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
   },
   textError: {
     color: Colors.red,
@@ -430,16 +412,16 @@ const styles = StyleSheet.create({
   button: {
     fontSize: Fonts.fs_17,
     color: Colors.white,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     textAlign: 'center' as 'center',
     backgroundColor: Colors.primary_color_orange,
-    paddingVertical: Platform.OS == 'ios' ? 15 : 10,
+    paddingVertical: isIos ? 15 : 10,
     borderRadius: 10,
   },
   haveAccount: {
     fontSize: Fonts.fs_12,
     color: Colors.grey,
-    fontFamily: Fonts.android_regular,
+    fontFamily: Fonts.regular,
     paddingVertical: 10,
   },
   haveAccountLink: {

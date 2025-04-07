@@ -21,6 +21,10 @@ build/
 .gradle/
 android/app/src/main/assets/
 res/
+ios/main.jsbundle
+assets/
+ios/flockloyalty/Images.xcassets
+ios/Pods/
 
 # Metro
 .metro-health-check*

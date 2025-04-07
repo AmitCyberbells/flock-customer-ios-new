@@ -9,11 +9,13 @@ type SupportRequest = {
 }
 
 export type SupportReply = {
-    support_id: number,
-    user_id: number,
-    user_type: string,
+    id?: number,
+    support_id?: number,
+    user_id?: number,
+    user_type?: string,
+    sender?: string;
     content: string,
-    status: number,
+    status?: number,
 }
 
 export default SupportRequest;

@@ -7,6 +7,7 @@ import { Fonts } from '../constants/Fonts';
 import ScreenProps from '../types/ScreenProps';
 import RootStackParamList from '../types/RootStackParamList';
 import { isIos } from '../constants/IsPlatform';
+import { CSS } from '../constants/CSS';
 
 type PageHeaderProps = {
   title?: string;
@@ -27,9 +28,17 @@ const PageHeader: React.FC<
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: props.backgroundColor || 'transparent',
+        paddingHorizontal: isIos ? 20 : 10,
+        paddingTop: isIos ? 50 : 10,
+        paddingBottom: isIos ? 20 : 10,
+        justifyContent: 'space-between',
       }}>
+
       {props.showBackButton ? (
-        <TouchableOpacity onPress={() => props.navigation?.goBack()}>
+        <TouchableOpacity
+          onPress={() => props.navigation?.goBack()}
+          style={{ width: isIos ? 55 : 50 }} // Fixed width instead of flex: 1
+        >
           <Imageview
             url={Images.back}
             style={{
@@ -40,16 +49,20 @@ const PageHeader: React.FC<
             imageType={'local'}
           />
         </TouchableOpacity>
-      ) : null}
+      ) : (
+        <View style={{ width: isIos ? 55 : 50 }} /> // Placeholder for alignment
+      )}
 
       <Text
         style={{
-          fontFamily: 'medium',
+          fontFamily: Fonts.medium,
           color: props.textColor ?? Colors.black,
           textAlign: 'center',
           fontSize: Fonts.fs_20,
+          paddingHorizontal: 10,
           flex: 1
         }}
+        numberOfLines={1}
       >
         {props?.title || ''}
       </Text>
@@ -57,8 +70,8 @@ const PageHeader: React.FC<
       {children ? children :
         <View
           style={{
-            height: isIos ? 55 : 50,
             width: isIos ? 55 : 50,
+            height: isIos ? 55 : 50,
           }}
         />}
     </View>

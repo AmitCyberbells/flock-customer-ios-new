@@ -4,6 +4,7 @@ import { StoreStates } from '../store/store';
 import Firebase from '../services/Firebase';
 import { logout } from '../store/authReducer';
 import WalletService from '../services/WalletService';
+import useLocation from '../services/GetCurrentLocation';
 
 const WithAuth = (WrappedComponent: React.ComponentType) => {
   const ComponentWithAuth = (props: any) => {
@@ -12,12 +13,14 @@ const WithAuth = (WrappedComponent: React.ComponentType) => {
     const dispatch = useDispatch();
     const { updateDeviceToken } = Firebase();
     const { updateWalletBalances } = WalletService();
+    //const { requestLocationPermission } = useLocation();
 
     useEffect(() => {
       if (user.email == '' || auth.accessToken == '') {
         dispatch(logout())
       }
 
+      //requestLocationPermission();
       updateDeviceToken();
       updateWalletBalances();
 

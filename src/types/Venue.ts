@@ -1,4 +1,5 @@
 import Category from "./Category"
+import RedeemedOffers from "./RedeemedOffers"
 import User from "./User"
 
 type Venue = {
@@ -27,7 +28,8 @@ type Venue = {
     distance?: number // distance from user current location
     checkins_count?: number,
     checkedin_count?: number,
-    nearest_venues?: Array<NearestVenue>
+    nearest_venues?: Array<NearestVenue>,
+    dietary?: Array<Dietary>
 }
 
 export type NearestVenue = {
@@ -41,7 +43,6 @@ export type NearestVenue = {
 }
 
 type VenueSummary = Pick<Venue, 'id' | 'user_id' | 'name' | 'location' | 'lat' | 'lon'>;
-
 
 export type OpeningHour = {
     id: number,
@@ -62,9 +63,10 @@ export type Offer = {
     venue_points: number,
     images: Array<Imageable>,
     status: number,
-    redeemed: any,
+    redeemed?: RedeemedOffers,
     favourite: any,
-    venue?: VenueSummary
+    venue?: VenueSummary,
+    expire_at?: string
 }
 
 export type Amenity = {
@@ -90,7 +92,14 @@ export type Tag = {
 }
 
 export type Imageable = {
-    file_name: string
+    file_name: string,
+    image: string,
+}
+
+export type Dietary = {
+    id: number,
+    name: string,
+    slug: string
 }
 
 export default Venue;

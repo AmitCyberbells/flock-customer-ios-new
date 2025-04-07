@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Text,
 } from 'react-native';
 import { CSS } from '../../constants/CSS';
 import Textview from '../../components/Textview';
@@ -14,13 +15,15 @@ import BoxView from '../../components/BoxView';
 import ScreenProps from '../../types/ScreenProps';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import AuthLayout from './Layout';
-import Utils from '../../services/Util';
+import Utils from '../../services/Utils';
 import { Validator } from '../../services/Validator';
 import Request from '../../services/Request';
 import MtToast from '../../constants/MtToast';
 import { useDispatch } from 'react-redux';
 import { updateUserToStore } from '../../store/userReducer';
 import { login } from '../../store/authReducer';
+import { isIos } from '../../constants/IsPlatform';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login: React.FC<ScreenProps<'Login'>> = props => {
 
@@ -31,10 +34,19 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('login page');
+    
+    const checkStartupAd = async () => {
+      const visit = await AsyncStorage.getItem('startupAd');
+      if (!visit) {
+        props.navigation?.navigate('StartupAd');
+      }
+    }
+
+    checkStartupAd();
   }, []);
 
   const handleInputChange = (field: string, value: any) => {
@@ -48,28 +60,34 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
   };
 
   const validateEmail = (value: string) => {
+    let msg = '';
+
     if (Utils.isEmpty(value)) {
-      setEmailErr('Email is required');
+      msg = 'Email is required';
     } else if (!Validator.email.validate(value)) {
-      setEmailErr(Validator.email.message);
-    } else {
-      setEmailErr('');
+      msg = Validator.email.message;
     }
+
+    setEmailErr(msg);
+    return msg;
   };
 
   const validatePassword = (value: string) => {
+    let msg = '';
+
     if (Utils.isEmpty(value)) {
-      setPasswordErr('Password is required');
-    } else {
-      setPasswordErr('');
+      msg = 'Password is required';
     }
+
+    setPasswordErr(msg)
+    return msg;
   };
 
   const validForm = () => {
-    validateEmail(email);
-    validatePassword(password);
+    const error = validateEmail(email);
+    const error2 = validatePassword(password);
 
-    return emailErr == '' && passwordErr == '';
+    return {isValid : Utils.isEmpty(error) && Utils.isEmpty(error2), error: error || error2};
   };
 
   function registerClick() {
@@ -77,8 +95,10 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
   }
 
   function continueClick() {
-    if (!validForm()) {
-      MtToast.error('Please fill all required fields')
+    const form = validForm();
+
+    if (!form.isValid) {
+      MtToast.error(form.error ?? 'Please fill all fields!')
       return;
     }
 
@@ -89,24 +109,24 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
         console.log('login success', success);
 
         // uncomment the below code if need login via otp
-        props.navigation?.navigate('Otp', {
+        /* props.navigation?.navigate('Otp', {
           screenType: 'Login',
           verifyEmail: true,
           verifyPhone: false,
           email: email
-        });
+        }); */
 
         // comment the below dispatch if need login via otp
-        /* dispatch(updateUserToStore(success.data.user));
+        dispatch(updateUserToStore(success.data.user));
         dispatch(
           login({
             accessToken: success.data.access_token,
             tokenType: success.data.token_type,
             isLoggedIn: true
           }),
-        ); */
+        );
 
-        
+
       } else {
         console.log('login error', error);
         MtToast.error(error.message)
@@ -120,7 +140,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
   }
 
   return (
-    <AuthLayout isLoading={isLoading}>
+    <AuthLayout isLoading={isLoading} scrollViewStyle={{ marginTop: isIos ? 70 : 40 }}>
       <Textview text_click={() => { }} text={'Login'} style={styles.loginText} />
       <Textview
         text_click={() => { }}
@@ -128,7 +148,10 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
         style={styles.loginSubtitle}
       />
       <BoxView
-        cardStyle={styles.boxViewCard}>
+        cardStyle={[
+          styles.boxViewCard,
+          emailErr != '' ? styles.inputError : {},
+        ]}>
         <TextInput
           style={styles.textInput}
           placeholder="Enter email address"
@@ -138,6 +161,9 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           onChangeText={value => handleInputChange('email', value)}
         />
       </BoxView>
+
+      {emailErr != '' ? <Text style={{fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{emailErr}</Text> : ''}
+
       <BoxView
         cardStyle={[
           styles.boxViewCardPassword,
@@ -155,12 +181,15 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}>
           <Icon
-            name={showPassword ? 'eye-slash' : 'eye'}
+            name={!showPassword ? 'eye-slash' : 'eye'}
             size={15}
             color={Colors.grey}
           />
         </TouchableOpacity>
       </BoxView>
+      
+      {passwordErr !='' ? <Text style={{fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{passwordErr}</Text> : ''}
+
       <View style={CSS.ForgetPass}>
         <Textview
           text_click={() => { }}
@@ -173,10 +202,11 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           style={styles.resetText}
         />
       </View>
+
       <View style={styles.continueButtonContainer}>
         <Textview
           text_click={continueClick}
-          text={'Continue'}
+          text={'Login'}
           style={styles.continueButton}
         />
       </View>
@@ -201,23 +231,23 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: Fonts.fs_25,
     color: Colors.black,
-    fontFamily: 'medium',
+    fontFamily: Fonts.medium,
     alignSelf: 'center',
     marginTop: 35,
   },
   loginSubtitle: {
     fontSize: Fonts.fs_18,
     color: Colors.black,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 15 : 5,
+    marginTop: isIos ? 15 : 5,
   },
   boxViewCard: {
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 20,
     backgroundColor: Colors.white,
-    paddingVertical: Platform.OS == 'ios' ? 17 : 0,
+    paddingVertical: isIos ? 10 : 0,
     marginTop: 27,
   },
   inputError: {
@@ -227,8 +257,8 @@ const styles = StyleSheet.create({
   boxViewCardPassword: {
     marginHorizontal: 20,
     backgroundColor: Colors.white,
-    paddingVertical: Platform.OS == 'ios' ? 17 : 0,
-    marginTop: Platform.OS == 'ios' ? 25 : 20,
+    paddingVertical: isIos ? 10 : 0,
+    marginTop: isIos ? 25 : 20,
   },
   boxViewBody: {
     flex: 1,
@@ -238,8 +268,8 @@ const styles = StyleSheet.create({
     flex: 1,
     color: Colors.black,
     fontSize: Fonts.fs_14,
-    fontFamily:
-      Platform.OS == 'ios' ? Fonts.ios_regular : Fonts.android_regular,
+    fontFamily: Fonts.regular,
+    height: 40
   },
   eyeIconContainer: {
     alignItems: 'center',
@@ -250,18 +280,18 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     fontSize: Fonts.fs_12,
     color: Colors.grey,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 15 : 5,
+    marginTop: isIos ? 15 : 5,
     paddingVertical: 10,
   },
   resetText: {
     fontSize: Fonts.fs_12,
     color: Colors.primary_color_orange,
     textDecorationLine: 'underline',
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 15 : 5,
+    marginTop: isIos ? 15 : 5,
     paddingVertical: 10,
   },
   continueButtonContainer: {
@@ -270,28 +300,28 @@ const styles = StyleSheet.create({
   continueButton: {
     fontSize: Fonts.fs_17,
     color: Colors.white,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     textAlign: 'center',
     backgroundColor: Colors.primary_color_orange,
     marginHorizontal: 17,
-    paddingVertical: Platform.OS == 'ios' ? 15 : 10,
+    paddingVertical: isIos ? 15 : 10,
     borderRadius: 10,
   },
   dontHaveAccountText: {
     fontSize: Fonts.fs_12,
     color: Colors.grey,
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 15 : 5,
+    marginTop: isIos ? 15 : 5,
     paddingVertical: 10,
   },
   createNewText: {
     fontSize: Fonts.fs_12,
     color: Colors.primary_color_orange,
     textDecorationLine: 'underline',
-    fontFamily: 'regular',
+    fontFamily: Fonts.regular,
     alignSelf: 'center',
-    marginTop: Platform.OS == 'ios' ? 15 : 5,
+    marginTop: isIos ? 15 : 5,
     paddingVertical: 10,
   },
 });

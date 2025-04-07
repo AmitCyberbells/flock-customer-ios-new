@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import FastImage, { FastImageProps, Source } from 'react-native-fast-image';
+import FastImage, { FastImageProps, Source } from '@d11/react-native-fast-image';
 import Images from '../constants/Images';
-import { useSelector } from 'react-redux';
-import { StoreStates } from '../store/store';
 import SkeletonView from './SkeletonView';
 import { ImageSourcePropType, StyleProp, ImageStyle } from "react-native";
 
 type ImageviewProps = {
   style?: StyleProp<ImageStyle>;
-  imageStyle?: StyleProp<{ borderRadius?: number }>;
+  imageStyle?: StyleProp<{ 
+    borderRadius?: number, 
+    backgroundColor?: string,
+    borderColor?: string,
+    borderWidth?: number 
+  }>;
   onLoad?: () => void;
   imageType?: string;
   url?: ImageSourcePropType | string;
@@ -19,16 +22,17 @@ type ImageviewProps = {
 
 const Imageview: React.FC<FastImageProps & ImageviewProps> = (props) => {
   const { style, url, imageType, tintColor, resizeMode, imageStyle } = props;
-  const [loading, setLoading] = useState(true);
+
+  const isLocal = imageType === 'local';
+  const [loading, setLoading] = useState(!isLocal);
   const [error, setError] = useState(false);
-  const auth = useSelector((state: StoreStates) => state.auth);
 
   useEffect(() => {
-
-  }, [])
+    
+  }, []);
 
   const handleLoadStart = () => {
-    setLoading(true);
+    setLoading(!isLocal);
     setError(false);
   };
 
@@ -42,28 +46,24 @@ const Imageview: React.FC<FastImageProps & ImageviewProps> = (props) => {
   };
 
   const getImage = () => {
+    let resolvedUrl = Image.resolveAssetSource(Images.placeholder).uri;
 
     if (typeof url === 'number') {
-      return Image.resolveAssetSource(url).uri;
+      resolvedUrl = Image.resolveAssetSource(url).uri;
     }
 
     if (typeof url === 'string') {
-      return url; // remote URL
+      resolvedUrl = url; // remote URL
     }
 
-    return '';
+    return resolvedUrl;
   };
 
   return (
     <View style={[fastStyle.container, style]}>
       <FastImage
         style={[fastStyle.image, imageStyle]}
-        source={imageType === 'local' ? { uri: getImage() } : {
-          uri: getImage(),
-          headers: { Authorization: `Bearer ${auth.accessToken}` },
-          priority: FastImage.priority.high,
-        }}
-        defaultSource={Images.placeholder} // Optional fallback if you want
+        source={{ uri: getImage() }}
         tintColor={tintColor}
         resizeMode={
           resizeMode === 'cover'

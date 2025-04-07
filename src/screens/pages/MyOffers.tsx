@@ -6,11 +6,11 @@ import { Colors } from "../../constants/Colors";
 import NoData from "../../components/NoData";
 import { Offer } from "../../types/Venue";
 import Request from "../../services/Request";
-import Toast from "react-native-toast-message";
 import OffersList from "../../components/OffersList";
+import MtToast from "../../constants/MtToast";
 
 const MyOffers: React.FC<ScreenProps<'MyOffers'>> = (props) => {
-    
+
     const [offers, setOffers] = useState<Array<Offer>>([]);
     const isIos = Platform.OS === 'ios';
     const [loader, setIsLoading] = useState(false);
@@ -25,14 +25,19 @@ const MyOffers: React.FC<ScreenProps<'MyOffers'>> = (props) => {
         Request.redeemedOffers((success, error) => {
             setIsLoading(false);
             console.log(success, error);
+
             if (success) {
-                setOffers(success.data.map(redeemedOffer => redeemedOffer.offer));
-            } else {
-                Toast.show({
-                    type: 'MtToastError',
-                    text1: error.message,
-                    position: 'bottom',
+
+                let offers: Array<Offer> = [];
+                success.data.map((redeemedOffer) => {
+                    if (redeemedOffer.offer) {
+                        offers.push(redeemedOffer.offer);
+                    }
                 });
+                setOffers(offers);
+
+            } else {
+                MtToast.error(error.message);
             }
         });
     };
@@ -40,14 +45,14 @@ const MyOffers: React.FC<ScreenProps<'MyOffers'>> = (props) => {
         <View style={{ flex: 1, backgroundColor: Colors.white }}>
             <Loader isLoading={loader} />
 
-            {offers.length > 0 ? 
-                <OffersList 
-                    offersData={offers} 
-                    setLoader={setIsLoading} 
+            {offers.length > 0 ?
+                <OffersList
+                    offersData={offers}
+                    setLoader={setIsLoading}
                     {...props}
-                    columnStyle={{paddingHorizontal: 10}}
+                    columnStyle={{ paddingHorizontal: 10 }}
                 />
-            : <NoData />}
+                : <NoData />}
         </View>
     );
 }

@@ -12,13 +12,13 @@ import Loader from "../components/Loader";
 import Request from "../services/Request";
 import Toast from "react-native-toast-message";
 import NoData from "./NoData";
+import Imageview from "./Imageview";
+import Images from "../constants/Images";
 
 type TransactionListProps = {
     setLoader: (isLoading: boolean) => void,
     recordLimit?: number
 }
-
-const {height, width} = Dimensions.get('window');
 
 const TransactionList: React.FC<TransactionListProps> = (props) => {
     const { setLoader, recordLimit } = props;
@@ -53,17 +53,20 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
                 <View style={styles.transactionItem}>
                     <ShadowCard
                         style={styles.transactionImage}>
-                        {
-                            item.txn_type === 'add' ?
-                                <Icon name='circle-plus' iconStyle='solid' size={40} color={Colors.primary_color_orange} /> :
-                                <Icon name='circle-minus' iconStyle='solid' size={40} color={Colors.crimson} />
-                        }
+                        <Imageview
+                            url={Images.FlockBird}
+                            style={{
+                                height: 40,
+                                width: 40,
+                            }}
+                        />
                     </ShadowCard>
 
                     <View style={styles.transactionDetails}>
                         <Textview
                             text={item?.remark || ''}
                             style={styles.transactionName}
+                            lines={2}
                         />
                         <Textview
                             text={item.created_at}
@@ -125,13 +128,8 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
                     renderItem={renderItem_transactionList}
                     keyExtractor={keyExtractor_transactionList}
                 /> :
-                <View style={{
-                    height: height,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <NoData />
-                </View>
+
+                <NoData />
             }
         </View>
     )
@@ -158,13 +156,13 @@ const styles = StyleSheet.create({
         marginTop: isIos ? 20 : 15,
     },
     transactionsTitle: {
-        fontFamily: 'medium',
+        fontFamily: Fonts.medium,
         color: Colors.black,
         fontSize: Fonts.fs_18,
         marginHorizontal: isIos ? 17 : 15,
     },
     seeAllText: {
-        fontFamily: 'regular',
+        fontFamily: Fonts.regular,
         color: Colors.light_grey,
         fontSize: Fonts.fs_14,
         marginHorizontal: isIos ? 17 : 15,
@@ -177,8 +175,8 @@ const styles = StyleSheet.create({
     },
     transactionImage: {
         backgroundColor: Colors.white,
-        width: isIos ? 70 : 45,
-        height: isIos ? 70 : 45,
+        width: 45,
+        height: 45,
         padding: 2,
         borderRadius: 100,
         justifyContent: 'center',
@@ -189,22 +187,22 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     transactionDetails: {
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         flex: 1,
     },
     transactionName: {
-        fontFamily: 'medium',
+        fontFamily: Fonts.medium,
         color: Colors.black,
         fontSize: Fonts.fs_17,
     },
     transactionDate: {
-        fontFamily: 'regular',
+        fontFamily: Fonts.regular,
         color: Colors.grey,
         fontSize: Fonts.fs_13,
         marginTop: isIos ? 5 : 0,
     },
     transactionAmount: {
-        fontFamily: 'medium',
+        fontFamily: Fonts.medium,
         fontSize: Fonts.fs_16,
     },
 })

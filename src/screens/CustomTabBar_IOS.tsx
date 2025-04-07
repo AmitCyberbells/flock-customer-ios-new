@@ -98,7 +98,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
                 fontSize: Fonts.fs_10,
                 color:
                   0 == index ? Colors.primary_color_orange : Colors.light_grey,
-                fontFamily: Fonts.ios_regular,
+                fontFamily: Fonts.regular,
                 marginTop: 3,
               }}
             />
@@ -128,7 +128,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
                 fontSize: Fonts.fs_10,
                 color:
                   1 == index ? Colors.primary_color_orange : Colors.light_grey,
-                fontFamily: Fonts.ios_regular,
+                fontFamily: Fonts.regular,
                 marginTop: 3,
               }}
             />
@@ -153,7 +153,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
                 fontSize: Fonts.fs_10,
                 color:
                   3 == index ? Colors.primary_color_orange : Colors.light_grey,
-                fontFamily: Fonts.ios_regular,
+                fontFamily: Fonts.regular,
                 marginTop: 3,
               }}
             />
@@ -177,7 +177,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
               style={{
                 fontSize: Fonts.fs_10,
                 color: 4 == index ? Colors.primary_color_orange : Colors.light_grey,
-                fontFamily: Fonts.ios_regular,
+                fontFamily: Fonts.regular,
                 marginTop: 3
               }}
             />

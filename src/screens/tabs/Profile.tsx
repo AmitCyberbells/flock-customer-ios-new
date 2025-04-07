@@ -12,7 +12,7 @@ import { CSS } from '../../constants/CSS';
 import Textview from '../../components/Textview';
 import { Fonts } from '../../constants/Fonts';
 import { Colors } from '../../constants/Colors';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Pressable, ScrollView } from 'react-native-gesture-handler';
 import Imageview from '../../components/Imageview';
 import { useSelector } from 'react-redux';
 import { StoreStates } from '../../store/store';
@@ -23,8 +23,8 @@ import VirtualizedList from '../../components/VirtualizedList';
 import RootStackParamList from '../../types/RootStackParamList';
 import ShadowCard from '../../components/ShadowCard';
 import TabHeader from '../../components/TabHeader';
+import { isIos } from '../../constants/IsPlatform';
 
-const isIos = Platform.OS === 'ios';
 type ProfileMenuItem = {
   id: number,
   title: string,
@@ -60,7 +60,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
 
   const renderItem_profileMenu = useCallback(
     ({ item, index }: { item: ProfileMenuItem, index: number }) => (
-      <TouchableOpacity onPress={() => { props.navigation?.navigate(item.route as any) }} style={{ flex: 1 }}>
+      <Pressable onPress={() => { props.navigation?.navigate(item.route as any) }} style={{ flex: 1 }}>
         <ShadowCard
           style={styles.menuItemCard}>
           <View style={styles.menuItemContainer}>
@@ -75,7 +75,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
             />
           </View>
         </ShadowCard>
-      </TouchableOpacity>
+      </Pressable>
     ),
     [profileMenu],
   );
@@ -91,7 +91,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
           <View style={styles.profileImageContainer}>
             <View style={styles.imageWrapper}>
               <Imageview
-                url={user.image || Images.FlockBird}
+                url={user.image || Images.profileImg}
                 style={styles.profileImage}
                 imageStyle={{borderRadius: isIos ? 80 : 70}}
                 imageType={'server'}
@@ -100,7 +100,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
             </View>
 
             <Textview
-              text={user.first_name + ' ' + user.last_name}
+              text={user.first_name + ' ' + (user.last_name?? '')}
               style={styles.userName}
             />
             <Textview
@@ -258,20 +258,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileImage: {
-    width: isIos ? 135 : 115,
-    height: isIos ? 135 : 115,
+    width: isIos ? 135 : 125,
+    height: isIos ? 135 : 125,
     alignSelf: 'center',
     resizeMode: 'cover',
   },
   userName: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.black,
     textAlign: 'center',
     fontSize: Fonts.fs_18,
     marginTop: isIos ? 15 : 7,
   },
   userEmail: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.light_grey,
     textAlign: 'center',
     fontSize: Fonts.fs_14,
@@ -289,13 +289,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   feathersTitle: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.light_grey,
     textAlign: 'center',
     fontSize: Fonts.fs_14,
   },
   feathersCount: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_25,
     marginTop: isIos ? 10 : 0,
@@ -327,13 +327,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   statLabel: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.light_grey,
     fontSize: Fonts.fs_14,
     marginBottom: isIos ? 5 : 0,
   },
   statValue: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_17,
     marginTop: isIos ? 2 : 0,
@@ -345,19 +345,19 @@ const styles = StyleSheet.create({
     marginTop: isIos ? 30 : 20,
   },
   pointsTitle: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.light_grey,
     textAlign: 'center',
     fontSize: Fonts.fs_14,
   },
   pointsCount: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_25,
     marginTop: isIos ? 10 : 0,
   },
   generalTitle: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.grey,
     fontSize: Fonts.fs_18,
     fontWeight: '600',
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     marginBottom: 10,
     marginTop: isIos ? 10 : 2,
-    paddingBottom: isIos ? 10 : 5,
+    paddingBottom: isIos ? 70 : 5,
   },
   menuListContent: {
     paddingBottom: 30,
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   menuItemText: {
-    fontFamily: Fonts.android_regular,
+    fontFamily: Fonts.regular,
     color: Colors.black,
     fontSize: Fonts.fs_17,
   },

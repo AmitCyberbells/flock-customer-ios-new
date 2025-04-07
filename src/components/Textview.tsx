@@ -5,7 +5,7 @@ import {
   StyleProp,
   TextStyle,
 } from 'react-native';
-import Utils from '../services/Util';
+import Utils from '../services/Utils';
 
 interface TextviewProps {
   text_click?: () => void;

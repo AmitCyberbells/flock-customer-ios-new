@@ -18,12 +18,14 @@ import { Fonts } from '../../constants/Fonts';
 import { isIos } from '../../constants/IsPlatform';
 import MtToast from '../../constants/MtToast';
 import ShadowCard from '../../components/ShadowCard';
+import Utils from '../../services/Utils';
 
 const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [venues, setVenues] = useState<Array<Venue>>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>()
   const [categories, setCategories] = useState<Array<Category>>([]);
+  const categoryColors = [Colors.color_one, Colors.color_two, Colors.color_three, Colors.color_four];
 
   useEffect(() => {
 
@@ -36,7 +38,7 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
 
     Request.fetch_categories((success, error) => {
       setIsLoading(false);
-      
+
       if (success) {
         setCategories(success.data);
 
@@ -83,13 +85,13 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
               style={{
                 alignItems: 'center',
                 backgroundColor: Colors.white,
-                padding: 0,
+                padding: 5,
                 borderRadius: 100
               }}
             >
 
               <View style={{
-                backgroundColor: '#2b4ce0',
+                backgroundColor: categoryColors[index % categoryColors.length],
                 height: 65,
                 width: 65,
                 justifyContent: 'center',
@@ -104,14 +106,14 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
                   }}
                   imageType={"server"}
                   resizeMode={"contain"}
-                  tintColor={Colors.white}
+                  tintColor={Colors.black}
                 />
               </View>
 
               <Textview
                 text={item.name.length > 10 ? item.name.substring(0, 7) + '..' : item.name}
                 style={{
-                  fontFamily: 'regular',
+                  fontFamily: Fonts.regular,
                   color: Colors.black,
                   marginTop: isIos ? 14 : 9,
                   marginBottom: isIos ? 17 : 12,
@@ -122,18 +124,18 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
               />
             </ShadowCard>
             :
-            <View style={{ flex: 1}}>
+            <View style={{ flex: 1 }}>
               <ShadowCard
                 style={{
                   alignItems: 'center',
                   backgroundColor: Colors.white,
-                  padding: 0,
+                  padding: 4,
                   borderRadius: 100
                 }}
               >
 
                 <View style={{
-                  backgroundColor: '#dfe4fb',
+                  backgroundColor: categoryColors[index % categoryColors.length],
                   height: 65,
                   width: 65,
                   justifyContent: 'center',
@@ -148,16 +150,16 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
                     }}
                     imageType={"server"}
                     resizeMode={"contain"}
-                    tintColor={'#2b4ce0'}
+                    tintColor={Colors.black}
                   />
                 </View>
               </ShadowCard>
 
               <Textview
-                text={item.name}
+                text={item.name.length > 10 ? item.name.substring(0, 7) + '..' : item.name}
 
                 style={{
-                  fontFamily: 'regular',
+                  fontFamily: Fonts.regular,
                   color: Colors.black,
                   marginTop: isIos ? 14 : 9,
                   marginBottom: isIos ? 17 : 12,
@@ -179,55 +181,60 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
     <View style={[CSS.Favcontainer, { paddingHorizontal: 15 }]}>
       <Loader isLoading={isLoading} />
 
-      <TabHeader title={'Favourite Venues'} navigation={props.navigation} />
-
-      <FlatList
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        data={categories}
-        style={{ 
-          flexGrow: 0, 
-          marginTop: isIos ? 18 : 15, 
-          paddingBottom: isIos ? 10 : 5,
-        }}
-        renderItem={renderItemcategory}
-        keyExtractor={keyExtractorcategory}
-      />
-
-      <View style={{ flex: 1 }}>
-        {venues.length > 0 ? (
+      <TabHeader title={'Favourites'} navigation={props.navigation} hideSideMenuButton={true} />
+      <View style={style.absoluteObj}>
+        <View style={style.categoryWrapperCard}>
           <FlatList
-            horizontal={false}
-            numColumns={2}
+            horizontal={true}
             showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            data={venues}
+            data={categories}
             style={{
-              marginTop: isIos ? 2 : 0,
-              paddingBottom: isIos ? 100 : 65,
+              flexGrow: 0,
+              marginTop: isIos ? 18 : 15,
+              paddingBottom: isIos ? 10 : 5,
             }}
-            contentContainerStyle={{ paddingBottom: 10 }}
-            renderItem={({ item }) => (
-              <VenueItem
-                venue={item}
-                setIsLoading={setIsLoading}
-                openVenuePage={openVenuePage}
-                onToggleVenue={updatedVenue => {
-                  setVenues(prevVenues =>
-                    prevVenues.map(venue =>
-                      venue.id === updatedVenue.id ? updatedVenue : venue,
-                    ),
-                  );
-                }}
-              />
-            )}
-            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderItemcategory}
+            keyExtractor={keyExtractorcategory}
           />
-        ) : (
-          <NoData />
-        )}
+        </View>
+
+        <View style={{ flex: 1 }}>
+          {venues.length > 0 ? (
+            <FlatList
+              horizontal={false}
+              numColumns={2}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={venues}
+              style={{
+                marginTop: isIos ? 2 : 0,
+                paddingBottom: isIos ? 100 : 65,
+              }}
+              contentContainerStyle={{ paddingBottom: 10 }}
+              renderItem={({ item }) => (
+                <VenueItem
+                  venue={item}
+                  setIsLoading={setIsLoading}
+                  openVenuePage={openVenuePage}
+                  onToggleVenue={updatedVenue => {
+                    setVenues(prevVenues =>
+                      prevVenues.map(venue =>
+                        venue.id === updatedVenue.id ? updatedVenue : venue,
+                      ),
+                    );
+                  }}
+                />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          ) : (
+            <View style={{ height: Utils.DEVICE_HEIGHT-300 }}>
+              <NoData isLoading={isLoading} />
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -235,5 +242,22 @@ export default Favorites;
 
 
 const style = StyleSheet.create({
-
+  absoluteObj: {
+    position: 'absolute',
+    top: -10,
+    left: 0,
+    right: 0,
+  },
+  categoryWrapperCard: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    paddingTop: isIos ? 90 : 60,
+    paddingBottom: 20,
+    paddingHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 }, // Only bottom shadow
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: isIos ? 2.5 : 7,
+  }
 })

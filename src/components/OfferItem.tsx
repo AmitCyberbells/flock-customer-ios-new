@@ -13,6 +13,8 @@ import ScreenProps from '../types/ScreenProps';
 import RootStackParamList from '../types/RootStackParamList';
 import { isIos } from '../constants/IsPlatform';
 import FallbackSvg from './FallbackSvg';
+import MtToast from '../constants/MtToast';
+import Chips from './Chips';
 
 type OfferItem = {
   offer: Offer,
@@ -38,26 +40,26 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
 
         onToggleOffer(updatedOffer);
       } else {
-        Toast.show({
-          type: 'MtToastError',
-          text1: error.message,
-          position: 'bottom',
-        });
+        MtToast.error(error.message)
       }
     });
   };
 
   const showQrcode = () => {
     console.log({ offer })
-    props.navigation?.navigate('QrPreview', { data: JSON.stringify({ offer_id: offer.id }) });
+    if (!offer.redeemed) {
+      return MtToast.error('Offer not redeemed yet');
+    }
+    
+    props.navigation?.navigate('QrPreview', { data: JSON.stringify({ redeem_id: offer?.redeemed?.id }) });
   }
 
   return (
     <BoxView cardStyle={style.item} bodyStyle={style.py_0}>
       <View>
-        {offer.images.length > 0 ?
+        {offer.images?.length > 0 ?
           <Imageview
-            url={offer.images[0].file_name}
+            url={offer.images[0].image}
             style={{
               height: isIos ? 110 : 90,
               borderRadius: 10,
@@ -66,7 +68,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
             imageType={'server'}
             resizeMode={'cover'}
           /> :
-          <FallbackSvg wrapperStyle={{marginTop: 0}} androidHeight={90}/>
+          <FallbackSvg wrapperStyle={{marginTop: 0}} androidHeight={90} iosHeight={90}/>
         }
 
         <View style={style.pointsRow}>
@@ -85,11 +87,11 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
 
               <Text
                 style={{
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   color: Colors.black,
                   fontSize: Fonts.fs_13,
                 }}>
-                {offer.feather_points.toString() + ' fts'}
+                {(offer.feather_points ? offer.feather_points?.toString() : 0) + ' fts'}
               </Text>
             </View>
           ) : null}
@@ -108,11 +110,11 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
               />
               <Text
                 style={{
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   color: Colors.black,
                   fontSize: Fonts.fs_13,
                 }}>
-                {offer.venue_points.toString() + ' pts'}
+                {(offer.venue_points ? offer.venue_points?.toString() : 0) + ' pts'}
               </Text>
             </View>
           ) : null}
@@ -120,6 +122,14 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
       </View>
 
       <Textview text={offer.name} style={[style.title, style.px_5]} lines={1} />
+
+      <Chips items={[{name: offer.venue?.name || ''}]}/>
+
+      <Textview
+        text={offer.venue?.name || ''}
+        style={[style.desc, style.px_5]}
+        lines={2}
+      />
 
       <Textview
         text={offer.description}
@@ -141,7 +151,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
               }}>
               <Text
                 style={{
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   color: Colors.light_blue,
                   fontSize: Fonts.fs_8,
                   textAlign: 'center',
@@ -165,7 +175,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
               }}>
               <Text
                 style={{
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   color: Colors.white,
                   fontSize: Fonts.fs_8,
                   textAlign: 'center',
@@ -190,7 +200,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
             }}>
             <Text
               style={{
-                fontFamily: Fonts.android_regular,
+                fontFamily: Fonts.regular,
                 color: Colors.white,
                 fontSize: Fonts.fs_8,
               }}>
@@ -237,13 +247,13 @@ const style = StyleSheet.create({
     paddingVertical: 0,
   },
   desc: {
-    fontFamily: Fonts.android_regular,
+    fontFamily: Fonts.regular,
     color: Colors.light_grey,
     fontSize: Fonts.fs_10,
     marginTop: isIos ? 5 : 0,
   },
   title: {
-    fontFamily: Fonts.android_medium,
+    fontFamily: Fonts.medium,
     color: Colors.black,
     fontSize: Fonts.fs_18,
     marginTop: isIos ? 8 : 4,

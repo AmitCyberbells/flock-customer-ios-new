@@ -3,7 +3,7 @@ import { AuthorizationStatus, FirebaseMessagingTypes, getMessaging } from "@reac
 import Request from "./Request";
 import { PermissionsAndroid, Platform } from 'react-native';
 import notifee, { EventType } from '@notifee/react-native';
-import Utils from './Util';
+import Utils from './Utils';
 import { Environment } from '../../env';
 import firebaseApp from '@react-native-firebase/app';
 import { isIos } from '../constants/IsPlatform';
@@ -47,7 +47,8 @@ const Firebase = () => {
             console.log('device token is already present ', auth.deviceToken)
             return;
         }
-
+        console.log('.. fetch device token ...')
+        await getMessaging().requestPermission();
         const fcmToken = await getMessaging().getToken();
 
         if (fcmToken) {

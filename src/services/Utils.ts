@@ -1,4 +1,5 @@
-import { Dimensions, Linking, Platform } from "react-native";
+import { Alert, Dimensions, Linking, Platform } from "react-native";
+import { isIos } from "../constants/IsPlatform";
 
 const Utils = {
   isEmpty: (value: any) => {
@@ -13,7 +14,7 @@ const Utils = {
   },
   isPassword: (password: string) => {
     const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:\\|.<>\/?~])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};:\\|.<>\/?~]{8,}$/;
     return passwordRegex.test(password);
   },
   isName: (name: string) => {
@@ -21,7 +22,7 @@ const Utils = {
     return nameRegex.test(name);
   },
   isPhone: (phone: string) => {
-    const phoneRegex = /^\d{10,}$/;
+    const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   },
   isAddress: (address: string) => {
@@ -94,17 +95,48 @@ const Utils = {
     // Return the formatted string
     return `${hours12.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
   },
-  openPhoneSetting() {
-      //var packagee = DeviceInfo.getBundleId();
-      if (Platform.OS === 'ios') {
-          Linking.openURL('app-settings:')
-      } else {
-          Linking.openSettings();
-          /* IntentLauncher.startActivity({
-              action: 'android.settings.APPLICATION_DETAILS_SETTINGS',
-              data: 'package:' + packagee
-          }) */
-      }
+
+  convertTo24HourFormat(time12: string): string {
+    // Extract hours, minutes, and period (AM/PM)
+    const [time, period] = time12.split(' ');
+    const [hours12, minutes] = time.split(':').map(Number);
+
+    // Handle special case for 12:00 AM -> 24:00
+    /* if (hours12 === 12 && period === 'AM') {
+      return `24:${minutes.toString().padStart(2, '0')}`;
+    } */
+
+    // Convert to 24-hour format
+    let hours24 = hours12 % 12;
+    if (period === 'PM') hours24 += 12;
+
+    // Return formatted 24-hour time
+    return `${hours24.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  },
+
+  openPhoneSetting(msg: string = "Please allow location access!") {
+    return;
+    Alert.alert(
+      "Open settings", // Title
+      msg, // Message
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Let's Do it",
+          onPress: () => {
+            if (isIos) {
+              Linking.openURL('app-settings:')
+            } else {
+              Linking.openSettings();
+            }
+          },
+          style: "destructive",
+        },
+      ]
+    );
   },
   generateUniqueString(length: number = 16): string {
     return [...Array(length)]
@@ -116,7 +148,9 @@ const Utils = {
     // Calculate responsive sizes
     const scale = width / 375; // Using 375 as base width
     return Math.round(scale * size);
-  }
+  },
+  DEVICE_WIDTH: Dimensions.get('window').width,
+  DEVICE_HEIGHT: Dimensions.get('window').height
 
 };
 

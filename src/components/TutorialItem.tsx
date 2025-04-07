@@ -6,7 +6,7 @@ import { Colors } from "../constants/Colors";
 import { Fonts } from "../constants/Fonts";
 import Tutorial from "../types/Tutorial";
 import ScreenProps from "../types/ScreenProps";
-import Utils from "../services/Util";
+import Utils from "../services/Utils";
 import Toast from "react-native-toast-message";
 import Images from "../constants/Images";
 import RootStackParamList from "../types/RootStackParamList";
@@ -76,13 +76,13 @@ const style = StyleSheet.create({
         paddingVertical: 0,
     },
     desc: {
-        fontFamily: Fonts.android_regular,
+        fontFamily: Fonts.regular,
         color: Colors.light_grey,
         fontSize: Fonts.fs_10,
         marginTop: Platform.OS === 'ios' ? 5 : 0,
     },
     title: {
-        fontFamily: Fonts.android_medium,
+        fontFamily: Fonts.medium,
         color: Colors.black,
         fontSize: Fonts.fs_18,
         marginTop: Platform.OS === 'ios' ? 8 : 4,

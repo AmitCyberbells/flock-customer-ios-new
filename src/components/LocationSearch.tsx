@@ -68,15 +68,14 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
                     key: Environment.GoogleMap.getAPIKey(),
                     language: 'en',
                 }}
-                styles={{
-                    textInput: styles.googleInput,
-                    listView: styles.listView,
-                    container: styles.googleContainer,
-                }}
+                styles={defaultStyles}
                 enablePoweredByContainer={false}
                 onFail={error => console.error('GooglePlaces Error:', error)}
                 textInputProps={{
+                    placeholderTextColor: Colors.grey
                 }}
+                debounce={300}
+                suppressDefaultStyles={true}
             />
 
             {resetButton && <TouchableOpacity onPress={() => { locationReset() }} style={{
@@ -93,42 +92,62 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 5,
         alignItems: 'center'
-    },
-    googleContainer: {
-        flex: 1,
-    },
-    googleInput: {
-        height: 56,
-        backgroundColor: Colors.white,
-        borderRadius: 10,
-        paddingHorizontal: 20,
-        fontSize: 16,
-        color: Colors.black,
-        shadowColor: Colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-        borderWidth: 1,
-        borderColor: '#E5E5E5'
-    },
-    listView: {
-        backgroundColor: Colors.white,
-        borderRadius: 8,
-        marginTop: 5,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#E5E5E5',
-        position: 'absolute',
-        top: 60,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        maxHeight: 200,
-        width: width - 70,
     }
 });
+
+const defaultStyles = {
+    container: {
+        flex: 1,
+    },
+    textInputContainer: {
+        flexDirection: 'row'
+    },
+    textInput: {
+        color: Colors.black,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 8,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        fontSize: 15,
+        flex: 1,
+        marginBottom: 5,
+        borderWidth: 1,
+        borderColor: '#E5E5E5',
+        height: 55
+    },
+    listView: {
+        elevation: 5, // Ensures it doesn't blend into the background
+        shadowColor: '#000', 
+        shadowOpacity: 0.3, 
+        shadowRadius: 5, 
+        borderWidth: 1,
+        borderColor: Colors.whitesmoke
+    },
+    row: {
+        backgroundColor: '#FFFFFF',
+        padding: 13,
+        minHeight: 44,
+        flexDirection: 'row',
+    },
+    loader: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        height: 20,
+    },
+    description: { color: Colors.black },
+    separator: {
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#c8c7cc',
+    },
+    poweredContainer: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
+        borderColor: '#c8c7cc',
+        borderTopWidth: 0.5,
+    },
+    powered: {},
+};
 
 export default LocationSearch;

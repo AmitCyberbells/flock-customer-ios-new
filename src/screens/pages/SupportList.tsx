@@ -1,7 +1,7 @@
 
 import Loader from "../../components/Loader";
 import { CSS } from "../../constants/CSS"
-import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Platform, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PageHeader from "../../navigations/PageHeader";
 import ScreenProps from "../../types/ScreenProps";
 import { useCallback, useEffect, useState } from "react";
@@ -16,6 +16,8 @@ import Request from "../../services/Request";
 import MtToast from "../../constants/MtToast";
 import Textview from "../../components/Textview";
 import NoData from "../../components/NoData";
+import Utils from "../../services/Utils";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
@@ -47,49 +49,51 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
     const renderItem_supportReq = useCallback(
         ({ item, index }: { item: SupportRequest, index: number }) => (
 
-            <ShadowCard
-                style={{
-                    backgroundColor: Colors.white,
-                    marginHorizontal: 15,
-                    marginTop: 20,
-                    paddingVertical: 8,
-                    paddingHorizontal: 15
-                }}
-            >
-
-                <Text
+            <Pressable onPress={() => props.navigation?.navigate('SupportTicket', {ticket_id: item.id})}>
+                <ShadowCard
                     style={{
-                        fontFamily: "medium",
-                        color: Colors.black,
-                        fontSize: Fonts.fs_15
-                    }}>
-                    {item.title}
-                </Text>
-
-                <Text
-                    style={{
-                        fontFamily: "medium",
-                        color: Colors.black,
-                        fontSize: Fonts.fs_13
-
-                    }} numberOfLines={4} >
-
-                    {item.description}
-                </Text>
-
-
-                <Textview
-                    text={item.created_at}
-                    style={{
-                        fontFamily: "regular",
-                        color: Colors.grey,
-                        textAlign: 'right',
-                        marginTop: 15,
-                        fontSize: Fonts.fs_12
+                        backgroundColor: Colors.white,
+                        marginHorizontal: 15,
+                        marginTop: 20,
+                        paddingVertical: 8,
+                        paddingHorizontal: 15
                     }}
-                />
+                >
 
-            </ShadowCard>
+                    <Text
+                        style={{
+                            fontFamily: Fonts.medium,
+                            color: Colors.black,
+                            fontSize: Fonts.fs_15
+                        }}>
+                        {item.title}
+                    </Text>
+
+                    <Text
+                        style={{
+                            fontFamily: Fonts.medium,
+                            color: Colors.black,
+                            fontSize: Fonts.fs_13
+
+                        }} numberOfLines={4} >
+
+                        {item.description}
+                    </Text>
+
+
+                    <Textview
+                        text={item.created_at}
+                        style={{
+                            fontFamily: Fonts.regular,
+                            color: Colors.grey,
+                            textAlign: 'right',
+                            marginTop: 15,
+                            fontSize: Fonts.fs_12
+                        }}
+                    />
+
+                </ShadowCard>
+            </Pressable>
 
         ), [supportRequests]);
 
@@ -99,7 +103,11 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
         <View style={CSS.Favcontainer}>
             <Loader isLoading={loader} />
 
-            <PageHeader>
+            <PageHeader
+                showBackButton={true}
+                title="Support"
+                {...props}
+            >
                 <TouchableOpacity
                     onPress={addSupportRequest}
                 >
@@ -116,9 +124,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
             </PageHeader>
 
 
-            <View>
-
-
+            <SafeAreaView style={{ flex: 1 }} edges={['left', 'right']}>
                 {
                     supportRequests.length
                         ?
@@ -128,7 +134,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
                             nestedScrollEnabled={true}
                             showsVerticalScrollIndicator={false}
                             data={supportRequests}
-                            contentContainerStyle={{ height: '100%', paddingBottom: 15, }}
+                            contentContainerStyle={{ paddingBottom: 15, }}
                             style={{ paddingBottom: isIos ? 10 : 5, }}
                             renderItem={renderItem_supportReq}
                             keyExtractor={keyExtractor_supportReq}
@@ -136,11 +142,12 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
                         />
 
                         :
-
-                        <NoData />
+                        <View style={{ height: (Utils.DEVICE_HEIGHT - 250) }}>
+                            <NoData />
+                        </View>
 
                 }
-            </View>
+            </SafeAreaView>
         </View>
     )
 }

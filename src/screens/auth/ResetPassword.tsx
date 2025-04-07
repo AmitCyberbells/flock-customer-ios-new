@@ -1,26 +1,29 @@
-import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import ScreenProps from '../../types/ScreenProps';
 import AuthLayout from './Layout';
 import Textview from '../../components/Textview';
-import BoxView from '../../components/BoxView';
-import {Colors} from '../../constants/Colors';
-import {CSS} from '../../constants/CSS';
-import {useEffect, useState} from 'react';
+import { Colors } from '../../constants/Colors';
+import { CSS } from '../../constants/CSS';
+import { useEffect, useState } from 'react';
 import Request from '../../services/Request';
-import Toast from 'react-native-toast-message';
 import MtToast from '../../constants/MtToast';
-import Utils from '../../services/Util';
 import { Validator } from '../../services/Validator';
+import { isIos } from '../../constants/IsPlatform';
+import ShadowCard from '../../components/ShadowCard';
+import Icon from '@react-native-vector-icons/fontawesome6';
+import { Fonts } from '../../constants/Fonts';
 
 const ResetPassword: React.FC<ScreenProps<'ResetPassword'>> = props => {
   const [loader, setLoader] = useState<boolean>(false);
 
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordErr, setPasswordErr] = useState<string>('');
 
   useEffect(() => {
     if (props.route?.params.email) {
-        setEmail(props.route?.params.email);
+      setEmail(props.route?.params.email);
     }
 
   }, []);
@@ -33,45 +36,67 @@ const ResetPassword: React.FC<ScreenProps<'ResetPassword'>> = props => {
 
     setLoader(true);
 
-    Request.resetPassword({email, password}, (success, error) => {
-        setLoader(false);
+    Request.resetPassword({ email, password }, (success, error) => {
+      setLoader(false);
 
-        if (success) {
-            props.navigation?.navigate('Login');
-        } else {
-            MtToast.error(error.message)
-        }
+      if (success) {
+        props.navigation?.navigate('Login');
+      } else {
+        MtToast.error(error.message)
+      }
 
     })
   };
 
+  const onChangeInput = (value: string) => {
+    if (!Validator.password.validate(value)) {
+      setPasswordErr(Validator.password.message);
+    } else {
+      setPasswordErr('');
+    }
+
+    setPassword(value);
+  }
+
   return (
-    <AuthLayout isLoading={loader}>
+    <AuthLayout isLoading={loader} scrollViewStyle={{ marginTop: isIos ? 70 : 40 }} backButton={true} {...props}>
       <Textview
         text={'Reset Password'}
         style={CSS.title}
-        text_click={() => {}}
+        text_click={() => { }}
       />
       <View style={{
         paddingVertical: 10,
       }}>
         <Text style={{
-        color: Colors.primary_color_orange, textAlign: 'center' }}>{email}</Text>
+          color: Colors.primary_color_orange, textAlign: 'center'
+        }}>{email}</Text>
       </View>
-      <BoxView cardStyle={styles.boxView}>
+
+      <ShadowCard style={[styles.forgetPass, passwordErr != '' ? styles.inputError : {}]}>
         <TextInput
           style={styles.textInput}
-          placeholder="Enter new password"
+          placeholder="Enter password"
           placeholderTextColor={Colors.grey}
-          keyboardType="email-address"
-          secureTextEntry={true}
-          onChangeText={value => setPassword(value)}
+          secureTextEntry={!showPassword}
+          onChangeText={value => onChangeInput(value)}
         />
-      </BoxView>
+        <TouchableOpacity
+          style={styles.eyeIconContainer}
+          onPress={() => setShowPassword(!showPassword)}>
+          <Icon
+            name={!showPassword ? 'eye-slash' : 'eye'}
+            size={15}
+            color={Colors.grey}
+          />
+        </TouchableOpacity>
+      </ShadowCard>
+
+      {passwordErr != '' ? <Text style={{ marginTop: 4, fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{passwordErr}</Text> : ''}
 
       <Textview
         text={'Continue'}
-        style={[CSS.themeButton, {marginTop: 30}]}
+        style={[CSS.themeButton, { marginTop: 30 }]}
         text_click={continueClick}
       />
     </AuthLayout>
@@ -80,11 +105,31 @@ const ResetPassword: React.FC<ScreenProps<'ResetPassword'>> = props => {
 
 const styles = StyleSheet.create({
   boxView: {
-    paddingVertical: Platform.OS == 'ios' ? 17 : 0,
+    paddingVertical: Platform.OS == 'ios' ? 10 : 0,
     marginTop: 30,
   },
   textInput: {
-    height: 40,
+    flex: 1,
+    height: 50
+  },
+  forgetPass: {
+    marginHorizontal: 20,
+    backgroundColor: Colors.white,
+    paddingVertical: isIos ? 10 : 0,
+    marginTop: isIos ? 25 : 20,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  inputError: {
+    borderColor: Colors.red,
+    borderBottomWidth: 1,
+  },
+  eyeIconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    padding: 10,
   },
 });
 

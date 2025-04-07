@@ -5,15 +5,15 @@ import FormLayout from "./layouts/FormLayout";
 import Loader from "../../components/Loader";
 import { Picker } from "@react-native-picker/picker";
 import { Colors } from "../../constants/Colors";
-import { isIos } from "../../constants/IsPlatform";
+import { isIos, isAndroid } from "../../constants/IsPlatform";
 import Venue from "../../types/Venue";
 import Request from "../../services/Request";
 import Toast from "react-native-toast-message";
 import { useSelector } from "react-redux";
 import { StoreStates } from "../../store/store";
-import { TextInput } from "react-native-gesture-handler";
 import MtToast from "../../constants/MtToast";
 import InputField from "../../components/InputField";
+import DropdownMenu from "../../components/DropdownMenu";
 
 const Report: React.FC<ScreenProps<'Report'>> = (props) => {
     const [loader, setIsLoading] = useState<boolean>(false);
@@ -45,6 +45,8 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
     };
 
     const handleContinue = () => {
+        console.log(selectedVenue , description)
+
         if (!selectedVenue || !description) {
             return MtToast.error('Please select a venue and write your concern!');
         }
@@ -78,9 +80,11 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
 
             <View style={styles.content}>
                 <View style={styles.inputsContainer}>
-                    <View style={styles.inputWrapper}>
+
+                   {isAndroid ? <View style={styles.inputWrapper}>
                         <Picker
                             selectedValue={selectedVenue}
+                            style={{color: Colors.black}}
                             onValueChange={(itemValue, itemIndex) =>
                                 setSelectedVenue(itemValue)
                             }>
@@ -88,7 +92,9 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
                             {venues.map(venue => <Picker.Item key={venue.id} label={venue.name} value={venue.id} />)}
 
                         </Picker>
-                    </View>
+                    </View> :
+                    <View style={{marginBottom: 20}}>
+                    <DropdownMenu options={venues.map(venue => ({label: venue.name, value: venue.id}))} onSelect={(item) => setSelectedVenue(item.value)} selectedValue={selectedVenue} placeholder={venues.length > 0 ? "Select a venue" : 'No venue found!'} /></View>}
 
                     <View>
                         <InputField

@@ -23,7 +23,7 @@ const QrPreview: React.FC<ScreenProps<'QrPreview'>> = (props) => {
             <QRCode
                 value={data}
                 size={230}
-                logo={Images.flock_marker}
+                logo={Images.FlockBird}
                 logoBackgroundColor='transparent'
             />
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     headingText: {
-        fontFamily: 'medium',
+        fontFamily: Fonts.medium,
         color: Colors.black,
         textAlign: 'center',
         fontSize: Fonts.fs_18,

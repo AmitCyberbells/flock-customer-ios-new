@@ -1,7 +1,7 @@
 //export const BASE_HOST = 'http://127.0.0.1:8000/';
 //'https://web.cyberbells.com/DitroInfotech/Projects/flock/';
 
-export const BASE_HOST = 'http://165.232.152.77/mobi/';
+export const BASE_HOST = 'http://165.232.152.77/';
 export const API_ENDPOINT = `${BASE_HOST}api/`;
 export const BASE_IMG_URL = `${BASE_HOST}assets/images/users/`;
 export const BASE_URL = `${API_ENDPOINT}customer/`
@@ -12,6 +12,7 @@ export const API = {
   base_url: `${BASE_URL}`,
   imgURL: `${BASE_IMG_URL}`,
 
+  terms: `${BASE_URL}terms`,
   signup: `${BASE_URL}signup`,
   login: `${BASE_URL}login`,
   otp_login: `${BASE_URL}otp-login`,
@@ -47,11 +48,13 @@ export const API = {
   supportList: `${BASE_URL}support/list`, // GET
   supportStore: `${BASE_URL}support/store`, // POST
   supportReply: `${BASE_URL}support/reply`, // POST
+  supportReplies: `${BASE_URL}support/`, // GET
   reportVenue: `${BASE_URL}report-venues/store`, // POST
   notifications: `${BASE_URL}notifications/list`, // GET
-  createAppLogs: `${BASE_URL}/app-logs/store`, // POST
+  createAppLogs: `${BASE_URL}app-logs/store`, // POST
+  feathersHistory: `${BASE_URL}wallet/feathers-log`,//GET
 
-  home: `${BASE_URL}home`,
+  /* home: `${BASE_URL}home`,
   hot_boost: `${BASE_URL}filter_hot_boost`,
   venuedata_bytype: `${BASE_URL}venuedata_bytype`,
   mark_favourite_venue: `${BASE_URL}mark_favourite_venue`,
@@ -79,6 +82,6 @@ export const API = {
   get_hours_by_venue: `${BASE_URL}get_hours_by_venue`,
   get_user_location: `${BASE_URL}get_user_location`,
   
- 
+  */
   
 };

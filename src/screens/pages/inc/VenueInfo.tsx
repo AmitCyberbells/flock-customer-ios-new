@@ -8,12 +8,14 @@ import Imageview from '../../../components/Imageview';
 import { useCallback, useEffect, useState } from 'react';
 import Images from '../../../constants/Images';
 import BoxView from '../../../components/BoxView';
-import Utils from '../../../services/Util';
+import Utils from '../../../services/Utils';
 import { useSelector } from 'react-redux';
 import { StoreStates } from '../../../store/store';
 import NearestVenues from '../../../components/NearestVenues';
 import { isIos } from '../../../constants/IsPlatform';
 import WalletService from '../../../services/WalletService';
+import ShadowCard from '../../../components/ShadowCard';
+import { CSS } from '../../../constants/CSS';
 
 type VenueInfoProps = { venue: Venue, setOffersTab: (tab: boolean) => void };
 
@@ -33,7 +35,7 @@ const VenueInfo: React.FC<
   useEffect(() => {
     setVenuePointsBalance(wallet?.venue_wallets?.find(w => w?.vendor_id === venue?.user_id)?.balance_venue_points || 0)
   }, [wallet])
-  
+
 
   const renderItem_amenity = useCallback(
     ({ item, index }: { item: Amenity; index: number }) => (
@@ -63,7 +65,7 @@ const VenueInfo: React.FC<
         <Textview
           text={item.name}
           style={{
-            fontFamily: Fonts.android_regular,
+            fontFamily: Fonts.regular,
             color: '#3251e4',
             marginTop: 5,
             textAlign: 'center',
@@ -82,11 +84,11 @@ const VenueInfo: React.FC<
   return (
     <View>
       <Textview
-        text={'Description'}
+        text={'About'}
         style={{
           fontSize: Fonts.fs_15,
           color: Colors.black,
-          fontFamily: Fonts.android_medium,
+          fontFamily: Fonts.medium,
           marginTop: isIos ? 24 : 15,
         }}
       />
@@ -94,7 +96,7 @@ const VenueInfo: React.FC<
       <Textview
         text={venue.description}
         style={{
-          fontFamily: Fonts.android_regular,
+          fontFamily: Fonts.regular,
           fontSize: Fonts.fs_13,
           color: Colors.light_grey,
           marginTop: isIos ? 10 : 3,
@@ -107,7 +109,7 @@ const VenueInfo: React.FC<
           style={{
             fontSize: Fonts.fs_15,
             color: Colors.black,
-            fontFamily: Fonts.android_medium,
+            fontFamily: Fonts.medium,
             marginTop: isIos ? 24 : 15,
           }}
         />
@@ -120,27 +122,47 @@ const VenueInfo: React.FC<
                 style={{
                   fontSize: Fonts.fs_14,
                   color: Colors.black,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}
               />
               {hour.status == 1 ? (
-                <Textview
-                  text={Utils.convertTo12HourFormat(hour.start_time) + ' - ' + Utils.convertTo12HourFormat(hour.end_time)}
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: 190 }}>
+                <Text
                   style={{
+                    flex: 1,
+                    textAlign: 'left',
                     fontSize: Fonts.fs_14,
                     color: Colors.black,
-                    fontFamily: Fonts.android_regular,
-                    marginTop: isIos ? 10 : 3,
+                    fontFamily: Fonts.regular
                   }}
-                />
+                >
+                  {hour.start_time}
+                </Text>
+                
+                <Text style={{ textAlign: 'center' }}>{'-'}</Text>
+                
+                <Text
+                  style={{
+                    flex: 1,
+                    textAlign: 'right',
+                    fontSize: Fonts.fs_14,
+                    color: Colors.black,
+                    fontFamily: Fonts.regular
+                  }}
+                >
+                  {hour.end_time}
+                </Text>
+              </View>
+              
+
               ) : (
                 <Textview
                   text={'Closed'}
                   style={{
                     fontSize: Fonts.fs_14,
                     color: Colors.red,
-                    fontFamily: Fonts.android_regular,
+                    fontFamily: Fonts.regular,
                     marginTop: isIos ? 10 : 3,
                   }}
                 />
@@ -148,7 +170,7 @@ const VenueInfo: React.FC<
             </View> : null
         ))}
 
-        <TouchableOpacity onPress={() => setSeeAllDays(!seeAllDays)} style={{ flex: 1 }}>
+        <TouchableOpacity onPress={() => setSeeAllDays(!seeAllDays)} style={{ flex: 1, marginVertical: 13 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -159,9 +181,9 @@ const VenueInfo: React.FC<
               style={{
                 fontSize: Fonts.fs_15,
                 color: Colors.light_blue,
-                fontFamily: Fonts.android_regular,
+                fontFamily: Fonts.regular,
               }}>
-              {'See all'}
+              {seeAllDays === false ? 'See all' : 'See less'}
             </Text>
             <Imageview
               style={{
@@ -178,19 +200,13 @@ const VenueInfo: React.FC<
         </TouchableOpacity>
       </View>
 
-      <BoxView
-        cardStyle={{
-          backgroundColor: Colors.white,
-          paddingHorizontal: isIos ? 20 : 15,
-          paddingVertical: isIos ? 10 : 10,
-          marginTop: isIos ? 30 : 20,
-        }}>
+      <ShadowCard style={{ marginHorizontal: 2 }}>
         <View>
           <Text
             style={{
               fontSize: Fonts.fs_15,
               color: Colors.black,
-              fontFamily: Fonts.android_medium,
+              fontFamily: Fonts.medium,
             }}>
             {'Available Points'}
           </Text>
@@ -199,12 +215,12 @@ const VenueInfo: React.FC<
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-            <View style={{ flex: 1 }}>
+            <View style={{ width: 80 }}>
               <Text
                 style={{
                   fontSize: Fonts.fs_14,
                   color: Colors.black,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}>
                 {'Feather'}
@@ -214,19 +230,19 @@ const VenueInfo: React.FC<
                 style={{
                   fontSize: Fonts.fs_14,
                   color: Colors.light_grey,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}>
                 {wallet.balance_feather_points + ' fts'}
               </Text>
             </View>
 
-            <View style={{ flex: 1 }}>
+            <View style={{ width: 80 }}>
               <Text
                 style={{
                   fontSize: Fonts.fs_14,
                   color: Colors.black,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}>
                 {'Venue'}
@@ -236,7 +252,7 @@ const VenueInfo: React.FC<
                 style={{
                   fontSize: Fonts.fs_14,
                   color: Colors.light_grey,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}>
                 {balance_venue_points + ' pts'}
@@ -245,42 +261,47 @@ const VenueInfo: React.FC<
 
             <TouchableOpacity
               onPress={() => { setOffersTab(true) }}
-              style={{ flex: 1 }}>
+              style={{
+                alignItems: 'flex-end',
+                width: isIos ? 120 : 105
+              }}>
               <Text
                 style={{
                   fontSize: Fonts.fs_13,
                   color: Colors.white,
-                  fontFamily: Fonts.android_regular,
+                  fontFamily: Fonts.regular,
                   backgroundColor: Colors.primary_color_orange,
                   paddingVertical: isIos ? 10 : 7,
                   paddingHorizontal: 7,
                   borderRadius: 5,
-                  width: 95,
                 }}>
                 {'Redeem Now'}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-      </BoxView>
+      </ShadowCard>
 
       <Textview
         text={'Property Amenities'}
         style={{
           fontSize: Fonts.fs_15,
           color: Colors.black,
-          fontFamily: Fonts.android_medium,
+          fontFamily: Fonts.medium,
           marginTop: isIos ? 24 : 15,
         }}
       />
-      <FlatList
+
+      {venue.amenities.length > 0 ? <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={venue.amenities}
         style={{ flexGrow: 0, marginTop: isIos ? 18 : 15 }}
         renderItem={renderItem_amenity}
         keyExtractor={keyExtractor_amenity}
-      />
+      /> :
+        <Text>{'No amenity found!'}</Text>
+      }
 
       <NearestVenues venue={venue} />
     </View>

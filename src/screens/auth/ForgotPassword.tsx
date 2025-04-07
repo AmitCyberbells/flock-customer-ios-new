@@ -1,31 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Platform,
-  Image,
-  Alert,
-  ImageBackground,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { TextInput } from 'react-native';
 import {StyleSheet} from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
-import {Fonts} from '../../constants/Fonts';
 import {Colors} from '../../constants/Colors';
-import Images from '../../constants/Images';
 import {CSS} from '../../constants/CSS';
-import Imageview from '../../components/Imageview';
 import Textview from '../../components/Textview';
 import BoxView from '../../components/BoxView';
-import Loader from '../../components/Loader';
 import AuthLayout from './Layout';
 import ScreenProps from '../../types/ScreenProps';
-import Guest from '../../middleware/Guest';
 import Request from '../../services/Request';
-import Toast from 'react-native-toast-message';
 import MtToast from '../../constants/MtToast';
+import { isIos } from '../../constants/IsPlatform';
 
 const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
   const [email, setemail] = useState('');
@@ -55,7 +39,7 @@ const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
   }
 
   return (
-    <AuthLayout isLoading={loader}>
+    <AuthLayout isLoading={loader} backButton={true} {...props}>
       <Textview
         text={'Forgot Password'}
         style={CSS.title}
@@ -83,7 +67,7 @@ const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
 
 const styles = StyleSheet.create({
   boxView: {
-    paddingVertical: Platform.OS == 'ios' ? 17 : 0,
+    paddingVertical: isIos ? 10 : 0,
     marginTop: 30,
   },
   textInput: {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, View, Text, StyleSheet, TextInputProps, ViewStyle, TextStyle } from 'react-native';
+import { Colors } from '../constants/Colors';
 
 // Define the props type for the component
 interface InputFieldProps extends TextInputProps {
@@ -58,6 +59,7 @@ const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
+        placeholderTextColor={Colors.grey}
         style={[styles.input, inputStyle, error ? styles.inputError : null]}
         onBlur={() => validateInput(value)}
         {...textInputProps}

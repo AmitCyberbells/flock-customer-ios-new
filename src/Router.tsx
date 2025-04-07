@@ -13,6 +13,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {StatusBar} from 'react-native';
 import {Colors} from './constants/Colors';
 import InitializeApp from './middleware/InitializeApp';
+import BootSplash from 'react-native-bootsplash';
 
 const Router = () => {
   const isLoggedIn = useSelector((state: StoreStates) => state.auth.isLoggedIn);
@@ -44,7 +45,7 @@ const Router = () => {
         barStyle="default"
         backgroundColor={Colors.primary_color_orange}
       />
-      <NavigationContainer>
+      <NavigationContainer onReady={() => BootSplash.hide({fade: true})}>
         {isLoggedIn ? <SideMenu /> : <AuthNavigator />}
 
         <Toast config={toastConfig} />
