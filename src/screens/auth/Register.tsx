@@ -23,6 +23,7 @@ import MtToast from '../../constants/MtToast';
 import { isIos } from '../../constants/IsPlatform';
 import { Environment } from '../../../env';
 import { API } from '../../services/API';
+import { useIsFocused } from '@react-navigation/native';
 
 const Register: React.FC<ScreenProps<'Register'>> = props => {
 
@@ -39,6 +40,23 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
   const [datePickerDate, setDatePickerDate] = useState(maxDate);
 
   const [form, setForm] = useState(RegisterForm);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      setForm(prevForm => {
+        const updatedForm = { ...prevForm };
+
+        Object.keys(updatedForm.fields).forEach((fieldKey: string) => {
+          updatedForm.fields[fieldKey as keyof FormFields].value = '';
+          updatedForm.fields[fieldKey as keyof FormFields].error = '';
+        });
+
+        return updatedForm;
+      });
+    }
+
+  }, [isFocused])
 
   const handleInputChange = (field: keyof FormFields, value: any) => {
     const input = form.validate(field, value);
@@ -115,7 +133,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
 
     setDatePickerDate(date);
   }
-  
+
   function loginClick() {
     props?.navigation?.navigate('Login');
   }
@@ -270,7 +288,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         }}>
         <TextInput
           style={styles.textInput}
-          placeholder="Enter phone number"
+          placeholder="Enter phone number (optional)"
           placeholderTextColor={Colors.grey}
           keyboardType={'phone-pad'}
           onChangeText={value => handleInputChange('phone', value || '')}

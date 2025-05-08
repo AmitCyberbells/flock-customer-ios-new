@@ -27,7 +27,7 @@ const Validator = {
         message: 'Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.'
     },
     phone: {
-        validate: (value: any) => Utils.isPhone(value),
+        validate: (value: any) => (Utils.isPhone(value) || Utils.isEmpty(value)),
         message: 'Please enter a 10 digit phone number.'
     },
 };

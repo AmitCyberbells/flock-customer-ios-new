@@ -54,7 +54,7 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
 
     const renderItem_transactionList = useCallback(
         ({ item, index }: { item: WalletLog, index: number }) => {
-            const venue = item.checkin ? item.checkin.venue : (item.redemption ? item.redemption.offer.venue : null)
+            const venue = item.checkin ? item.checkin?.venue : (item.redemption ? item.redemption.offer?.venue : null)
             const offer = item.redemption ? item.redemption.offer : null;
 
             return (<View>
