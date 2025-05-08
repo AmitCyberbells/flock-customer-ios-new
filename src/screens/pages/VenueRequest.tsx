@@ -17,6 +17,7 @@ import LocationSearch from '../../components/LocationSearch';
 import Loader from '../../components/Loader';
 import MtToast from '../../constants/MtToast';
 import InputField from '../../components/InputField';
+import { Fonts } from '../../constants/Fonts';
 
 interface VenueLocation {
   address: string;
@@ -61,9 +62,8 @@ const VenueRequest: React.FC<ScreenProps<'VenueRequest'>> = ({ navigation }) => 
       })
 
     } catch (error) {
+      setLoader(false);
       MtToast.error('Failed to submit venue request. Please try again.');
-    } finally {
-      setLoader(false)
     }
   }
 
@@ -91,6 +91,7 @@ const VenueRequest: React.FC<ScreenProps<'VenueRequest'>> = ({ navigation }) => 
           <LocationSearch onSelect={handleLocationSelect} resetButton={false} style={{ marginBottom: 16 }} />
 
           <TouchableOpacity
+            activeOpacity={0.9}
             style={[
               styles.continueButton,
               (!venueName.trim() || !location) && styles.continueButtonDisabled
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 10,
     paddingHorizontal: 20,
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
     color: Colors.black,
     shadowColor: Colors.black,
     shadowOffset: {
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
   },
   inputText: {
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
     color: Colors.black,
   },
   placeholderText: {
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 10,
     paddingHorizontal: 20,
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
     color: Colors.black,
     shadowColor: Colors.black,
     shadowOffset: {
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   recentSearchesTitle: {
-    fontSize: 14,
+    fontSize: Fonts.fs_14,
     fontWeight: '600',
     color: '#666',
     marginBottom: 12,
@@ -214,19 +215,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   recentSearchName: {
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
     fontWeight: '500',
     color: Colors.black,
     marginBottom: 4,
   },
   recentSearchAddress: {
-    fontSize: 14,
+    fontSize: Fonts.fs_14,
     color: '#666',
   },
   continueButton: {
     height: 56,
     backgroundColor: Colors.primary_color_orange,
-    borderRadius: 10,
+    borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
   },
   continueButtonText: {
     color: Colors.white,
-    fontSize: 18,
+    fontSize: Fonts.fs_18,
     fontWeight: '600',
   },
 });

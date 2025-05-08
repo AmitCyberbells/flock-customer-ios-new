@@ -186,11 +186,17 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
         }, 500);
     }, [radius, location]);
 
+    const navigateToVenue = (venue: Venue) => {
+        actionSheetRef.current?.hide();
+        
+        props.navigation?.navigate('VenueDetails', { venue_id: venue.id });
+    }
+
     const renderVenueCard = (venue: Venue, index: number) => (
         <View>
 
             {venue.images.length > 0 ?
-                <Image source={{ uri: venue.images[0].image }} style={styles.cardImage} />
+                <Image source={{ uri: venue.images[venue.images.length-1].large_image }} style={styles.cardImage} />
                 : <FallbackSvg
                     wrapperStyle={{ marginTop: 0 }}
                     overlayStyle={{ borderRadius: 0 }}
@@ -209,7 +215,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                     </View> */}
                 </View>
 
-                <TouchableOpacity onPress={() => props.navigation?.navigate('VenueDetails', { venue_id: venue.id })}>
+                <TouchableOpacity activeOpacity={0.9} onPress={() => navigateToVenue(venue)}>
                     <Text style={styles.cardTitle}>{venue.name}</Text>
                 </TouchableOpacity>
 
@@ -276,7 +282,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                 </ShadowCard>}
 
             <View style={[styles.headerContainer, { zIndex: 999 }]}>
-                <TouchableOpacity onPress={() => props.navigation?.goBack()} style={{ width: 50 }}>
+                <TouchableOpacity activeOpacity={0.9} onPress={() => props.navigation?.goBack()} style={{ width: 50 }}>
                     <Imageview
                         url={Images.back}
                         style={{
@@ -432,7 +438,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Ensures content stays vertically centered
     },
     radiusLabel: {
-        fontSize: 14,
+        fontSize: Fonts.fs_14,
         fontWeight: '600',
         color: '#333',
         textAlign: 'center',
@@ -462,13 +468,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     radiusValue: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         fontWeight: '600',
         color: '#333',
         marginRight: 4,
     },
     radiusUnit: {
-        fontSize: 12,
+        fontSize: Fonts.fs_12,
         color: '#666',
     },
     slider: {
@@ -482,7 +488,7 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
     rangeLabel: {
-        fontSize: 10,
+        fontSize: Fonts.fs_10,
         color: '#666',
     },
     card: {
@@ -512,7 +518,7 @@ const styles = StyleSheet.create({
         gap: 3
     },
     cardType: {
-        fontSize: 12,
+        fontSize: Fonts.fs_12,
         color: '#666',
         backgroundColor: '#f0f0f0',
         paddingHorizontal: 8,
@@ -520,12 +526,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     cardTitle: {
-        fontSize: 18,
+        fontSize: Fonts.fs_18,
         fontWeight: 'bold',
         marginBottom: 4,
     },
     cardDescription: {
-        fontSize: 14,
+        fontSize: Fonts.fs_14,
         color: '#666',
         marginBottom: 8,
     },
@@ -534,12 +540,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     ratingText: {
-        fontSize: 14,
+        fontSize: Fonts.fs_14,
         color: '#FFD700',
         fontWeight: 'bold',
     },
     distanceText: {
-        fontSize: 12,
+        fontSize: Fonts.fs_12,
         color: '#666',
         marginTop: 4,
     },
@@ -557,7 +563,7 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     categoryText: {
-        fontSize: 12,
+        fontSize: Fonts.fs_12,
         color: '#666',
     },
     markerContainer: {
@@ -575,7 +581,7 @@ const styles = StyleSheet.create({
         borderColor: '#8282FF',
     },
     markerIcon: {
-        fontSize: 20,
+        fontSize: Fonts.fs_20,
     },
     currentLocationButton: {
         //marginLeft: 5,
@@ -598,7 +604,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     locationButtonIcon: {
-        fontSize: 18,
+        fontSize: Fonts.fs_18,
     },
     headerContainer: {
         flexDirection: 'row',
@@ -639,7 +645,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     inputText: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
     },
     placeholderText: {
@@ -653,7 +659,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         borderRadius: 28,
         paddingHorizontal: 20,
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
         shadowColor: Colors.black,
         shadowOffset: {

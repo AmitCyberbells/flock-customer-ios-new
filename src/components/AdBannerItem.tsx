@@ -16,7 +16,7 @@ const AdBannerItem: React.FC<AdBannerProps> = (props) => {
 
     return (
         <View style={CSS.home_value_image}>
-            <TouchableOpacity onPress={() => item.venue ? openVenue(item.venue) : {}} style={{ flex: 1 }}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => item.venue ? openVenue(item.venue) : {}} style={{ flex: 1 }}>
                 {loading && (
                     <SkeletonView />
                 )}

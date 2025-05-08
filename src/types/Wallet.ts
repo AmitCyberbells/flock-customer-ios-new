@@ -28,7 +28,9 @@ export type WalletLog = {
     updated_venue_points: number ,
     remark?: string ,
     payload?: any,
-    created_at: string
+    created_at: string,
+    checkin?: any,
+    redemption?: any
 }
 
 export type WalletTxnType = 'add' | 'minus';

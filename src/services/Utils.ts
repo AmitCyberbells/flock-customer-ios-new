@@ -70,6 +70,17 @@ const Utils = {
       /\.(doc|docx|pdf|txt|jpg|jpeg|png|gif|mp4|avi|flv|wmv|mp3|wav|ogg)$/;
     return fileRegex.test(file);
   },
+  isValidGeoRange: (lat:any, lon:any) => {
+    lat = parseFloat(lat);
+    lon = parseFloat(lon);
+    
+    return (
+      !isNaN(lat) &&
+      !isNaN(lon) &&
+      lat >= -90 && lat <= 90 &&
+      lon >= -180 && lon <= 180
+    );
+  },
   convertToUrlParams: (obj: any) => {
     const params = new URLSearchParams();
 
@@ -142,6 +153,10 @@ const Utils = {
     return [...Array(length)]
       .map(() => Math.random().toString(36).charAt(2))
       .join('');
+  },
+  stripHtmlTags(content: string|undefined): string {
+    if (!content) return '';
+    return content.replace(/<[^>]*>?/gm, '').trim();
   },
   rwdSize(size: number): number {
     const { width, height } = Dimensions.get('window');

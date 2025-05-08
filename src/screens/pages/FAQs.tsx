@@ -165,7 +165,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                     />
 
                     :
-                    <NoData />
+                    <NoData isLoading={isLoading} />
             }
 
 

@@ -18,6 +18,7 @@ import IsVenueOpened from '../constants/IsVenueOpened';
 import { isIos } from '../constants/IsPlatform';
 import MtToast from '../constants/MtToast';
 import Utils from '../services/Utils';
+import { useEffect } from 'react';
 
 type VenueItem = {
   venue: Venue;
@@ -32,6 +33,8 @@ const VenueItem: React.FC<VenueItem> = ({
   openVenuePage,
   setIsLoading,
 }) => {
+
+  const isOpened = IsVenueOpened(venue);
 
   const toggleVenue = (venue: Venue) => {
     setIsLoading(true);
@@ -59,10 +62,11 @@ const VenueItem: React.FC<VenueItem> = ({
 
   const tags = (venue.tags?.length || 0) > 0 ? venue.tags?.map(t => t.name).join(' | ') : ''
 
-  const source = venue.images.length > 0 ? venue.images[0].image : Images.uri(Images.placeholder);
+  const source = venue.images.length > 0 ? venue.images[venue.images.length - 1].medium_image : Images.uri(Images.placeholder);
 
   return (
     <TouchableOpacity
+      activeOpacity={0.9}
       onPress={() => openVenuePage(venue)}
       style={{
         width: '46%',
@@ -72,7 +76,7 @@ const VenueItem: React.FC<VenueItem> = ({
       }}>
       <ImageBackground
         source={{ uri: source }}
-        imageStyle={{ opacity: venue.status == 0 ? 0.1 : 0.45 }}
+        imageStyle={{ opacity: !isOpened ? 0.35 : 0.65 }}
         resizeMode={'stretch'}
         style={{
           width: '100%',
@@ -93,7 +97,7 @@ const VenueItem: React.FC<VenueItem> = ({
               justifyContent: 'space-between',
             }}>
 
-            {!IsVenueOpened(venue) ? (
+            {!isOpened ? (
               <View
                 style={{
                   width: '30%',
@@ -122,6 +126,7 @@ const VenueItem: React.FC<VenueItem> = ({
             )}
 
             <TouchableOpacity
+              activeOpacity={0.9}
               onPress={() => toggleVenue(venue)}
               style={{ flex: 1, padding: 7 }}>
               <Imageview
@@ -160,22 +165,7 @@ const VenueItem: React.FC<VenueItem> = ({
                 marginHorizontal: 5,
                 marginTop: isIos ? 3 : 0,
               }}
-            >{venueSubTitle}</Text>: null}
-
-            {/* {(venue.tags?.length || 0) > 0 ?
-              <Textview
-                lines={1}
-                text={tags || ''}
-                style={{
-                  fontFamily: Fonts.regular,
-                  color: Colors.whitesmoke,
-                  fontSize: Fonts.fs_11,
-                  marginHorizontal: 5,
-                  marginTop: isIos ? 3 : 0,
-                }}
-              />
-              : null
-            } */}
+            >{venueSubTitle}</Text> : null}
           </View>
 
           <View

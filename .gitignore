@@ -25,6 +25,7 @@ ios/main.jsbundle
 assets/
 ios/flockloyalty/Images.xcassets
 ios/Pods/
+ios/DerivedData/
 
 # Metro
 .metro-health-check*

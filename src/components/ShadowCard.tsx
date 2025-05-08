@@ -20,7 +20,7 @@ const ShadowCard = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 16,
     //marginVertical: 8,
     marginHorizontal: 2,

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import FastImage, { FastImageProps, Source } from '@d11/react-native-fast-image';
 import Images from '../constants/Images';
+import { useSelector } from 'react-redux';
+import { StoreStates } from '../store/store';
 import SkeletonView from './SkeletonView';
 import { ImageSourcePropType, StyleProp, ImageStyle } from "react-native";
 

@@ -14,7 +14,7 @@ const TransactionHistory: React.FC<ScreenProps<'TransactionHistory'>> = (props) 
             <Loader isLoading={loader} />
 
             <VirtualizedList>
-                <View style={{ height: Utils.DEVICE_HEIGHT-150 }}>
+                <View style={{ flex: 1 }}>
                     <TransactionList setLoader={setLoader} />
                 </View>
             </VirtualizedList>

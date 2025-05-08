@@ -28,11 +28,10 @@ import Category from '../../types/Category';
 import TabHeader from '../../components/TabHeader';
 import Venue from '../../types/Venue';
 import AdBanner from '../../types/AdBanner';
-import WithAuth from '../../middleware/WithAuth';
 import MtToast from '../../constants/MtToast';
 import { isIos } from '../../constants/IsPlatform';
-import SkeletonView from '../../components/SkeletonView';
 import AdBannerItem from '../../components/AdBannerItem';
+import Firebase from '../../services/Firebase';
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -41,6 +40,7 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
   const [categories, setCategories] = useState<Array<Category>>([]);
   const [adBanners, setAdBanners] = useState<Array<AdBanner>>([]);
   const { hasPermission, requestPermission } = useCameraPermission();
+  const { updateDeviceToken } = Firebase();
 
   useEffect(() => {
     Request.fetch_categories((success, error) => {
@@ -52,6 +52,8 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
     });
 
     fetch_adBanners();
+    updateDeviceToken();
+
   }, []);
 
   const fetch_adBanners = () => {
@@ -82,6 +84,7 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
   const renderItem_category = useCallback(
     ({ item, index }: Item) => (
       <TouchableOpacity
+        activeOpacity={0.9}
         onPress={() => category_click(item, index)}
         style={styles.categoryItem}>
         <View style={styles.categoryIconContainer}>
@@ -153,7 +156,7 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
             </View>
 
             <View style={styles.scannerContainer}>
-              <TouchableOpacity onPress={scanQR}>
+              <TouchableOpacity activeOpacity={0.9} onPress={scanQR}>
                 <Imageview
                   style={styles.scannerIcon}
                   imageType={'local'}
@@ -162,11 +165,11 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
               </TouchableOpacity>
             </View>
           </View>
-          
+
           {categories.length ? (
             <View style={styles.contentContainer}>
 
-              <View style={{marginTop: deviceHeight > 716 ? 10: 0}}>
+              <View style={{ marginTop: deviceHeight > 716 ? 10 : 0 }}>
                 <Textview text={'Categories '} style={[styles.categoriesTitle]} />
 
                 <View style={[styles.categoriesList]}>
@@ -182,8 +185,9 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
                 </View>
               </View>
 
-              <View style={[CSS.home_tab_click, {marginTop:  deviceHeight > 716 ? 35: 20}]}>
+              <View style={[CSS.home_tab_click, { marginTop: deviceHeight > 716 ? 35 : 20 }]}>
                 <TouchableOpacity
+                  activeOpacity={0.9}
                   onPress={openHotVenues}
                   style={CSS.hot_button}>
                   <Imageview
@@ -200,7 +204,7 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
               </View>
 
               {adBanners.length > 0 ? (
-                <View style={[{ flex: 1, marginTop:  deviceHeight > 716 ? 35: 20 }]}>
+                <View style={[{ flex: 1, marginTop: deviceHeight > 716 ? 35 : 20 }]}>
                   <AppIntroSlider
                     renderItem={({ item }) => <AdBannerItem item={item} openVenue={openVenue} />}
                     data={adBanners}
@@ -216,7 +220,7 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
               )}
             </View>
           ) : (
-            <NoData />
+            <NoData isLoading={loader} />
           )}
         </View>
       </ScrollView>
@@ -334,4 +338,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WithAuth(Home);
+export default Home;

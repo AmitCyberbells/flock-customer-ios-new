@@ -6,12 +6,19 @@ import { updateWallet } from "../store/walletReducer";
 const WalletService = () => {
     const dispatch = useDispatch();
 
-    const updateWalletBalances = async () => {
+    const updateWalletBalances = async (setLoader?: (isLoading: boolean) => void) => {
+        if (setLoader) {
+            setLoader(true);
+        }
         Request.walletBalances((success, error) => {
             if (success) {
                 dispatch(updateWallet(success.data));
             } else {
-                MtToast.error(error.message)
+                MtToast.error('Update Balance: '+error.message)
+            }
+
+            if (setLoader) {
+                setLoader(false);
             }
         })
     }

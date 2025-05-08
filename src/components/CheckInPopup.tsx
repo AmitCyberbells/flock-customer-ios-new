@@ -14,6 +14,7 @@ import Images from "../constants/Images";
 import Venue from '../types/Venue';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import { Colors } from '../constants/Colors';
+import { Fonts } from '../constants/Fonts';
 
 // Get device dimensions
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -26,8 +27,8 @@ const normalize = (size: number) => Math.round(scale * size);
 const AppBirdIcon = () => (
   <View style={styles.smallBirdCircle}>
     <Image
-      source={Images.birdapp}
-      style={styles.iconImage}
+      source={Images.bird_logo}
+      style={[styles.iconImage, { width: normalize(50), height: normalize(50) }]}
       resizeMode="contain"
     />
   </View>
@@ -63,7 +64,7 @@ const CheckInPopup = ({ visible, onClose, venue }: CheckInPopupProps) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             {/* Close button */}
-            <TouchableOpacity onPress={onClose} style={{
+            <TouchableOpacity activeOpacity={0.9} onPress={onClose} style={{
               position: 'absolute',
               right: 20,
               top: 20,
@@ -78,7 +79,7 @@ const CheckInPopup = ({ visible, onClose, venue }: CheckInPopupProps) => {
             {/* Success Image */}
             <View style={styles.birdContainer}>
               <Image
-                source={Images.success}
+                source={Images.FlockBird}
                 style={styles.birdImage}
                 resizeMode="contain"
               />
@@ -106,7 +107,7 @@ const CheckInPopup = ({ visible, onClose, venue }: CheckInPopupProps) => {
             <TouchableOpacity
               style={styles.doneButton}
               onPress={onClose}
-              activeOpacity={0.8}
+              activeOpacity={0.9}
             >
               <Text style={styles.doneButtonText}>Done</Text>
             </TouchableOpacity>
@@ -149,16 +150,16 @@ const styles = StyleSheet.create({
     }),
   },
   headerTitle: {
-    fontSize: normalize(22),
+    fontSize: Fonts.fs_22,
     fontWeight: '700',
     color: '#000',
     textAlign: 'center',
   },
   headerSubtitle: {
-    fontSize: normalize(16),
+    fontSize: Fonts.fs_16,
     color: '#000',
     marginTop: normalize(4),
-    marginBottom: normalize(16),
+    marginBottom: Fonts.fs_16,
     textAlign: 'center',
   },
   birdContainer: {
@@ -166,14 +167,14 @@ const styles = StyleSheet.create({
     height: normalize(120),
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: normalize(10),
+    marginVertical: Fonts.fs_10,
   },
   birdImage: {
-    width: normalize(130),
-    height: normalize(130),
+    width: normalize(110),
+    height: normalize(110),
   },
   venueName: {
-    fontSize: normalize(20),
+    fontSize: Fonts.fs_20,
     fontWeight: '600',
     color: '#333',
     marginTop: normalize(10),
@@ -228,17 +229,17 @@ const styles = StyleSheet.create({
     marginBottom: normalize(8),
   },
   iconImage: {
-    width: normalize(32),
-    height: normalize(32),
+    width: normalize(40),
+    height: normalize(40),
   },
   appPointText: {
-    fontSize: normalize(14),
+    fontSize: Fonts.fs_14,
     fontWeight: '600',
     color: '#FFF',
     textAlign: 'center',
   },
   venuePointText: {
-    fontSize: normalize(14),
+    fontSize: Fonts.fs_14,
     fontWeight: '600',
     color: '#fff',
     textAlign: 'center',
@@ -247,12 +248,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5822A',
     width: '100%',
     padding: normalize(16),
-    borderRadius: normalize(16),
+    borderRadius: 5,
     alignItems: 'center',
   },
   doneButtonText: {
     color: 'white',
-    fontSize: normalize(18),
+    fontSize: Fonts.fs_18,
     fontWeight: '600',
   }
 });

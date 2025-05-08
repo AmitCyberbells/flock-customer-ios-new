@@ -131,7 +131,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
     }
 
     const verifyContact = () => {
-        
+
         if (!contact) {
             return MtToast.error('Contact is required');
         };
@@ -312,7 +312,10 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
                                 :
 
-                                <TouchableOpacity onPress={() => confirm(verifyEmail)} style={{ padding: 5 }}>
+                                <TouchableOpacity
+                                    activeOpacity={0.9}
+                                    onPress={() => confirm(verifyEmail)}
+                                    style={{ padding: 5 }}>
                                     <Text style={{ color: Colors.primary_color_orange }}>
                                         {"Verify"}
                                     </Text>
@@ -364,7 +367,10 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                     resizeMode={"contain"}
                                 />
                                 :
-                                <TouchableOpacity onPress={() => confirm(verifyContact)} style={{ padding: 5 }}>
+                                <TouchableOpacity
+                                    activeOpacity={0.9}
+                                    onPress={() => confirm(verifyContact)}
+                                    style={{ padding: 5 }}>
                                     <Text
                                         style={{
                                             color: Colors.primary_color_orange,
@@ -377,11 +383,11 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
                     </ShadowCard>
 
-                    <TouchableOpacity onPress={submit} disabled={!isFormValid()} style={{
+                    <TouchableOpacity activeOpacity={0.9} onPress={submit} disabled={!isFormValid()} style={{
                         backgroundColor: Colors.primary_color_orange,
                         marginTop: 40,
                         paddingVertical: isIos ? 15 : 10,
-                        borderRadius: 10,
+                        borderRadius: 5,
                         height: 50,
                         justifyContent: 'center',
                         opacity: isFormValid() ? 1 : 0.5

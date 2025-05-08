@@ -9,7 +9,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({buttonText, callback, button
     <>
       <TouchableOpacity
         style={buttonStyle ?? styles.button}
-        activeOpacity={0.4}
+        activeOpacity={0.9}
         onPress={callback}>
         <Text
           style={[

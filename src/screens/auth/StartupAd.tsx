@@ -58,7 +58,7 @@ const StartupAd: React.FC<ScreenProps<'StartupAd'>> = (props) => {
                 resizeMode={"stretch"}
                 paused={pause}
                 style={styles.backgroundVideo}
-            /> : <NoData />}
+            /> : <NoData isLoading={loader} />}
 
             <View style={{
                 position: 'absolute',
@@ -71,6 +71,7 @@ const StartupAd: React.FC<ScreenProps<'StartupAd'>> = (props) => {
                 borderRadius: 10
             }}>
                 <TouchableOpacity
+                    activeOpacity={0.9}
                     onPress={close_tutorial}
                 >
                     <Textview
@@ -81,7 +82,7 @@ const StartupAd: React.FC<ScreenProps<'StartupAd'>> = (props) => {
                             textAlign: 'center',
                             fontSize: Fonts.fs_20
                         }}
-                       
+
                         text_click={close_tutorial.bind(this)}
                     />
                 </TouchableOpacity>

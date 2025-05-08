@@ -15,6 +15,9 @@ import {
 import { useEffect } from 'react';
 import UserCard from '../components/UserCard';
 import { isIos } from '../constants/IsPlatform';
+import { resetWallet } from '../store/walletReducer';
+import { resetLocation } from '../store/locationReducer';
+import { resetUserToStore } from '../store/userReducer';
 
 export default function CustomDrawerContent(
   props: DrawerContentComponentProps,
@@ -57,6 +60,9 @@ export default function CustomDrawerContent(
     // take confirmation before logout
     // api to revoke server sessions
     dispatch(logout());
+    dispatch(resetWallet());
+    resetLocation();
+    dispatch(resetUserToStore());
   };
 
   return (

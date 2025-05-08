@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,8 +11,8 @@ import {
 import Imageview from '../components/Imageview';
 import Textview from '../components/Textview';
 import Images from '../constants/Images';
-import {Fonts} from '../constants/Fonts';
-import {Colors} from '../constants/Colors';
+import { Fonts } from '../constants/Fonts';
+import { Colors } from '../constants/Colors';
 import Home from './tabs/Home';
 import Notifications from './tabs/Notifications';
 import Dash from './tabs/Dash';
@@ -21,7 +21,7 @@ import Profile from './tabs/Profile';
 import ScreenProps from '../types/ScreenProps';
 
 const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
-  const {navigation} = props;
+  const { navigation } = props;
   const routes = navigation?.getState().routes;
   const [index, set_index] = useState(0);
 
@@ -32,7 +32,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
   }
 
   return (
-    <View style={{height: '100%'}}>
+    <View style={{ height: '100%' }}>
       {index === 0 ? (
         <Home navigation={props.navigation} />
       ) : index === 1 ? (
@@ -58,7 +58,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
           bottom: 15,
           left: '38%',
         }}>
-        <View style={{height: 70}} />
+        <View style={{ height: 70 }} />
       </View>
 
       <View
@@ -79,8 +79,9 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
             marginTop: 15,
           }}>
           <TouchableOpacity
+            activeOpacity={0.9}
             onPress={() => click_handle('Home', 0)}
-            style={{alignContent: 'center', alignItems: 'center'}}>
+            style={{ alignContent: 'center', alignItems: 'center' }}>
             <Imageview
               style={{
                 width: 30,
@@ -105,6 +106,7 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            activeOpacity={0.9}
             onPress={() => click_handle('Notification', 1)}
             style={{
               alignContent: 'center',
@@ -134,8 +136,9 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
             />
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.9}
             onPress={() => click_handle('Favorites', 3)}
-            style={{alignContent: 'center', alignItems: 'center'}}>
+            style={{ alignContent: 'center', alignItems: 'center' }}>
             <Imageview
               style={{
                 width: 30,
@@ -159,8 +162,9 @@ const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
             />
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.9}
             onPress={() => click_handle('Profile', 4)}
-            style={{alignContent: 'center', alignItems: 'center'}}>
+            style={{ alignContent: 'center', alignItems: 'center' }}>
             <Imageview
               style={{
                 width: 30,

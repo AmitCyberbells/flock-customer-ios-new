@@ -7,6 +7,7 @@ import { Colors } from '../../constants/Colors';
 import PageHeader from '../../navigations/PageHeader';
 import NoData from '../../components/NoData';
 import { Environment } from '../../../env';
+import { Fonts } from '../../constants/Fonts';
 
 const VideoPlayer: React.FC<ScreenProps<'VideoPlayer'>> = (props) => {
     const { route, navigation } = props;
@@ -65,9 +66,9 @@ const VideoPlayer: React.FC<ScreenProps<'VideoPlayer'>> = (props) => {
                 resizeMode={"stretch"}
                 paused={pause}
                 style={styles.backgroundVideo}
-            /> : <NoData />}
+            /> : <NoData isLoading={loader}/>}
 
-            <TouchableOpacity style={{
+            <TouchableOpacity activeOpacity={0.9} style={{
                 height: isIos ? 60 : 50,
                 marginTop: 10,
                 backgroundColor: Colors.primary_color_orange,
@@ -80,7 +81,7 @@ const VideoPlayer: React.FC<ScreenProps<'VideoPlayer'>> = (props) => {
 
                 <Text style={{
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: Fonts.fs_20,
                     alignSelf: 'center'
                 }}>Learn More</Text>
             </TouchableOpacity>

@@ -9,6 +9,7 @@ import ScreenProps from "../../types/ScreenProps"
 const QrPreview: React.FC<ScreenProps<'QrPreview'>> = (props) => {
 
     const data = props.route?.params['data'] || '';
+    const couponCode = props.route?.params['coupon'] || '';
 
     return (
         <View style={[CSS.Favcontainer, styles.container]}>
@@ -27,13 +28,17 @@ const QrPreview: React.FC<ScreenProps<'QrPreview'>> = (props) => {
                 logoBackgroundColor='transparent'
             />
 
+            {couponCode ? <View style={styles.chipContainer}>
+                <Text style={styles.chip}>Coupon code: {couponCode}</Text>
+            </View> : null}
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: "flex-start", 
+        justifyContent: "flex-start",
         alignItems: 'center'
     },
     heading: {
@@ -49,7 +54,25 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: Fonts.fs_18,
         fontWeight: '600'
-    }
+    },
+    chipContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 6, // Adds spacing between items (React Native 0.71+)
+        marginTop: 20,
+    },
+    chip: {
+        fontSize: Fonts.fs_13,
+        color: Colors.grey,
+        fontFamily: Fonts.medium,
+        backgroundColor: Colors.whitesmoke,
+        borderRadius: 5,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        marginRight: 6,
+        overflow: "hidden",
+    },
 })
+
 
 export default QrPreview;

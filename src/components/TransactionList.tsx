@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
+import { Dimensions, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import VirtualizedList from "../components/VirtualizedList";
 import { isIos } from "../constants/IsPlatform";
 import { useCallback, useEffect, useState } from "react";
@@ -14,15 +14,20 @@ import Toast from "react-native-toast-message";
 import NoData from "./NoData";
 import Imageview from "./Imageview";
 import Images from "../constants/Images";
+import Utils from "../services/Utils";
+import MtToast from "../constants/MtToast";
+import { CSS } from "../constants/CSS";
 
 type TransactionListProps = {
     setLoader: (isLoading: boolean) => void,
-    recordLimit?: number
+    recordLimit?: number,
+    windowHeight?: number,
 }
 
 const TransactionList: React.FC<TransactionListProps> = (props) => {
-    const { setLoader, recordLimit } = props;
+    const { setLoader, recordLimit, windowHeight } = props;
     const [transactions, setTransactions] = useState<Array<WalletLog>>([]);
+    const [loading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         loadTransactions();
@@ -30,26 +35,29 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
 
     const loadTransactions = () => {
         setLoader(true);
+        setIsLoading(true);
+
         const body = recordLimit ? { record_limit: recordLimit } : {};
 
         Request.walletLogs(body, (success, error) => {
             setLoader(false);
+            setIsLoading(false);
 
             if (success) {
                 setTransactions(success.data);
+                console.log('transaction log: ', success.data)
             } else {
-                Toast.show({
-                    type: 'MtToastError',
-                    text1: error.message,
-                    position: 'bottom'
-                })
+                MtToast.error(error.message)
             }
         })
     }
 
     const renderItem_transactionList = useCallback(
-        ({ item, index }: { item: WalletLog, index: number }) => (
-            <View>
+        ({ item, index }: { item: WalletLog, index: number }) => {
+            const venue = item.checkin ? item.checkin.venue : (item.redemption ? item.redemption.offer.venue : null)
+            const offer = item.redemption ? item.redemption.offer : null;
+
+            return (<View>
                 <View style={styles.transactionItem}>
                     <ShadowCard
                         style={styles.transactionImage}>
@@ -68,10 +76,18 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
                             style={styles.transactionName}
                             lines={2}
                         />
-                        <Textview
-                            text={item.created_at}
-                            style={styles.transactionDate}
-                        />
+                        {offer ? <View style={{ marginBottom: isIos ? 5 : 3 }}><Text style={{ fontSize: Fonts.fs_13 }} numberOfLines={1}>{offer.name}</Text></View> : null}
+                        {venue ? <View style={{ flexDirection: 'row', gap: isIos ? 4 : 2 }}>
+                            <Image src={Images.uri(Images.VenueOffer)}
+                                style={styles.pointIcon}
+                            />
+                            <Text style={{ fontSize: Fonts.fs_13 }} numberOfLines={1}>{venue.name}</Text>
+                        </View>: null}
+                        <View style={{ flexDirection: 'row', gap: 2, marginTop: isIos ? 5 : 3 }}>
+                            <Icon name="clock" color={Colors.light_grey} />
+                            <Text style={{ fontSize: Fonts.fs_10 }}>{item.created_at}</Text>
+                        </View>
+
                     </View>
 
                     {item.txn_type === 'add' ?
@@ -108,8 +124,8 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
                     }
                 </View>
                 <View style={styles.divider} />
-            </View>
-        ),
+            </View>)
+        },
         [transactions],
     );
 
@@ -128,8 +144,9 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
                     renderItem={renderItem_transactionList}
                     keyExtractor={keyExtractor_transactionList}
                 /> :
-
-                <NoData />
+                <View style={{ height: windowHeight ?? Utils.DEVICE_HEIGHT - 100 }}>
+                    <NoData isLoading={loading} />
+                </View>
             }
         </View>
     )
@@ -193,7 +210,7 @@ const styles = StyleSheet.create({
     transactionName: {
         fontFamily: Fonts.medium,
         color: Colors.black,
-        fontSize: Fonts.fs_17,
+        fontSize: Fonts.fs_14,
     },
     transactionDate: {
         fontFamily: Fonts.regular,
@@ -205,4 +222,8 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.medium,
         fontSize: Fonts.fs_16,
     },
+    pointIcon: {
+        width: isIos ? 20 : 20,
+        height: isIos ? 17 : 15
+    }
 })

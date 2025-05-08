@@ -29,7 +29,8 @@ type Venue = {
     checkins_count?: number,
     checkedin_count?: number,
     nearest_venues?: Array<NearestVenue>,
-    dietary?: Array<Dietary>
+    dietary?: Array<Dietary>,
+    sibling_venues?: Array<VenueSummary>
 }
 
 export type NearestVenue = {
@@ -63,7 +64,8 @@ export type Offer = {
     venue_points: number,
     images: Array<Imageable>,
     status: number,
-    redeemed?: RedeemedOffers,
+    redeemed?: Array<RedeemedOffers>,
+    last_redeem?: RedeemedOffers,
     favourite: any,
     venue?: VenueSummary,
     expire_at?: string
@@ -94,6 +96,9 @@ export type Tag = {
 export type Imageable = {
     file_name: string,
     image: string,
+    small_image: string,
+    medium_image: string,
+    large_image: string,
 }
 
 export type Dietary = {

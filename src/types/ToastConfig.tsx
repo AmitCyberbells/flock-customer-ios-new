@@ -2,6 +2,7 @@ import {Text, View} from 'react-native';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 import {Colors} from '../constants/Colors';
 import Icon from '@react-native-vector-icons/fontawesome6';
+import { Fonts } from '../constants/Fonts';
 
 const toastConfig = {
   /*
@@ -14,7 +15,7 @@ const toastConfig = {
       style={{borderLeftColor: 'pink'}}
       contentContainerStyle={{paddingHorizontal: 15}}
       text1Style={{
-        fontSize: 15,
+        fontSize: Fonts.fs_15,
         fontWeight: '400',
       }}
     />
@@ -27,10 +28,10 @@ const toastConfig = {
     <ErrorToast
       {...props}
       text1Style={{
-        fontSize: 17,
+        fontSize: Fonts.fs_17,
       }}
       text2Style={{
-        fontSize: 15,
+        fontSize: Fonts.fs_15,
       }}
     />
   ),
@@ -70,7 +71,7 @@ export const ToastView = (props: any) => {
           style={{
             color: Colors.white,
           }}>
-          {props.text1 || 'Unkonwn'}
+          {props.text1 || 'Something went wrong!'}
         </Text>
         {props.text2 != '' ? <Text>{props.text2}</Text> : ''}
       </View>

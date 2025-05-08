@@ -3,6 +3,7 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  Text,
 } from 'react-native';
 import ScreenProps from '../../types/ScreenProps';
 import { CSS } from '../../constants/CSS';
@@ -19,6 +20,9 @@ import VirtualizedList from '../../components/VirtualizedList';
 import TransactionList from '../../components/TransactionList';
 import { isIos } from '../../constants/IsPlatform';
 import WalletService from '../../services/WalletService';
+import Utils from '../../services/Utils';
+import ShadowCard from '../../components/ShadowCard';
+import OfferRedeemBy from '../../types/RedeemBy';
 
 const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
   const [loader, setLoader] = useState(false);
@@ -38,6 +42,10 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
     props.navigation?.navigate('FeathersHistory');
   };
 
+  const openRewardPointHistory = (type: OfferRedeemBy) => {
+    props.navigation?.navigate('VenuePointsHistory', {rewardType: type});
+  };
+
   const seeAllTransactions = () => {
     props.navigation?.navigate('TransactionHistory');
   };
@@ -50,7 +58,7 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
           text={'My Dashboard'}
           style={styles.headerTitle}
         />
-        <TouchableOpacity onPress={settingClick}>
+        <TouchableOpacity activeOpacity={0.9} onPress={settingClick}>
           <Imageview
             style={styles.settingIcon}
             url={Images.setting}
@@ -61,13 +69,13 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
       </View>
 
       <VirtualizedList>
-        <BoxView cardStyle={styles.balanceCard}>
+        <ShadowCard style={styles.balanceCard}>
           <View style={styles.balanceHeader}>
             <Textview
               text={'Total Balance'}
               style={styles.balanceLabel}
             />
-            <TouchableOpacity onPress={openFeathers}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => openRewardPointHistory('venue_points')}>
               <Imageview
                 style={styles.arrowIcon}
                 url={Images.sideArrow}
@@ -76,14 +84,25 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
               />
             </TouchableOpacity>
           </View>
-          <Textview
-            text={(wallet.balance_feather_points) + ' fts'}
-            style={styles.balanceAmount}
-          />
-          <Textview
-            text={(wallet.balance_venue_points) + ' pts'}
-            style={styles.balanceAmount}
-          />
+
+          <View style={{ flexDirection: 'row', gap: 10, justifyContent: 'center', marginTop: 10 }}>
+            <View style={[styles.statButton, {
+              backgroundColor: Colors.primary_color_orange,
+            }]}>
+              <Text style={styles.balanceAmount}>
+                {(wallet.balance_feather_points) + ' fts'}
+              </Text>
+            </View>
+
+            <View style={[styles.statButton, {
+              backgroundColor: Colors.venueIconColor 
+            }]}>
+              <Text style={styles.balanceAmount}>
+                {(wallet.balance_venue_points) + ' pts'}
+              </Text>
+            </View>
+          </View>
+
           <View style={styles.divider} />
 
           <View style={styles.statsContainer}>
@@ -96,10 +115,9 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
                 resizeMode={'contain'}
               />
               <View style={styles.statDetails}>
-                <Textview
-                  text={'Earned'}
+                <Text
                   style={styles.statLabel}
-                />
+                >{'Earned'}</Text>
                 <View style={styles.pointsRow}>
                   <Imageview
                     style={styles.pointIcon}
@@ -136,10 +154,9 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
                 resizeMode={'contain'}
               />
               <View style={styles.statDetails}>
-                <Textview
-                  text={'Spent'}
+                <Text
                   style={styles.statLabel}
-                />
+                >{'Spent'}</Text>
                 <View style={styles.pointsRow}>
                   <Imageview
                     style={styles.pointIcon}
@@ -167,7 +184,7 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
               </View>
             </View>
           </View>
-        </BoxView>
+        </ShadowCard>
 
         <View style={styles.transactionsHeader}>
           <Textview
@@ -181,7 +198,7 @@ const Dash: React.FC<ScreenProps<'Tabs'>> = (props) => {
           />
         </View>
 
-        <TransactionList setLoader={setLoader} recordLimit={2} />
+        <TransactionList setLoader={setLoader} recordLimit={2} windowHeight={Utils.DEVICE_HEIGHT - 450} />
 
       </VirtualizedList>
 
@@ -210,7 +227,7 @@ const styles = StyleSheet.create({
   balanceCard: {
     backgroundColor: Colors.white,
     paddingHorizontal: isIos ? 20 : 15,
-    paddingVertical: isIos ? 10 : 7,
+    paddingVertical: isIos ? 20 : 15,
     marginTop: isIos ? 5 : 5,
     marginHorizontal: isIos ? 17 : 15,
     marginBottom: 20,
@@ -228,22 +245,26 @@ const styles = StyleSheet.create({
   },
   balanceAmount: {
     fontFamily: Fonts.medium,
-    color: Colors.black,
-    fontSize: Fonts.fs_25,
-    marginTop: isIos ? 10 : 0,
+    color: Colors.white,
+    fontSize: Fonts.fs_20
   },
   arrowIcon: {
-    width: isIos ? 22 : 18,
-    height: isIos ? 22 : 18,
+    width: isIos ? 22 : 22,
+    height: isIos ? 22 : 22,
   },
   divider: {
     borderColor: Colors.grey,
     borderWidth: isIos ? 0.6 : 0.3,
-    marginVertical: isIos ? 10 : 5,
+    marginTop: 10,
+  },
+  statButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderRadius: 10,
   },
   statsContainer: {
     flexDirection: 'row',
-    marginVertical: isIos ? 12 : 5,
+    marginTop: isIos ? 10 : 5,
   },
   statSection: {
     flex: 1,

@@ -70,10 +70,10 @@ const Tutorials: React.FC<ScreenProps<'Tutorials'>> = (props) => {
                     }}
                 />
 
-                : <NoData />
+                : <NoData isLoading={loader} />
             }
 
-            <TouchableOpacity style={{
+            <TouchableOpacity activeOpacity={0.9} style={{
                 height: isIos ? 60 : 50,
                 backgroundColor: Colors.primary_color_orange,
                 justifyContent: 'center',
@@ -85,7 +85,7 @@ const Tutorials: React.FC<ScreenProps<'Tutorials'>> = (props) => {
 
                 <Text style={{
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: Fonts.fs_20,
                     alignSelf: 'center'
                 }}>Learn More</Text>
             </TouchableOpacity>

@@ -5,12 +5,12 @@ import OfferItem from "./OfferItem";
 import { Offer } from "../types/Venue";
 import { useEffect, useState } from "react";
 import RedeemOfferDialog from "./RedeemOfferDialog";
-import Toast from "react-native-toast-message";
 import Request from "../services/Request";
 import OfferRedeemBy from "../types/RedeemBy";
 import MtToast from "../constants/MtToast";
 import WalletService from "../services/WalletService";
 import RedeemedOffers from "../types/RedeemedOffers";
+import RedeemOfferSuccess from "./RedeemSuccess";
 
 type OffersListProps = {
     offersData: Array<Offer>,
@@ -28,7 +28,7 @@ const OffersList: React.FC<OffersListProps> = (props) => {
     useEffect(() => {
         updateWalletBalances();
 
-    }, [])
+    }, [offers])
 
     const showRedeemDialog = (offer: Offer) => {
         setSelectedOffer(offer);
@@ -49,13 +49,16 @@ const OffersList: React.FC<OffersListProps> = (props) => {
                 setLoader(false);
 
                 if (success) {
+                    // show success dialog
                     MtToast.success(success.message);
                     const redeemedOffer: RedeemedOffers = success.data;
 
                     const updatedOffer = {
                         ...selectedOffer,
-                        redeemed: redeemedOffer,
+                        redeemed: selectedOffer.redeemed ? [...selectedOffer.redeemed, redeemedOffer] : [redeemedOffer],
+                        last_redeem: redeemedOffer
                     };
+
                     setOffers(prevOffers =>
                         prevOffers.map(offer =>
                             offer.id === updatedOffer.id ? updatedOffer : offer,
@@ -82,6 +85,7 @@ const OffersList: React.FC<OffersListProps> = (props) => {
                     marginTop: 10
                 }}
                 data={offers}
+                extraData={offers}
                 renderItem={({ item }) => (
                     <OfferItem
                         offer={item}
@@ -107,6 +111,8 @@ const OffersList: React.FC<OffersListProps> = (props) => {
                 offer={selectedOffer}
                 onRedeem={redeemOffer}
             />
+
+            {/* <RedeemOfferSuccess /> */}
         </View>
     )
 }

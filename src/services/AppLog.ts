@@ -21,6 +21,7 @@ const LOG_ACTIVITIES = {
     CHECKIN: 'User has checkedIn',
     OFFER_REDEEM: 'User has tried to redeem offer',
     VERIFY_CONTACT: 'User tried to verify contact',
+    UPDATE_CURRENT_LOCATION: 'update user current location to database'
 }
 
 export { createLog, LOG_ACTIVITIES };

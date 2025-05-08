@@ -4,7 +4,7 @@ import { Fonts } from '../constants/Fonts';
 import BoxView from './BoxView';
 import Textview from './Textview';
 import { Offer } from '../types/Venue';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Request from '../services/Request';
 import Toast from 'react-native-toast-message';
 import Imageview from './Imageview';
@@ -15,6 +15,7 @@ import { isIos } from '../constants/IsPlatform';
 import FallbackSvg from './FallbackSvg';
 import MtToast from '../constants/MtToast';
 import Chips from './Chips';
+import ShadowCard from './ShadowCard';
 
 type OfferItem = {
   offer: Offer,
@@ -46,29 +47,33 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
   };
 
   const showQrcode = () => {
-    console.log({ offer })
-    if (!offer.redeemed) {
-      return MtToast.error('Offer not redeemed yet');
-    }
-    
-    props.navigation?.navigate('QrPreview', { data: JSON.stringify({ redeem_id: offer?.redeemed?.id }) });
+    console.log(offer.last_redeem)
+
+    props.navigation?.navigate('QrPreview', { 
+      data: JSON.stringify({ redeem_id: offer.last_redeem?.id }),
+      coupon: offer.last_redeem?.coupon_code || '' 
+    });
   }
 
   return (
-    <BoxView cardStyle={style.item} bodyStyle={style.py_0}>
+    <BoxView cardStyle={style.item} bodyStyle={[style.py_0, {
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      flex: 1
+    }]}>
       <View>
         {offer.images?.length > 0 ?
           <Imageview
-            url={offer.images[0].image}
+            url={offer.images[offer.images.length - 1].medium_image}
             style={{
-              height: isIos ? 110 : 90,
-              borderRadius: 10,
+              height: isIos ? 100 : 80,
+              borderRadius: 5,
             }}
-            imageStyle={{ borderRadius: 10 }}
+            imageStyle={{ borderRadius: 5 }}
             imageType={'server'}
             resizeMode={'cover'}
           /> :
-          <FallbackSvg wrapperStyle={{marginTop: 0}} androidHeight={90} iosHeight={90}/>
+          <FallbackSvg overlayStyle={{borderRadius: 5}} wrapperStyle={{ marginTop: 0 }} androidHeight={80} iosHeight={100} />
         }
 
         <View style={style.pointsRow}>
@@ -86,11 +91,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
               />
 
               <Text
-                style={{
-                  fontFamily: Fonts.regular,
-                  color: Colors.black,
-                  fontSize: Fonts.fs_13,
-                }}>
+                style={style.pointText}>
                 {(offer.feather_points ? offer.feather_points?.toString() : 0) + ' fts'}
               </Text>
             </View>
@@ -109,11 +110,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
                 resizeMode={'contain'}
               />
               <Text
-                style={{
-                  fontFamily: Fonts.regular,
-                  color: Colors.black,
-                  fontSize: Fonts.fs_13,
-                }}>
+                style={style.pointText}>
                 {(offer.venue_points ? offer.venue_points?.toString() : 0) + ' pts'}
               </Text>
             </View>
@@ -123,13 +120,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
 
       <Textview text={offer.name} style={[style.title, style.px_5]} lines={1} />
 
-      <Chips items={[{name: offer.venue?.name || ''}]}/>
-
-      <Textview
-        text={offer.venue?.name || ''}
-        style={[style.desc, style.px_5]}
-        lines={2}
-      />
+      <Chips items={[{ name: offer.venue?.name || '' }]}  containerStyle={{ paddingHorizontal: 3}}/>
 
       <Textview
         text={offer.description}
@@ -137,78 +128,65 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
         lines={2}
       />
 
-      {!offer.redeemed ? (
-        <View style={[style.actionBtnsContainer, style.px_5]}>
+
+      {(!offer.last_redeem || offer.last_redeem?.expired_at || offer.last_redeem?.confirmed) ?
+
+        <View style={[style.actionBtnsContainer, {paddingHorizontal: 3}]}>
           <TouchableOpacity
+            activeOpacity={0.9}
             onPress={() => toggleOffer(offer)}
             style={{ flex: 1 }}>
-            <BoxView
-              cardStyle={{
-                backgroundColor: Colors.white,
-                padding: 0,
-                justifyContent: 'center',
-                marginHorizontal: 2,
-              }}>
+            <ShadowCard
+              style={style.shadowButton}>
               <Text
-                style={{
-                  fontFamily: Fonts.regular,
-                  color: Colors.light_blue,
-                  fontSize: Fonts.fs_8,
-                  textAlign: 'center',
-                }}>
+                style={[style.buttonText, { color: Colors.venueIconColor }]}>
                 {offer.favourite ? 'Remove' : 'Save'}
               </Text>
-            </BoxView>
+            </ShadowCard>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => redeemOffer(offer)}
+            activeOpacity={0.9}
+            onPress={() => offer.expire_at ? {} : redeemOffer(offer)}
             style={{ flex: 1 }}>
-            <BoxView
-              cardStyle={{
-                backgroundColor: !offer.redeemed
+            <ShadowCard
+              style={[style.shadowButton, {
+                backgroundColor: (!offer.expire_at)
                   ? Colors.primary_color_orange
                   : Colors.grey,
-                padding: 0,
-                justifyContent: 'center',
-                marginHorizontal: 2,
-              }}>
+              }]}>
               <Text
-                style={{
-                  fontFamily: Fonts.regular,
-                  color: Colors.white,
-                  fontSize: Fonts.fs_8,
-                  textAlign: 'center',
-                }}>
-                {'Redeem Now'}
+                style={style.buttonText}>
+                {offer.expire_at ? 'Expired' : 'Redeem'}
               </Text>
-            </BoxView>
+            </ShadowCard>
           </TouchableOpacity>
         </View>
-      ) : (
-        <View style={{ flexDirection: 'row', marginVertical: 15, paddingHorizontal: 10 }}>
+        :
+        <View style={{ marginVertical: 5, paddingHorizontal: 3 }}>
           <TouchableOpacity
-            onPress={() => showQrcode()}
-            style={{
-              backgroundColor: Colors.grey,
-              paddingHorizontal: Platform.OS == 'ios' ? 0 : 7,
-              flex: 1,
-              height: isIos ? 30 : 25,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 15,
-            }}>
+            activeOpacity={0.9}
+            onPress={() => offer.last_redeem?.expired_at ? {} : showQrcode()}
+            style={[style.touchableBtn, {
+              backgroundColor: (offer.last_redeem.expired_at || offer.last_redeem.confirmed) ? Colors.grey : Colors.primary_color_orange
+            }]}>
             <Text
-              style={{
-                fontFamily: Fonts.regular,
-                color: Colors.white,
-                fontSize: Fonts.fs_8,
-              }}>
-              {'Show QR Code'}
+              style={style.buttonText}>
+              {offer.last_redeem?.expired_at ? 'Expired' : 'Show QR/Coupon Code'}
             </Text>
           </TouchableOpacity>
+
+          <View style={{
+            marginTop: 5,
+            flexDirection: 'row',
+            justifyContent: 'center'
+          }}>
+            <Text style={{ fontSize: Fonts.fs_8, fontFamily: Fonts.medium }}>{'Valid Till: '}</Text>
+            <Text style={{ fontSize: Fonts.fs_8 }}>{offer.last_redeem.valid_till}</Text>
+          </View>
         </View>
-      )}
+      }
+
     </BoxView>
   );
 };
@@ -221,27 +199,37 @@ const style = StyleSheet.create({
     marginHorizontal: 0,
     marginVertical: 0,
     backgroundColor: Colors.white,
-    borderRadius: 8,
+    borderRadius: 5,
     padding: 2,
     alignItems: 'center',
     maxWidth: (width / 2) - 15
   },
   redeemPoint: {
     flexDirection: 'row',
-    height: 25,
+    height: 23,
     justifyContent: 'flex-start',
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 5,
     alignItems: 'center',
     paddingHorizontal: 5,
+    borderColor: Colors.whitesmoke,
+    borderWidth: 0.5
+  },
+  pointText: {
+    fontFamily: Fonts.regular,
+    color: Colors.black,
+    fontSize: Fonts.fs_11,
   },
   pointsRow: {
     flexDirection: 'row',
     height: 25,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     position: 'absolute',
     bottom: 2,
-    paddingHorizontal: 2,
+    paddingHorizontal: 4,
+    zIndex: 1,
+    gap: 3,
+    width: '100%'
   },
   py_0: {
     paddingVertical: 0,
@@ -249,13 +237,13 @@ const style = StyleSheet.create({
   desc: {
     fontFamily: Fonts.regular,
     color: Colors.light_grey,
-    fontSize: Fonts.fs_10,
-    marginTop: isIos ? 5 : 0,
+    fontSize: Fonts.fs_11,
+    marginTop: isIos ? 5 : 3,
   },
   title: {
     fontFamily: Fonts.medium,
     color: Colors.black,
-    fontSize: Fonts.fs_18,
+    fontSize: Fonts.fs_14,
     marginTop: isIos ? 8 : 4,
   },
   px_5: {
@@ -266,6 +254,27 @@ const style = StyleSheet.create({
     marginVertical: 5,
     justifyContent: 'space-between',
   },
+  buttonText: {
+    fontFamily: Fonts.regular,
+    color: Colors.white,
+    fontSize: Fonts.fs_10,
+    textAlign: 'center',
+  },
+  shadowButton: {
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    marginHorizontal: 2,
+    paddingHorizontal: 5,
+    paddingVertical: 7,
+  },
+  touchableBtn: {
+    paddingHorizontal: isIos ? 0 : 7,
+    flex: 1,
+    height: isIos ? 30 : 27,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  }
 });
 
 export default OfferItem;

@@ -113,7 +113,7 @@ export const CSS = StyleSheet.create({
     marginTop: 10,
     width: '80%',
     height: 50,
-    borderRadius: 10,
+    borderRadius: 5,
     paddingHorizontal: 15,
     alignSelf: 'center',
   },
@@ -183,7 +183,7 @@ export const CSS = StyleSheet.create({
   },
   home_value_image: {
     width: '100%',
-    height: DEVICE_HEIGHT > 716 ? 250 : 180,
+    height: DEVICE_HEIGHT > 880 ? 250 : 180,
     borderRadius: 10,
     overflow: 'hidden',
   },

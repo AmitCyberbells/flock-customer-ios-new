@@ -18,9 +18,10 @@ import { useEffect, useState } from 'react';
 import CheckInPopup from '../../components/CheckInPopup';
 import Loader from '../../components/Loader';
 import MtToast from '../../constants/MtToast';
-import { getCurrentLocation } from '../../services/GetCurrentLocation';
+import useLocation, { getCurrentLocation } from '../../services/GetCurrentLocation';
 import { isIos } from '../../constants/IsPlatform';
 import Utils from '../../services/Utils';
+import WalletService from '../../services/WalletService';
 
 const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
   const params = props.route?.params ? props.route?.params['venue'] : undefined;
@@ -31,8 +32,10 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [checkinDialog, showCheckinDialog] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(true);
+  const { updateWalletBalances } = WalletService();
 
   const { requestPermission } = useCameraPermission();
+  const { requestLocationPermission } = useLocation();
 
   useEffect(() => {
     const checkCameraPermission = async () => {
@@ -46,9 +49,10 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
       }
 
     }
-
     checkCameraPermission();
-  })
+    requestLocationPermission();
+    
+  }, [venue])
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
@@ -101,7 +105,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
 
   const checkinApi = async (venue: Venue) => {
     if (!venue) {
-      return MtToast.error('Venue not found to checkin, please refresh the page!');
+      return MtToast.error('Venue not found to , please refresh the page!');
     }
 
     setIsLoading(true);
@@ -122,7 +126,8 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
           if (success) {
             // show checkin modal
             showCheckinDialog(true);
-
+            updateWalletBalances();
+            
           } else {
             MtToast.error(error.message)
 
@@ -163,7 +168,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
             style={{
               width: '100%',
               position: 'absolute',
-              top: isIos ? -10 : -20,
+              top: -20,
               zIndex: 1
             }}>
             <Imageview
@@ -217,13 +222,13 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
         />
       </View>
 
-      {venue && <CheckInPopup
+      {venue ? <CheckInPopup
         visible={checkinDialog}
         venue={venue}
         onClose={() => {
           showCheckinDialog(false);
           props.navigation?.goBack();
-        }} />}
+        }} /> : null}
     </View>
   );
 };

@@ -54,7 +54,8 @@ type RootStackParamList = {
     ChangePassword: undefined,
     HotVenues: undefined,
     QrPreview: {
-        data: string
+        data: string,
+        coupon?: string
     },
     EditProfile: undefined,
     TransactionHistory: undefined,
@@ -65,6 +66,9 @@ type RootStackParamList = {
     },
     SupportForm: undefined,
     FeathersHistory: undefined,
+    VenuePointsHistory: {
+        rewardType: 'venue_points' | 'feather_points',
+    },
     StartupAd: undefined,
 };
 

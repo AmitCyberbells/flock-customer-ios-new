@@ -23,6 +23,7 @@ import Toast from 'react-native-toast-message';
 import MtToast from '../../constants/MtToast';
 import DropdownMenu from '../../components/DropdownMenu';
 import { isAndroid, isIos } from '../../constants/IsPlatform';
+import { Fonts } from '../../constants/Fonts';
 
 interface DeleteAccountProps extends ScreenProps<'DeleteAccount'> { }
 
@@ -142,11 +143,12 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
                             ))}
                         </Picker>
                     </View> :
-                    <DropdownMenu options={deleteReasons.map(r => ({label: r, value: r}))} onSelect={(item) => setReason(item.value)} selectedValue={reason} />}
+                        <DropdownMenu options={deleteReasons.map(r => ({ label: r, value: r }))} onSelect={(item) => setReason(item.value)} selectedValue={reason} />}
                 </View>
 
 
                 <TouchableOpacity
+                    activeOpacity={0.9}
                     style={[
                         styles.continueButton,
                         (!reason || reason === deleteReasons[0]) && styles.continueButtonDisabled
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     backButtonText: {
-        fontSize: 24,
+        fontSize: Fonts.fs_24,
         color: Colors.blue,
     },
     content: {
@@ -187,7 +189,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     title: {
-        fontSize: 24,
+        fontSize: Fonts.fs_24,
         fontWeight: '600',
         marginBottom: 30,
         textAlign: 'center',
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     },
     infoField: {
         backgroundColor: Colors.white,
-        borderRadius: 10,
+        borderRadius: 5,
         padding: 16,
         marginBottom: 16,
         shadowColor: Colors.black,
@@ -210,20 +212,20 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     infoText: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
     },
     reasonContainer: {
         marginBottom: 30,
     },
     reasonLabel: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: '#666',
         marginBottom: 8,
     },
     pickerContainer: {
         backgroundColor: '#F0F0FF',
-        borderRadius: 10,
+        borderRadius: 5,
         overflow: 'hidden',
     },
     picker: {
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
     continueButton: {
         height: 56,
         backgroundColor: Colors.primary_color_orange,
-        borderRadius: 10,
+        borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 8,
@@ -243,7 +245,7 @@ const styles = StyleSheet.create({
     },
     continueButtonText: {
         color: Colors.white,
-        fontSize: 18,
+        fontSize: Fonts.fs_18,
         fontWeight: '600',
     },
 });

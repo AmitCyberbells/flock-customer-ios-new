@@ -16,7 +16,6 @@ import Images from '../../constants/Images';
 import Textview from '../../components/Textview';
 import { Fonts } from '../../constants/Fonts';
 import NoData from '../../components/NoData';
-import Item from '../../types/RenderedItem';
 import VenueInfo from './inc/VenueInfo';
 import VenueOffers from './inc/VenueOffers';
 import Request from '../../services/Request';
@@ -27,26 +26,28 @@ import MtToast from '../../constants/MtToast';
 import { getCurrentLocation } from '../../services/GetCurrentLocation';
 import { isIos } from '../../constants/IsPlatform';
 import FallbackSvg from '../../components/FallbackSvg';
+import Chips from '../../components/Chips';
+import WalletService from '../../services/WalletService';
 import { CSS } from '../../constants/CSS';
 import Utils from '../../services/Utils';
-import VenueTags from '../../components/Chips';
-import Chips from '../../components/Chips';
 
 const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
-  const [venue_id, setVenueId] = useState<number>(
-    props.route?.params.venue_id || 1,
-  );
+  const { route } = props;
 
   const [venue, setVenue] = useState<Venue>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [informationTab, setInformationTab] = useState<boolean>(true);
   const [offersTab, setOffersTab] = useState<boolean>(false);
+  const { updateWalletBalances } = WalletService();
 
   useEffect(() => {
-    loadVenue();
-  }, []);
+    if (route?.params?.venue_id) {
+      // Fetch new venue data here
+      loadVenue(route?.params?.venue_id);
+    }
+  }, [route?.params?.venue_id]);
 
-  const loadVenue = () => {
+  const loadVenue = (venue_id: any) => {
     setIsLoading(true);
 
     Request.fetch_venue(venue_id, (success, error) => {
@@ -54,6 +55,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
 
       if (success) {
         setVenue(success.data);
+        console.log('venue>:> ', success.data)
 
       } else {
         MtToast.error(error.message);
@@ -84,11 +86,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
           return prev;
         });
       } else {
-        Toast.show({
-          type: 'MtToastError',
-          text1: error.message,
-          position: 'bottom',
-        });
+        MtToast.error(error.message)
       }
     });
   };
@@ -108,7 +106,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
 
   const checkinApi = async () => {
     if (!venue) {
-      return MtToast.error('Venue not found to checkin, please refresh the page!');
+      return MtToast.error('Venue not found to check-in, please refresh the page!');
     }
 
     setIsLoading(true);
@@ -128,6 +126,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
 
           if (success) {
             MtToast.success(success.message)
+            updateWalletBalances();
 
           } else {
             MtToast.error(error.message)
@@ -176,7 +175,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
           marginRight: 5,
         }}>
         <Imageview
-          url={item.image}
+          url={item.large_image}
           style={{
             width: (Dimensions.get('window').width * 92) / 100,
             height: isIos ? 380 : 320,
@@ -230,6 +229,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                   paddingBottom: isIos ? 10 : 10,
                 }}>
                 <TouchableOpacity
+                  activeOpacity={0.9}
                   onPress={() => props.navigation?.goBack()}>
                   <Imageview
                     style={{
@@ -242,11 +242,12 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                  activeOpacity={0.9}
                   onPress={() => toggleVenue(venue)}>
                   <Icon
                     name="heart"
                     style={{
-                      fontSize: isIos ? 30 : 25,
+                      fontSize: isIos ? Fonts.fs_30 : Fonts.fs_25,
                       color: Colors.black
                     }}
                     iconStyle={venue?.favourite ? 'solid' : 'regular'}
@@ -292,7 +293,14 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
             />
 
             <TouchableOpacity
-              style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 5, marginVertical: isIos ? 10 : 5 }}
+              activeOpacity={0.9}
+              style={{
+                width: Utils.DEVICE_WIDTH - 50,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+                marginVertical: isIos ? 10 : 5
+              }}
               onPress={() => { locationBtn(venue.lat, venue.lon, venue.name) }}>
               <Icon
                 name="location-dot"
@@ -307,16 +315,14 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                   color: Colors.black,
                   fontFamily: Fonts.medium
                 }}
-                lines={1}
+                lines={2}
               />
             </TouchableOpacity>
 
+            {/* Test for scrollable event if made new changes to chips */}
             <View style={{ flex: 1, flexDirection: 'row', marginTop: 5 }}>
-               {venue.tags?.length ?
-                <Chips items={venue.tags}/> : null}
-              
-              {venue.dietary?.length ?
-                <Chips items={venue.dietary} /> : null} 
+              {venue.tags?.length ?
+                <Chips items={[...venue.tags, ...(venue.dietary ?? [])]} /> : null}
             </View>
 
             <View
@@ -360,6 +366,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 overflow: 'hidden',
               }}>
               <TouchableOpacity
+                activeOpacity={0.9}
                 onPress={() => showInformationTab()}
                 style={{
                   flex: 1,
@@ -381,6 +388,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               </TouchableOpacity>
 
               <TouchableOpacity
+                activeOpacity={0.9}
                 onPress={() => showOffersTab()}
                 style={{
                   flex: 1,
@@ -411,7 +419,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
           </View>
         </VirtualizedList>
       ) : (
-        <NoData />
+        <NoData isLoading={isLoading} />
       )}
 
       {venue ? (
@@ -428,6 +436,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               left: 0,
             }}>
             <TouchableOpacity
+              activeOpacity={0.9}
               onPress={() => checkin()}
               style={{ flex: 1 }}
             >
@@ -441,7 +450,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                   paddingVertical: isIos ? 20 : 17,
                   borderRadius: 10,
                 }}>
-                {venue.checkedin_count ? 'Checked-in' : 'Check-in'}
+                {venue.checkedin_count ? 'Checked-In' : 'Check-In'}
               </Text>
             </TouchableOpacity>
           </View>

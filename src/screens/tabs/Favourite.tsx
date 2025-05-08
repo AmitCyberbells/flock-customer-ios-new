@@ -59,6 +59,7 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
       setIsLoading(false);
 
       if (success) {
+        
         setVenues(success.data);
 
       } else {
@@ -182,6 +183,7 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
       <Loader isLoading={isLoading} />
 
       <TabHeader title={'Favourites'} navigation={props.navigation} hideSideMenuButton={true} />
+
       <View style={style.absoluteObj}>
         <View style={style.categoryWrapperCard}>
           <FlatList
@@ -247,6 +249,7 @@ const style = StyleSheet.create({
     top: -10,
     left: 0,
     right: 0,
+    height: Utils.DEVICE_HEIGHT * 0.92
   },
   categoryWrapperCard: {
     backgroundColor: '#fff',

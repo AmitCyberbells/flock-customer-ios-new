@@ -1,12 +1,13 @@
 import Icon from '@react-native-vector-icons/fontawesome6';
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Fonts } from '../constants/Fonts';
 
 const Checkbox = ({ value, onValueChange }: {value: boolean, onValueChange: (value:boolean) => void}) => {
   return (
     <Pressable onPress={() => onValueChange(!value)} style={styles.checkboxContainer}>
-      <View style={[styles.checkbox, value && styles.checkboxChecked]}>
-        {value && <Icon name="check" size={18} color="white" iconStyle='solid' />}
+      <View style={[styles.checkbox, value ? styles.checkboxChecked : {}]}>
+        {value ? <Icon name="check" size={18} color="white" iconStyle='solid' /> : null}
       </View>
     </Pressable>
   );
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     borderColor: '#007BFF',
   },
   checkboxLabel: {
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
   },
 });
 

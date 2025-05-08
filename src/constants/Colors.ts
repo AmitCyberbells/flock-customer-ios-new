@@ -17,6 +17,7 @@ export const Colors = {
 	color_four:'#fff2be',
 	color_five:'#ffdfc3',
 
+  venueIconColor: '#234dd1',
   blue: '#007AFF',
   black: '#000000',
   red: '#ff0000',

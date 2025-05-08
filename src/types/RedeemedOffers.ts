@@ -9,7 +9,11 @@ type RedeemedOffers = {
     redeemed_by: OfferRedeemBy, 
     points: number,
     offer?: Offer,
-    user?: User
+    user?: User,
+    expired_at?: string | null,
+    valid_till?: string,
+    confirmed?: boolean,
+    coupon_code?: string
 }
 
 export default RedeemedOffers;

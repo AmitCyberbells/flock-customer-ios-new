@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, View, Text, StyleSheet, TextInputProps, ViewStyle, TextStyle } from 'react-native';
 import { Colors } from '../constants/Colors';
+import { Fonts } from '../constants/Fonts';
 
 // Define the props type for the component
 interface InputFieldProps extends TextInputProps {
@@ -79,14 +80,14 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     padding: 10,
     borderRadius: 5,
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
   },
   inputError: {
     borderColor: 'red',
   },
   errorText: {
     color: 'red',
-    fontSize: 12,
+    fontSize: Fonts.fs_12,
     padding: 5
   },
 });

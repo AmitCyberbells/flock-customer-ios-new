@@ -32,8 +32,6 @@ export const Environment = {
 
     UserGuideLink: 'https://getflock.io/user-guide',
 
-    Terms: "https://web.cyberbells.com/DitroInfotech/Projects/flock/terms-customer",
-
     getApiTimeout: (file: boolean = false) => file ? 40000 : 20000,
 
     Location: {
@@ -44,7 +42,7 @@ export const Environment = {
             longitudeDelta: 0.0421,
             canReset: false,
             current: false,
-            radius: 100000, // 100km
+            radius: 25000, // 25km
         },
         Zoom: {
             area: {
@@ -57,7 +55,7 @@ export const Environment = {
             }
         },
         MinRadius: 1000,
-        MaxRadius: 100000,
+        MaxRadius: 50000,
     }
 
 }

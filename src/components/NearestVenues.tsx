@@ -1,4 +1,4 @@
-import { FlatList, Linking, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Linking, Text, TouchableOpacity, View } from "react-native";
 import Venue, { NearestVenue } from "../types/Venue";
 import { useCallback, useEffect, useState } from "react";
 import Textview from "./Textview";
@@ -20,12 +20,10 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
     const { venue } = props;
     const [nearestVenues, setNearestVenues] = useState<Array<NearestVenue>>(venue.nearest_venues || []);
     const { area: AREA_ZOOM } = Environment.Location.Zoom;
-    const [mapKey, setMapKey] = useState<string>();
     const [region, setRegion] = useState<Region>();
     const [toggleNearest, setToggleNearest] = useState<boolean>(false);
 
     useEffect(() => {
-        setMapKey(Utils.generateUniqueString())
         toggleNearestVenueList();
         setRegion({
             latitude: parseFloat(venue.lat),
@@ -33,11 +31,17 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
             latitudeDelta: AREA_ZOOM.lat,
             longitudeDelta: AREA_ZOOM.lon,
         })
+
+        console.log('nearest venues >>>>', venue.nearest_venues?.length)
     }, [])
 
     const toggleNearestVenueList = () => {
+        let toggledVenues = venue.nearest_venues?.filter((v, i) => i <= (nearestVenues.length > 2 ? 1 : (venue.nearest_venues?.length || 1) - 1)) || [];
+
         setNearestVenues(prev => venue.nearest_venues?.filter((v, i) => i <= (prev.length > 2 ? 1 : (venue.nearest_venues?.length || 1) - 1)) || [])
         setToggleNearest(!toggleNearest);
+
+        //console.log({ toggledVenues })
     }
 
     const openExternalMap = () => {
@@ -107,6 +111,11 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                     flexDirection: 'row',
                     alignItems: 'center',
                 }}>
+                <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                }}>
                 <Textview
                     text={'Nearby Spots'}
                     style={{
@@ -116,8 +125,18 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                         marginTop: isIos ? 25 : 18,
                     }}
                 />
+                <Textview
+                    text={' (Within 5 kms)'}
+                    style={{
+                        fontSize: Fonts.fs_13,
+                        color: Colors.grey,
+                        fontFamily: Fonts.medium,
+                        marginTop: isIos ? 25 : 18,
+                    }}
+                />
+                </View>
 
-                <TouchableOpacity onPress={openExternalMap}>
+                <TouchableOpacity onPress={openExternalMap} activeOpacity={0.9}>
                     <Imageview
                         style={{
                             width: isIos ? 15 : 22,
@@ -132,7 +151,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
             </View>
 
             <MapView
-                key={mapKey}
+                key={`${venue.name}-${venue.id}`}
                 showsUserLocation
                 style={{
                     height: 225,
@@ -143,7 +162,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                 }}
                 initialRegion={region}>
                 {
-                    venue && (
+                    (venue && venue.lat != null && venue.lon != null) ? (
                         <Marker
                             coordinate={{
                                 latitude: parseFloat(venue.lat),
@@ -151,14 +170,15 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                             }}
                             title={venue.name}
                             pinColor={Colors.primary_color_orange}></Marker>
-                    )
+                    ) : null
                 }
-                {venue.nearest_venues?.length ? (
-                    <View>
-                        {venue.nearest_venues.map((nearestVenue, index) => {
+                {Array.isArray(venue.nearest_venues) && venue.nearest_venues?.length ? (
+                    venue.nearest_venues
+                        .filter(item => item && Utils.isValidGeoRange(item.lat, item.lon))
+                        .map((nearestVenue, index) => {
                             return (
                                 <Marker
-                                    key={Utils.generateUniqueString() + index}
+                                    key={`${nearestVenue.name}-${index}`}
                                     coordinate={{
                                         latitude: parseFloat(nearestVenue.lat),
                                         longitude: parseFloat(nearestVenue.lon),
@@ -166,8 +186,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                                     title={nearestVenue.name}
                                     pinColor={Colors.primary_color_orange}></Marker>
                             );
-                        })}
-                    </View>
+                        })
                 ) : null}
             </MapView>
 
@@ -184,7 +203,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
 
             {
                 (venue.nearest_venues?.length || 0) > 2 ?
-                    <TouchableOpacity onPress={() => toggleNearestVenueList()} style={{ flex: 1 }}>
+                    <TouchableOpacity onPress={() => toggleNearestVenueList()} style={{ flex: 1 }} activeOpacity={0.9}>
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -197,17 +216,17 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                                     color: Colors.light_blue,
                                     fontFamily: Fonts.regular,
                                 }}>
-                                { toggleNearest ? 'See all' : 'See less'}
+                                {toggleNearest ? 'See all' : 'See less'}
                             </Text>
-                            <Imageview
+                            
+                            <Image 
+                                src={Images.uri(toggleNearest ? Images.blueDropdown : Images.dropUp)} 
                                 style={{
                                     marginLeft: 5,
                                     width: isIos ? 15 : 12,
                                     height: isIos ? 15 : 12,
                                 }}
-                                imageType={'local'}
-                                url={toggleNearest ? Images.blueDropdown : Images.dropUp}
-                                resizeMode={'contain'}
+                                resizeMode="contain"
                                 tintColor={Colors.light_blue}
                             />
                         </View>

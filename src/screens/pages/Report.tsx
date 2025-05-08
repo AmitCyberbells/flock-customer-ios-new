@@ -14,6 +14,7 @@ import { StoreStates } from "../../store/store";
 import MtToast from "../../constants/MtToast";
 import InputField from "../../components/InputField";
 import DropdownMenu from "../../components/DropdownMenu";
+import { Fonts } from "../../constants/Fonts";
 
 const Report: React.FC<ScreenProps<'Report'>> = (props) => {
     const [loader, setIsLoading] = useState<boolean>(false);
@@ -45,7 +46,7 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
     };
 
     const handleContinue = () => {
-        console.log(selectedVenue , description)
+        console.log(selectedVenue, description)
 
         if (!selectedVenue || !description) {
             return MtToast.error('Please select a venue and write your concern!');
@@ -81,10 +82,10 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
             <View style={styles.content}>
                 <View style={styles.inputsContainer}>
 
-                   {isAndroid ? <View style={styles.inputWrapper}>
+                    {isAndroid ? <View style={styles.inputWrapper}>
                         <Picker
                             selectedValue={selectedVenue}
-                            style={{color: Colors.black}}
+                            style={{ color: Colors.black }}
                             onValueChange={(itemValue, itemIndex) =>
                                 setSelectedVenue(itemValue)
                             }>
@@ -93,8 +94,8 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
 
                         </Picker>
                     </View> :
-                    <View style={{marginBottom: 20}}>
-                    <DropdownMenu options={venues.map(venue => ({label: venue.name, value: venue.id}))} onSelect={(item) => setSelectedVenue(item.value)} selectedValue={selectedVenue} placeholder={venues.length > 0 ? "Select a venue" : 'No venue found!'} /></View>}
+                        <View style={{ marginBottom: 20 }}>
+                            <DropdownMenu options={venues.map(venue => ({ label: venue.name, value: venue.id }))} onSelect={(item) => setSelectedVenue(item.value)} selectedValue={selectedVenue} placeholder={venues.length > 0 ? "Select a venue" : 'No venue found!'} /></View>}
 
                     <View>
                         <InputField
@@ -102,7 +103,7 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
                             onChangeText={setDescription}
                             placeholder="Explain your concern here..."
                             charLimit={150}
-                            style={{marginTop: 0}}
+                            style={{ marginTop: 0 }}
                             inputStyle={styles.textArea}
                             numberOfLines={3}
                             multiline
@@ -110,6 +111,7 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
                     </View>
 
                     <TouchableOpacity
+                        activeOpacity={0.9}
                         style={[
                             styles.continueButton,
                             (!selectedVenue) && styles.continueButtonDisabled
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     textArea: {
         padding: 10,
         textAlignVertical: 'top', // Aligns text to the top like a textarea
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black
     },
     input: {
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         borderRadius: 10,
         paddingHorizontal: 20,
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
         shadowColor: Colors.black,
         shadowOffset: {
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
         borderColor: '#E5E5E5',
     },
     inputText: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
     },
     placeholderText: {
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         borderRadius: 10,
         paddingHorizontal: 20,
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
         shadowColor: Colors.black,
         shadowOffset: {
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     recentSearchesTitle: {
-        fontSize: 14,
+        fontSize: Fonts.fs_14,
         fontWeight: '600',
         color: '#666',
         marginBottom: 12,
@@ -244,19 +246,19 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     recentSearchName: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         fontWeight: '500',
         color: Colors.black,
         marginBottom: 4,
     },
     recentSearchAddress: {
-        fontSize: 14,
+        fontSize: Fonts.fs_14,
         color: '#666',
     },
     continueButton: {
         height: 56,
         backgroundColor: Colors.primary_color_orange,
-        borderRadius: 10,
+        borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 8,
@@ -267,7 +269,7 @@ const styles = StyleSheet.create({
     },
     continueButtonText: {
         color: Colors.white,
-        fontSize: 18,
+        fontSize: Fonts.fs_18,
         fontWeight: '600',
     },
 });

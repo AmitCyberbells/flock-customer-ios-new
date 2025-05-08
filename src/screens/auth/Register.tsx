@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
-import {CSS} from '../../constants/CSS';
+import { CSS } from '../../constants/CSS';
 import DatePicker from 'react-native-date-picker';
 import Textview from '../../components/Textview';
-import {Fonts} from '../../constants/Fonts';
-import {Colors} from '../../constants/Colors';
+import { Fonts } from '../../constants/Fonts';
+import { Colors } from '../../constants/Colors';
 import BoxView from '../../components/BoxView';
 import ScreenProps from '../../types/ScreenProps';
 import Icon from '@react-native-vector-icons/fontawesome6';
@@ -25,7 +25,7 @@ import { Environment } from '../../../env';
 import { API } from '../../services/API';
 
 const Register: React.FC<ScreenProps<'Register'>> = props => {
-  
+
   const [loader, setLoader] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [termsCondition, setTermsCondition] = useState(false);
@@ -78,7 +78,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         if (error.errors) {
           const firstErrorKey = Object.keys(error.errors)[0];
           const firstErrorMessage = error.errors[firstErrorKey];
-          
+
           MtToast.error(firstErrorMessage)
         } else {
           MtToast.error(error.message)
@@ -101,25 +101,30 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
     if (!date) return;
 
     setOpenDatePicker(false);
-    const isoDateString = date.toISOString().split('T')[0];
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const isoDateString = `${year}-${month}-${day}`; // local time, not UTC
+
     setForm(prevForm => {
-      const updatedForm = {...prevForm};
+      const updatedForm = { ...prevForm };
       updatedForm.fields.birthDate.value = isoDateString;
       return updatedForm;
     });
 
     setDatePickerDate(date);
   }
-
+  
   function loginClick() {
     props?.navigation?.navigate('Login');
   }
 
   function openTermsPage() {
-    props?.navigation?.navigate('WebPage', {title: 'Terms & Conditions', link: API.terms});
+    props?.navigation?.navigate('WebPage', { title: 'Terms & Conditions', link: API.terms });
   }
 
-  const errorMsg = (msg: string) => (msg && <Text style={{fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{msg}</Text>)
+  const errorMsg = (msg: string) => (msg && <Text style={{ fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{msg}</Text>)
 
   return (
     <AuthLayout isLoading={loader} backButton={true} {...props}>
@@ -234,6 +239,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
             alignItems: 'center',
             justifyContent: 'center'
           }}
+          activeOpacity={0.9}
           onPress={() => setOpenDatePicker(!openDatePicker)}>
           <Icon name={'calendar'} size={15} color={Colors.grey} />
         </TouchableOpacity>
@@ -293,6 +299,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           onChangeText={value => handleInputChange('password', value || '')}
         />
         <TouchableOpacity
+          activeOpacity={0.9}
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -319,6 +326,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           marginHorizontal: '10%',
         }}>
         <TouchableOpacity
+          activeOpacity={0.9}
           onPress={() => {
             setTermsCondition(!termsCondition);
           }}>
@@ -330,7 +338,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => openTermsPage()}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => openTermsPage()}>
           <Text
             style={{
               width: '48%',
@@ -357,7 +365,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         </TouchableOpacity>
       </View>
 
-      <View style={{marginTop: 30, marginHorizontal: 17}}>
+      <View style={{ marginTop: 30, marginHorizontal: 17 }}>
         <Textview
           text={'Sign Up'}
           style={styles.button}

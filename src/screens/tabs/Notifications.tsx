@@ -21,12 +21,21 @@ const ImageSkelton: React.FC<{ item: Notification }> = (props) => {
   const { item } = props;
 
   return (
-    <View style={{ padding: 10, backgroundColor: Colors.dark_blue, borderRadius: 50, overflow: 'hidden' }}>
+    <View style={{ 
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: isIos ? 50 : 40,
+      width: isIos ? 50 : 40,
+      padding: 10, 
+      backgroundColor: Colors.dark_blue, 
+      borderRadius: 50, 
+      overflow: 'hidden' }}>
+
       <Text style={{
         color: Colors.white,
-        fontSize: Fonts.fs_14,
+        fontSize: Fonts.fs_14
       }}>{
-          (item.data.title || 'N')
+          (item.data.title || 'NT')
             .split(' ')
             .slice(0, 2)  // Only take the first two words
             .map((item: string) => item.charAt(0).toUpperCase())
@@ -63,29 +72,28 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
     ({ item, index }: { item: Notification, index: number }) => (
       <View>
         <View style={{
-          width: width,
           marginVertical: 10,
           flexDirection: 'row',
           alignItems: 'center'
         }}>
 
           {!Utils.isEmpty(item.data.image) ?
-            <ImageBackground
-              source={item.data.image || Images.FlockBird}
-              imageStyle={{ opacity: 0.66 }}
-              resizeMode={'cover'}
+           
+            <Imageview 
+              url={item.data.image}
               style={{
-                width: isIos ? 70 : 40,
-                height: isIos ? 70 : 40,
+                width: isIos ? 50 : 40,
+                height: isIos ? 50 : 40,
                 marginTop: 7,
                 borderRadius: 50,
                 overflow: 'hidden',
                 backgroundColor: '#B2B2B2'
               }}
-            /> :
+            />
+            :
             <ImageSkelton item={item} />
           }
-          <View style={{ marginHorizontal: 20 }}>
+          <View style={{ flex: 1, marginHorizontal: 10 }}>
             <Text
               style={{
                 fontFamily: Fonts.regular,
@@ -103,7 +111,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
                 fontSize: Fonts.fs_12
               }}
             >
-              {item.data.description}
+              {Utils.stripHtmlTags(item.data.description)}
             </Text>
           </View>
         </View>
@@ -141,7 +149,10 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               data={notifications}
-              style={{ flexGrow: 0, marginTop: isIos ? 18 : 15, marginHorizontal: 10, marginBottom: isIos ? 80 : 65 }}
+              style={{ 
+                marginTop: isIos ? 18 : 15, 
+                marginHorizontal: 10,
+                marginBottom: isIos ? 80 : 65 }}
               renderItem={renderItem_notificationList}
               keyExtractor={keyExtractor_notificationList}
             />

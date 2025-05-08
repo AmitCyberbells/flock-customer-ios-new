@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import ScreenProps from '../../types/ScreenProps';
 import { Offer } from '../../types/Venue';
 import Loader from '../../components/Loader';
@@ -8,6 +8,7 @@ import Toast from 'react-native-toast-message';
 import { Colors } from '../../constants/Colors';
 import NoData from '../../components/NoData';
 import OffersList from '../../components/OffersList';
+import MtToast from '../../constants/MtToast';
 
 const SavedOffers: React.FC<ScreenProps<'SavedOffers'>> = props => {
   const [offers, setOffers] = useState<Array<Offer>>([]);
@@ -26,11 +27,7 @@ const SavedOffers: React.FC<ScreenProps<'SavedOffers'>> = props => {
       if (success) {
         setOffers(success.data);
       } else {
-        Toast.show({
-          type: 'MtToastError',
-          text1: error.message,
-          position: 'bottom',
-        });
+        MtToast.error(error.message);
       }
     });
   };
@@ -46,7 +43,7 @@ const SavedOffers: React.FC<ScreenProps<'SavedOffers'>> = props => {
           setLoader={setIsLoading}
           columnStyle={{paddingHorizontal: 10}}
         />
-        : <NoData />}
+        : <NoData isLoading={loader} />}
     </View>
   );
 };

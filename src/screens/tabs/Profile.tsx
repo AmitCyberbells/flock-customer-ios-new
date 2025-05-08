@@ -1,9 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   FlatList,
-  Platform,
-  Text,
-  TouchableOpacity,
   View,
   StyleSheet,
 } from 'react-native';
@@ -12,18 +9,18 @@ import { CSS } from '../../constants/CSS';
 import Textview from '../../components/Textview';
 import { Fonts } from '../../constants/Fonts';
 import { Colors } from '../../constants/Colors';
-import { Pressable, ScrollView } from 'react-native-gesture-handler';
+import { Pressable } from 'react-native-gesture-handler';
 import Imageview from '../../components/Imageview';
 import { useSelector } from 'react-redux';
 import { StoreStates } from '../../store/store';
-import BoxView from '../../components/BoxView';
 import Images from '../../constants/Images';
-import Item from '../../types/RenderedItem';
 import VirtualizedList from '../../components/VirtualizedList';
 import RootStackParamList from '../../types/RootStackParamList';
 import ShadowCard from '../../components/ShadowCard';
 import TabHeader from '../../components/TabHeader';
 import { isIos } from '../../constants/IsPlatform';
+import WalletService from '../../services/WalletService';
+import Loader from '../../components/Loader';
 
 type ProfileMenuItem = {
   id: number,
@@ -32,6 +29,7 @@ type ProfileMenuItem = {
 }
 
 const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const user = useSelector((state: StoreStates) => state.user);
   const wallet = useSelector((state: StoreStates) => state.wallet);
   const profileMenu: ProfileMenuItem[] = [
@@ -57,6 +55,11 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
     },
   ];
 
+  const { updateWalletBalances } = WalletService();
+
+  useEffect(() => {
+    updateWalletBalances(setIsLoading);
+  }, [])
 
   const renderItem_profileMenu = useCallback(
     ({ item, index }: { item: ProfileMenuItem, index: number }) => (
@@ -84,23 +87,23 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
 
   return (
     <View style={[CSS.Favcontainer]}>
+      <Loader isLoading={isLoading} />
       <View style={[styles.container]}>
         <TabHeader {...props} title='My Profile' />
-
         <VirtualizedList>
           <View style={styles.profileImageContainer}>
             <View style={styles.imageWrapper}>
               <Imageview
                 url={user.image || Images.profileImg}
                 style={styles.profileImage}
-                imageStyle={{borderRadius: isIos ? 80 : 70}}
+                imageStyle={{ borderRadius: isIos ? 80 : 70 }}
                 imageType={'server'}
                 resizeMode='cover'
               />
             </View>
 
             <Textview
-              text={user.first_name + ' ' + (user.last_name?? '')}
+              text={user.first_name + ' ' + (user.last_name ?? '')}
               style={styles.userName}
             />
             <Textview

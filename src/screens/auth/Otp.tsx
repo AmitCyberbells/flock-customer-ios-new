@@ -245,7 +245,7 @@ const OTPScreen: React.FC<ScreenProps<'Otp'>> = (props) => {
 
     Request.sendContactOtp({ contact: phone }, (success, error) => {
       setLoader(false);
-      
+
       if (success) {
         MtToast.success(success.message);
       } else {
@@ -256,7 +256,7 @@ const OTPScreen: React.FC<ScreenProps<'Otp'>> = (props) => {
 
   return (
     <AuthLayout isLoading={loader} backButton={true} {...props}>
-      
+
       <View>
         <Textview
           text={'Verify ' + (verifyEmail ? 'email' : 'phone')}
@@ -305,6 +305,7 @@ const OTPScreen: React.FC<ScreenProps<'Otp'>> = (props) => {
       </View>
 
       <TouchableOpacity
+        activeOpacity={0.9}
         onPress={handleVerifyOTP}
         style={[CSS.buttonView, styles.verifyButton]}>
         <Text style={styles.verifyButtonText}>
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    fontSize: 22,
+    fontSize: Fonts.fs_22,
     textAlign: 'center',
     paddingVertical: 0,
     paddingHorizontal: 0,
@@ -354,7 +355,7 @@ const styles = StyleSheet.create({
 
   submitButtonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: Fonts.fs_18,
   },
 
   otpContainer: {

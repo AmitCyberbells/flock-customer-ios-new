@@ -14,6 +14,7 @@ import MtToast from "../../constants/MtToast";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authReducer";
 import { StoreStates } from "../../store/store";
+import { Validator } from "../../services/Validator";
 
 const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
@@ -27,6 +28,9 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
         new: false,
         confirm: false
     });
+
+    const [passwordErr, setPasswordErr] = useState<string>('');
+    const [confirmationErr, setConfirmationErr] = useState<string>('');
 
     const dispatch = useDispatch();
     const auth = useSelector((state: StoreStates) => state.auth);
@@ -67,6 +71,34 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
         setPasswordConfirmation(undefined);
     }
 
+    const errorMsg = (msg: string) => (msg && <Text style={{ fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 10, alignSelf: 'flex-start' }}>{msg}</Text>)
+
+    const validatePassword = (pass: string) => {
+        setPasswordErr('');
+        setConfirmationErr('');
+
+        if (!Validator.password.validate(pass)) {
+            setPasswordErr(Validator.password.message);
+        }
+
+        if (pass !== password_confirmation) {
+            setConfirmationErr('Password does not matched!')
+        }
+
+        setPassword(pass);
+    }
+
+    const validateConfirmation = (pass: string) => {
+        console.log('password confirmation ', pass)
+        setConfirmationErr('')
+
+        if (pass !== password) {
+            setConfirmationErr('Password does not matched!')
+        }
+
+        setPasswordConfirmation(pass);
+    }
+
     return (
         <FormLayout>
             <Loader isLoading={loader} />
@@ -86,6 +118,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         onChangeText={value => setOldPassword(value)}
                     />
                     <TouchableOpacity
+                        activeOpacity={0.9}
                         style={styles.eyeIcon}
                         onPress={() => setShowPassword({ ...showPassword, old: !showPassword.old })}
                     >
@@ -96,6 +129,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         />
                     </TouchableOpacity>
                 </ShadowCard>
+
 
                 <ShadowCard
                     style={[
@@ -112,9 +146,10 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         placeholderTextColor={Colors.grey}
                         secureTextEntry={!showPassword.new}
                         value={password}
-                        onChangeText={value => setPassword(value)}
+                        onChangeText={value => validatePassword(value)}
                     />
                     <TouchableOpacity
+                        activeOpacity={0.9}
                         style={styles.eyeIcon}
                         onPress={() => setShowPassword({ ...showPassword, new: !showPassword.new })}
                     >
@@ -125,6 +160,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         />
                     </TouchableOpacity>
                 </ShadowCard>
+                {errorMsg(passwordErr || '')}
 
                 <ShadowCard
                     style={[
@@ -141,9 +177,10 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         placeholderTextColor={Colors.grey}
                         secureTextEntry={!showPassword.confirm}
                         value={password_confirmation}
-                        onChangeText={value => setPasswordConfirmation(value)}
+                        onChangeText={value => validateConfirmation(value)}
                     />
                     <TouchableOpacity
+                        activeOpacity={0.9}
                         style={styles.eyeIcon}
                         onPress={() => setShowPassword({ ...showPassword, confirm: !showPassword.confirm })}
                     >
@@ -154,8 +191,9 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                         />
                     </TouchableOpacity>
                 </ShadowCard>
+                {errorMsg(confirmationErr || '')}
 
-                <TouchableOpacity onPress={submit} disabled={!isFormValid()} style={{
+                <TouchableOpacity activeOpacity={0.9} onPress={submit} disabled={!isFormValid()} style={{
                     opacity: isFormValid() ? 1 : 0.5,
                     marginTop: 30,
                     flexDirection: 'row'
@@ -168,7 +206,7 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
                             textAlign: 'center',
                             backgroundColor: Colors.primary_color_orange,
                             padding: 10,
-                            borderRadius: 8,
+                            borderRadius: 5,
                             flex: 1
                         }}
                     > {'Update'} </Text>

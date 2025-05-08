@@ -24,6 +24,7 @@ import VirtualizedList from '../../components/VirtualizedList';
 import { useSelector } from 'react-redux';
 import { StoreStates } from '../../store/store';
 import { isIos } from '../../constants/IsPlatform';
+import Utils from '../../services/Utils';
 
 const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
 
@@ -127,7 +128,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
           </View>
 
           <View style={CSS.home_mapicon}>
-            <TouchableOpacity onPress={scanQR}>
+            <TouchableOpacity onPress={scanQR} activeOpacity={0.9}>
               <Imageview
                 url={Images.scanner}
                 style={{
@@ -140,7 +141,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={nearbyVenues}>
+            <TouchableOpacity onPress={nearbyVenues} activeOpacity={0.9}>
               <Imageview
                 style={{
                   width: isIos ? 40 : 35,
@@ -188,7 +189,9 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
               }
             />
           ) : (
-            <NoData />
+            <View style={{ height: Utils.DEVICE_HEIGHT / 2 }}>
+              <NoData isLoading={isLoading} />
+            </View>
           )}
         </View>
       </VirtualizedList>

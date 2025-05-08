@@ -82,6 +82,7 @@ const ResetPassword: React.FC<ScreenProps<'ResetPassword'>> = props => {
           onChangeText={value => onChangeInput(value)}
         />
         <TouchableOpacity
+          activeOpacity={0.9}
           style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}>
           <Icon

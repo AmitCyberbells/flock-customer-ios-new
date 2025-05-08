@@ -205,7 +205,7 @@ const FeathersHistory: React.FC<ScreenProps<'FeathersHistory'>> = (props) => {
                     keyExtractor={keyExtractor_list}
                 /> :
                     <View style={{height: Utils.DEVICE_HEIGHT/2 }}>
-                        <NoData />
+                        <NoData isLoading={loader}/>
                     </View>
 
                 }

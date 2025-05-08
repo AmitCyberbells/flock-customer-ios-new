@@ -19,6 +19,7 @@ import Request from '../../services/Request';
 import Loader from '../../components/Loader';
 import InputField from '../../components/InputField';
 import { isIos } from '../../constants/IsPlatform';
+import { Fonts } from '../../constants/Fonts';
 
 interface SupportProps extends ScreenProps<'SupportForm'> {
     initialData?: {
@@ -60,7 +61,7 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
         } catch (error) {
             MtToast.error('Failed to submit support request. Please try again.');
             setLoader(false);
-        } 
+        }
     }, [subject, query, navigation]);
 
     return (
@@ -117,6 +118,7 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
                     </View>
 
                     <TouchableOpacity
+                        activeOpacity={0.9}
                         style={[
                             styles.continueButton,
                             (!subject.trim() || !query.trim()) && styles.continueButtonDisabled
@@ -152,11 +154,11 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     backButtonText: {
-        fontSize: 24,
+        fontSize: Fonts.fs_24,
         color: Colors.blue,
     },
     title: {
-        fontSize: 24,
+        fontSize: Fonts.fs_24,
         fontWeight: '600',
         textAlign: 'center',
         marginBottom: 20,
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     infoText: {
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
     },
     inputContainer: {
@@ -209,7 +211,7 @@ const styles = StyleSheet.create({
         height: 56,
         borderRadius: 10,
         paddingHorizontal: 20,
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
         color: Colors.black,
     },
     queryInput: {
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     continueButton: {
         height: 56,
         backgroundColor: Colors.primary_color_orange,
-        borderRadius: 10,
+        borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 8,
@@ -230,7 +232,7 @@ const styles = StyleSheet.create({
     },
     continueButtonText: {
         color: Colors.white,
-        fontSize: 18,
+        fontSize: Fonts.fs_18,
         fontWeight: '600',
     },
 });

@@ -30,6 +30,7 @@ import SupportList from '../screens/pages/SupportList';
 import SupportForm from '../screens/pages/SupportForm';
 import FeathersHistory from '../screens/pages/FeathersHistory';
 import SupportTicket from '../screens/pages/SupportTicket';
+import VenuePointsHistory from '../screens/pages/VenuePointsHistory';
 
 const Stack = createNativeStackNavigator();
 
@@ -277,6 +278,13 @@ export default function StackNavigator() {
               backgroundColor={Colors.white}
             />
           ),
+        }}
+      />
+      <Stack.Screen
+        name="VenuePointsHistory"
+        component={VenuePointsHistory}
+        options={{
+          headerShown: false
         }}
       />
     </Stack.Navigator>

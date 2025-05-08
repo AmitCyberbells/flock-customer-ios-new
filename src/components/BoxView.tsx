@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import BoxViewTypes from '../types/BoxViewTypes';
+import { Fonts } from '../constants/Fonts';
 
 const BoxView = ({
   title,
@@ -15,10 +16,10 @@ const BoxView = ({
 }: BoxViewTypes) => {
   return (
     <View style={[styles.card, cardStyle]}>
-      {image && <Image source={image} style={[styles.image, imageStyle]} />}
+      {image ? <Image source={image} style={[styles.image, imageStyle]} /> : null}
       <View style={[styles.textContainer, bodyStyle]}>
-        {title && <Text style={[styles.title, titleStyle]}>{title}</Text>}
-        {subtitle && <Text style={[styles.subtitle, subtitleStyle]}>{subtitle}</Text>}
+        {title ? <Text style={[styles.title, titleStyle]}>{title}</Text> : null}
+        {subtitle ? <Text style={[styles.subtitle, subtitleStyle]}>{subtitle}</Text>: null}
         {children}
       </View>
     </View>
@@ -50,12 +51,12 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   title: {
-    fontSize: 18,
+    fontSize: Fonts.fs_18,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: Fonts.fs_14,
     color: '#666',
   },
 });

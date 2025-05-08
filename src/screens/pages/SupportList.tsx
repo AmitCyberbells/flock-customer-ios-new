@@ -24,9 +24,12 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
     const [supportRequests, setSupportRequests] = useState<SupportRequest[]>([]);
 
     useEffect(() => {
-        getSupportTickets();
+        const unsubscribe = props.navigation?.addListener('focus', () => {
+            getSupportTickets();
+        });
 
-    }, [])
+        return unsubscribe;
+    }, [props.navigation]);
 
     const getSupportTickets = () => {
         setLoader(true);
@@ -49,7 +52,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
     const renderItem_supportReq = useCallback(
         ({ item, index }: { item: SupportRequest, index: number }) => (
 
-            <Pressable onPress={() => props.navigation?.navigate('SupportTicket', {ticket_id: item.id})}>
+            <Pressable onPress={() => props.navigation?.navigate('SupportTicket', { ticket_id: item.id })}>
                 <ShadowCard
                     style={{
                         backgroundColor: Colors.white,
@@ -109,6 +112,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
                 {...props}
             >
                 <TouchableOpacity
+                    activeOpacity={0.9}
                     onPress={addSupportRequest}
                 >
                     <Imageview
@@ -143,7 +147,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
 
                         :
                         <View style={{ height: (Utils.DEVICE_HEIGHT - 250) }}>
-                            <NoData />
+                            <NoData isLoading={loader} />
                         </View>
 
                 }

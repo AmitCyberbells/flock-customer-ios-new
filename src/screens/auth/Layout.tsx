@@ -22,7 +22,7 @@ const AuthLayout: React.FC<LayoutProps> = (props) => {
     <ImageBackground source={Images.login_back} style={[CSS.LoginBackground]}>
       <Loader isLoading={isLoading} />
 
-      {backButton && <TouchableOpacity onPress={() => navigation?.goBack()} style={{ marginTop: isIos ? 50 : 10, paddingLeft: 10 }}>
+      {backButton && <TouchableOpacity activeOpacity={0.9} onPress={() => navigation?.goBack()} style={{ marginTop: isIos ? 50 : 10, paddingLeft: 10 }}>
         <Imageview
           url={Images.back}
           style={{

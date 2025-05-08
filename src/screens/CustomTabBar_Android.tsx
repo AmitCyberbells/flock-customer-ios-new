@@ -52,7 +52,7 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
         resizeMode={'cover'}>
         <View style={styles.bottomNav}>
           <View style={styles.tabContainer}>
-            <TouchableOpacity onPress={() => openTab(0)} style={CSS.tab}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(0)} style={CSS.tab}>
               <Imageview
                 style={styles.icon}
                 imageType={'local'}
@@ -74,7 +74,7 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
                 ]}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => openTab(1)}
+            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(1)}
               style={[CSS.tab, styles.notificationsTab]}>
               <Imageview
                 style={styles.icon}
@@ -97,7 +97,7 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
                 ]}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => openTab(3)} style={CSS.tab}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(3)} style={CSS.tab}>
               <Imageview
                 style={styles.icon}
                 imageType={'local'}
@@ -119,7 +119,7 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
                 ]}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => openTab(4)} style={CSS.tab}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(4)} style={CSS.tab}>
               <Imageview
                 style={styles.icon}
                 imageType={'local'}
@@ -145,6 +145,7 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
         </View>
 
         <TouchableOpacity
+          activeOpacity={0.9}
           style={styles.floatingButton}
           onPress={() => openTab(2)}>
           <Image style={styles.floatingButtonImage} source={Images.bird} />

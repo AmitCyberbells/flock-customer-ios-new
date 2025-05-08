@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Colors } from "../constants/Colors";
 import Icon from "@react-native-vector-icons/fontawesome6";
+import { Fonts } from "../constants/Fonts";
 
 interface DropdownOption<T> {
   value: T;
@@ -45,7 +46,7 @@ const DropdownMenu = <T extends string | number>({
   return (
     <View style={styles.container}>
       {/* Dropdown Button */}
-      <TouchableOpacity style={styles.dropdownButton} onPress={() => {options.length > 0 ? setVisible(true) : null}}>
+      <TouchableOpacity activeOpacity={0.9} style={styles.dropdownButton} onPress={() => {options.length > 0 ? setVisible(true) : null}}>
         <Text style={styles.buttonText}>{selectedOption?.label ?? placeholder}</Text>
         <Icon name={visible ? "chevron-up" : "chevron-down"} iconStyle="solid" size={20} color={Colors.grey}/>
       </TouchableOpacity>
@@ -58,7 +59,7 @@ const DropdownMenu = <T extends string | number>({
               data={options}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity style={styles.option} onPress={() => handleSelect(item)}>
+                <TouchableOpacity activeOpacity={0.9} style={styles.option} onPress={() => handleSelect(item)}>
                   <Text style={styles.optionText}>{item.label}</Text>
                 </TouchableOpacity>
               )}
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.black,
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
   },
   overlay: {
     flex: 1,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   optionText: {
-    fontSize: 16,
+    fontSize: Fonts.fs_16,
     color: "#333",
   },
   appContainer: {

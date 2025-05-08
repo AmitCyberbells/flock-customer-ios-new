@@ -18,6 +18,7 @@ import MtToast from "../../constants/MtToast";
 import Request from "../../services/Request";
 import SupportRequest, { SupportReply } from "../../types/SupportRequest";
 import { isIos } from "../../constants/IsPlatform";
+import { Fonts } from "../../constants/Fonts";
 
 
 const SupportTicket: React.FC<ScreenProps<'SupportTicket'>> = (props) => {
@@ -121,7 +122,7 @@ const SupportTicket: React.FC<ScreenProps<'SupportTicket'>> = (props) => {
                 title={ticket ? ticket.title : "Support Ticket"}
                 {...props}
             >
-                <TouchableOpacity onPress={() => { onRefresh() }} style={{
+                <TouchableOpacity activeOpacity={0.9} onPress={() => { onRefresh() }} style={{
                     padding: 10
                 }}>
                     <Icon name='arrow-rotate-left' iconStyle="solid" size={20} color={Colors.grey} />
@@ -146,7 +147,7 @@ const SupportTicket: React.FC<ScreenProps<'SupportTicket'>> = (props) => {
                     value={message}
                     onChangeText={setMessage}
                 />
-                <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+                <TouchableOpacity activeOpacity={0.9} style={styles.sendButton} onPress={sendMessage}>
                     <Text style={styles.sendText}>Send</Text>
                 </TouchableOpacity>
             </View>
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
     },
     messageText: {
         color: Colors.black,
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
     },
     inputContainer: {
         flexDirection: "row",
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderColor: "#CCC",
-        borderRadius: 20,
+        borderRadius: 5,
         paddingHorizontal: 15,
         marginRight: 10
     },
@@ -204,10 +205,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary_color_orange,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        borderRadius: 20,
+        borderRadius: 5,
     },
     sendText: {
         color: Colors.white,
-        fontSize: 16,
+        fontSize: Fonts.fs_16,
     },
 });

@@ -38,7 +38,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
 
   useEffect(() => {
     console.log('login page');
-    
+
     const checkStartupAd = async () => {
       const visit = await AsyncStorage.getItem('startupAd');
       if (!visit) {
@@ -87,7 +87,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
     const error = validateEmail(email);
     const error2 = validatePassword(password);
 
-    return {isValid : Utils.isEmpty(error) && Utils.isEmpty(error2), error: error || error2};
+    return { isValid: Utils.isEmpty(error) && Utils.isEmpty(error2), error: error || error2 };
   };
 
   function registerClick() {
@@ -162,7 +162,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
         />
       </BoxView>
 
-      {emailErr != '' ? <Text style={{fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{emailErr}</Text> : ''}
+      {emailErr != '' ? <Text style={{ fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{emailErr}</Text> : ''}
 
       <BoxView
         cardStyle={[
@@ -178,6 +178,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           onChangeText={value => handleInputChange('password', value)}
         />
         <TouchableOpacity
+          activeOpacity={0.9}
           style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}>
           <Icon
@@ -187,8 +188,8 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           />
         </TouchableOpacity>
       </BoxView>
-      
-      {passwordErr !='' ? <Text style={{fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{passwordErr}</Text> : ''}
+
+      {passwordErr != '' ? <Text style={{ fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{passwordErr}</Text> : ''}
 
       <View style={CSS.ForgetPass}>
         <Textview

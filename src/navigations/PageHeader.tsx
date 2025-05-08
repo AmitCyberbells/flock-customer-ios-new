@@ -1,5 +1,5 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TextStyle, TouchableOpacity, View } from 'react-native';
 import Imageview from '../components/Imageview';
 import Images from '../constants/Images';
 import { Colors } from '../constants/Colors';
@@ -14,28 +14,30 @@ type PageHeaderProps = {
   showBackButton?: boolean;
   backgroundColor?: string;
   textColor?: string,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  titleStyle?: TextStyle
 };
 
 const PageHeader: React.FC<
   (NativeStackHeaderProps | ScreenProps<keyof RootStackParamList>) & PageHeaderProps
 > = props => {
-  const { children } = props;
+  const { children, titleStyle } = props;
 
   return (
     <View
-      style={{
+      style={[{
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: props.backgroundColor || 'transparent',
-        paddingHorizontal: isIos ? 20 : 10,
-        paddingTop: isIos ? 50 : 10,
-        paddingBottom: isIos ? 20 : 10,
+        paddingHorizontal: isIos ? 18 : 8,
+        paddingTop: isIos ? 50 : 0,
+        //paddingBottom: isIos ? 20 : 0,
         justifyContent: 'space-between',
-      }}>
+      }]}>
 
       {props.showBackButton ? (
         <TouchableOpacity
+          activeOpacity={0.9}
           onPress={() => props.navigation?.goBack()}
           style={{ width: isIos ? 55 : 50 }} // Fixed width instead of flex: 1
         >
@@ -54,14 +56,14 @@ const PageHeader: React.FC<
       )}
 
       <Text
-        style={{
+        style={[{
           fontFamily: Fonts.medium,
           color: props.textColor ?? Colors.black,
           textAlign: 'center',
           fontSize: Fonts.fs_20,
           paddingHorizontal: 10,
           flex: 1
-        }}
+        }, titleStyle]}
         numberOfLines={1}
       >
         {props?.title || ''}

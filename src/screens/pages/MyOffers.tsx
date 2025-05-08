@@ -8,11 +8,12 @@ import { Offer } from "../../types/Venue";
 import Request from "../../services/Request";
 import OffersList from "../../components/OffersList";
 import MtToast from "../../constants/MtToast";
+import MyOffersList from "../../components/MyOffersList";
+import RedeemedOffers from "../../types/RedeemedOffers";
 
 const MyOffers: React.FC<ScreenProps<'MyOffers'>> = (props) => {
 
-    const [offers, setOffers] = useState<Array<Offer>>([]);
-    const isIos = Platform.OS === 'ios';
+    const [offers, setOffers] = useState<Array<RedeemedOffers>>([]);
     const [loader, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -27,14 +28,7 @@ const MyOffers: React.FC<ScreenProps<'MyOffers'>> = (props) => {
             console.log(success, error);
 
             if (success) {
-
-                let offers: Array<Offer> = [];
-                success.data.map((redeemedOffer) => {
-                    if (redeemedOffer.offer) {
-                        offers.push(redeemedOffer.offer);
-                    }
-                });
-                setOffers(offers);
+                setOffers(success.data);
 
             } else {
                 MtToast.error(error.message);
@@ -46,13 +40,13 @@ const MyOffers: React.FC<ScreenProps<'MyOffers'>> = (props) => {
             <Loader isLoading={loader} />
 
             {offers.length > 0 ?
-                <OffersList
+                <MyOffersList
                     offersData={offers}
                     setLoader={setIsLoading}
                     {...props}
                     columnStyle={{ paddingHorizontal: 10 }}
                 />
-                : <NoData />}
+                : <NoData isLoading={loader}/>}
         </View>
     );
 }

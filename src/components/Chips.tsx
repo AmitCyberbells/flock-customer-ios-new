@@ -1,23 +1,41 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 import Venue from "../types/Venue";
 import { Colors } from "../constants/Colors";
 import { Fonts } from "../constants/Fonts";
 
 
 interface ChipsProps {
-  items?: Array<{name: string}>;
+  items?: Array<{ name: string, link?: (item: any) => void }>;
+  containerStyle?: ViewStyle | Array<ViewStyle>
 }
 
-const Chips: React.FC<ChipsProps> = ({ items }) => {
+const Chips: React.FC<ChipsProps> = ({ items, containerStyle }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={items}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <Text style={styles.tag}>{item.name}</Text>}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({ item }) => {
+          const Tag = (
+            <Text style={[styles.tag, item.link ? {
+              backgroundColor: Colors.primary_color_orange,
+              color: Colors.white
+            } : {}]}>
+              {item.name}
+            </Text>
+          );
+
+          return item.link ? (
+            <TouchableOpacity onPress={() => item.link?.(item)} activeOpacity={0.9}>
+              {Tag}
+            </TouchableOpacity>
+          ) : (
+            Tag
+          );
+        }}
       />
     </View>
   );
@@ -34,11 +52,10 @@ const styles = StyleSheet.create({
     color: Colors.grey,
     fontFamily: Fonts.medium,
     backgroundColor: Colors.whitesmoke,
-    borderRadius: 12,
+    borderRadius: 5,
     paddingHorizontal: 8,
     paddingVertical: 4,
     marginRight: 6,
-    marginBottom: 6, // Ensures proper spacing
     overflow: "hidden",
   },
 });

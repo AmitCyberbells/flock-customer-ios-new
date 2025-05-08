@@ -21,7 +21,7 @@ const TabHeader: React.FC<ScreenProps<keyof RootStackParamList> & TabHeaderProps
     <View style={[CSS.home_toolbar, {zIndex: 1}]}>
 
       {hideSideMenuButton ? null : 
-      <TouchableOpacity onPress={() => navigation?.openDrawer()} style={{flex: 1}}>
+      <TouchableOpacity activeOpacity={0.9} onPress={() => navigation?.openDrawer()} style={{flex: 1}}>
         <Imageview
           style={styles.navIcon}
           imageType={'local'}
@@ -46,7 +46,7 @@ const TabHeader: React.FC<ScreenProps<keyof RootStackParamList> & TabHeaderProps
 
       {nearByVenues ? (
         <View style={CSS.home_mapicon}>
-          <TouchableOpacity onPress={nearByVenues}>
+          <TouchableOpacity activeOpacity={0.9} onPress={nearByVenues}>
             <Imageview
               style={styles.navIcon}
               imageType={'local'}
@@ -61,8 +61,8 @@ const TabHeader: React.FC<ScreenProps<keyof RootStackParamList> & TabHeaderProps
 
 const styles = StyleSheet.create({
   navIcon: {
-    width: isIos ? 45 : 30,
-    height: isIos ? 45 : 30,
+    width: isIos ? 35 : 30,
+    height: isIos ? 35 : 30,
   },
 });
 

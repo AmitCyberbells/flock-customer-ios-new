@@ -20,6 +20,8 @@ import Notification from '../types/Notification';
 import AppLog from '../types/AppLog';
 import { Environment } from '../../env';
 import FeatherHistoryType from '../types/FeatherHistoryType';
+import VenuePointsHistoryType from '../types/VenuePointsHistoryType';
+import MtToast from '../constants/MtToast';
 
 export default class Request {
 
@@ -160,11 +162,8 @@ export default class Request {
   static checkInternet = async (callback?: () => void) => {
     const network = await NetInfo.fetch();
     if (!network.isConnected) {
-      Toast.show({
-        type: 'MtToastError',
-        text1: 'Please turn on your internet',
-        position: 'bottom',
-      });
+      MtToast.error('Please turn on your internet')
+
     } else if (callback) {
       callback();
     }
@@ -524,6 +523,15 @@ export default class Request {
     this.checkInternet(() => this._getRequest(API.feathersHistory, callback));
   };
 
+  static venuePointsHistory = async (
+    callback: (
+      success: SuccessResponse<Array<VenuePointsHistoryType>>,
+      error: ErrorResponse<{ [key: string]: string }>,
+    ) => void,
+  ) => {
+    this.checkInternet(() => this._getRequest(API.venuePointsHistory, callback));
+  };
+
   static updateProfile = async (
     body: FormData,
     callback: (
@@ -532,6 +540,20 @@ export default class Request {
     ) => void,
   ) => {
     this.checkInternet(() => this._postRequest(API.updateProfile, body, callback, true));
+  };
+
+  static updateUserLocation = async (
+    body: {
+      latitude: number,
+      longitude: number,
+      location?: string
+    },
+    callback: (
+      success: SuccessResponse<User>,
+      error: ErrorResponse<{ [key: string]: string }>,
+    ) => void,
+  ) => {
+    this.checkInternet(() => this._postRequest(API.updateUserLocation, body, callback));
   };
 
   static archiveProfile = async (
@@ -622,4 +644,6 @@ export default class Request {
   ) => {
     this.checkInternet(() => this._postRequest(API.createAppLogs, body, callback));
   };
+
+
 }

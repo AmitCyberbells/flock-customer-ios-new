@@ -5,10 +5,7 @@ import Loader from '../../components/Loader';
 import {
   Dimensions,
   FlatList,
-  ImageBackground,
-  Platform,
   RefreshControl,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -60,7 +57,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
       if (error) {
         MtToast.error(error.message);
       } else {
-        console.log('venues', success.data.map(venue => venue.name), { category_id: selectedCategory, ...location, keywords: search });
+        console.log('venues', success.data.map(venue => venue.images));
 
         setVenues(success.data.sort((a: Venue, b: Venue) => {
           const aOpen = IsVenueOpened(a);
@@ -100,6 +97,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
   const renderItem_category = useCallback(
     ({ item, index }: Item) => (
       <TouchableOpacity
+        activeOpacity={0.9}
         onPress={() => category_click(item, index)}
         style={{
           alignItems: 'center',
@@ -199,7 +197,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
           </View>
 
           <View style={CSS.home_mapicon}>
-            <TouchableOpacity onPress={scanQR}>
+            <TouchableOpacity activeOpacity={0.9} onPress={scanQR}>
               <Imageview
                 url={Images.scanner}
                 style={{
@@ -212,7 +210,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={nearbyVenues}>
+            <TouchableOpacity activeOpacity={0.9} onPress={nearbyVenues}>
               <Imageview
                 style={{
                   width: isIos ? 40 : 35,

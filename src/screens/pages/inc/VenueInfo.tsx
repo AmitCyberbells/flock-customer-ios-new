@@ -16,6 +16,7 @@ import { isIos } from '../../../constants/IsPlatform';
 import WalletService from '../../../services/WalletService';
 import ShadowCard from '../../../components/ShadowCard';
 import { CSS } from '../../../constants/CSS';
+import Chips from '../../../components/Chips';
 
 type VenueInfoProps = { venue: Venue, setOffersTab: (tab: boolean) => void };
 
@@ -27,6 +28,10 @@ const VenueInfo: React.FC<
   const { updateWalletBalances } = WalletService();
   const wallet = useSelector((state: StoreStates) => state.wallet);
   const [balance_venue_points, setVenuePointsBalance] = useState<number>(0)
+  const siblingVenues = venue.sibling_venues?.map(item => ({
+    ...item,
+    link: () => pressSiblingVenues(item),
+  }));
 
   useEffect(() => {
     updateWalletBalances();
@@ -36,6 +41,9 @@ const VenueInfo: React.FC<
     setVenuePointsBalance(wallet?.venue_wallets?.find(w => w?.vendor_id === venue?.user_id)?.balance_venue_points || 0)
   }, [wallet])
 
+  const pressSiblingVenues = (item: any) => {
+    props.navigation?.navigate('VenueDetails', { venue_id: item.id });
+  }
 
   const renderItem_amenity = useCallback(
     ({ item, index }: { item: Amenity; index: number }) => (
@@ -128,33 +136,33 @@ const VenueInfo: React.FC<
               />
               {hour.status == 1 ? (
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: 190 }}>
-                <Text
-                  style={{
-                    flex: 1,
-                    textAlign: 'left',
-                    fontSize: Fonts.fs_14,
-                    color: Colors.black,
-                    fontFamily: Fonts.regular
-                  }}
-                >
-                  {hour.start_time}
-                </Text>
-                
-                <Text style={{ textAlign: 'center' }}>{'-'}</Text>
-                
-                <Text
-                  style={{
-                    flex: 1,
-                    textAlign: 'right',
-                    fontSize: Fonts.fs_14,
-                    color: Colors.black,
-                    fontFamily: Fonts.regular
-                  }}
-                >
-                  {hour.end_time}
-                </Text>
-              </View>
-              
+                  <Text
+                    style={{
+                      flex: 1,
+                      textAlign: 'left',
+                      fontSize: Fonts.fs_14,
+                      color: Colors.black,
+                      fontFamily: Fonts.regular
+                    }}
+                  >
+                    {hour.start_time}
+                  </Text>
+
+                  <Text style={{ textAlign: 'center' }}>{'-'}</Text>
+
+                  <Text
+                    style={{
+                      flex: 1,
+                      textAlign: 'right',
+                      fontSize: Fonts.fs_14,
+                      color: Colors.black,
+                      fontFamily: Fonts.regular
+                    }}
+                  >
+                    {hour.end_time}
+                  </Text>
+                </View>
+
 
               ) : (
                 <Textview
@@ -170,7 +178,7 @@ const VenueInfo: React.FC<
             </View> : null
         ))}
 
-        <TouchableOpacity onPress={() => setSeeAllDays(!seeAllDays)} style={{ flex: 1, marginVertical: 13 }}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => setSeeAllDays(!seeAllDays)} style={{ flex: 1, marginVertical: 13 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -200,7 +208,7 @@ const VenueInfo: React.FC<
         </TouchableOpacity>
       </View>
 
-      <ShadowCard style={{ marginHorizontal: 2 }}>
+      <ShadowCard style={{ marginHorizontal: 2, paddingVertical: 10 }}>
         <View>
           <Text
             style={{
@@ -260,10 +268,11 @@ const VenueInfo: React.FC<
             </View>
 
             <TouchableOpacity
+              activeOpacity={0.9}
               onPress={() => { setOffersTab(true) }}
               style={{
                 alignItems: 'flex-end',
-                width: isIos ? 120 : 105
+                width: isIos ? 125 : 105
               }}>
               <Text
                 style={{
@@ -280,6 +289,20 @@ const VenueInfo: React.FC<
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* List of venue names of this vendor */}
+        {siblingVenues?.length ? (
+          <View style={{ borderTopColor: Colors.light_grey, borderTopWidth: 1, paddingTop: 10, marginVertical: 10 }}>
+            <Text>{'Your venue points are also redeemable at:'}</Text>
+          </View>
+        ) : null}
+
+        {siblingVenues?.length ? (
+          <Chips items={siblingVenues.map(item => ({
+            ...item,
+            link: () => pressSiblingVenues(item),
+          }))} />
+        ) : null}
       </ShadowCard>
 
       <Textview

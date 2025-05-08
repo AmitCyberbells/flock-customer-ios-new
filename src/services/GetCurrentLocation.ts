@@ -1,23 +1,27 @@
 import { useState, useCallback } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import Utils from './Utils';
 import { setLocation } from '../store/locationReducer';
 import { StoreStates } from '../store/store';
 import { isIos } from '../constants/IsPlatform';
 import MtToast from '../constants/MtToast';
+import Request from './Request';
+import { createLog, LOG_ACTIVITIES } from './AppLog';
 
 const useLocation = () => {
     const dispatch = useDispatch();
     const location = useSelector((state: StoreStates) => state.location)
 
     const setCurrentLocation = useCallback(() => {
+        if (location.canReset) {
+            return false;
+        }
+
         getCurrentLocation().then((coords) => {
             
-            if (!location.canReset) {
-                dispatch(setLocation(coords));
-            }
+            dispatch(setLocation({...coords, current: true}));
 
         }).catch((error) => {
             console.log(error);
@@ -31,7 +35,8 @@ const useLocation = () => {
 
     const requestLocationPermission = useCallback(async () => {
         if (isIos) {
-            return setCurrentLocation();
+            setCurrentLocation();
+            return true;
         }
         try {
             const granted = await PermissionsAndroid.request(
@@ -51,13 +56,14 @@ const useLocation = () => {
                     Utils.openPhoneSetting();
                 }, 4000);
 
-                return null;
+                return false;
             } else if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                return setCurrentLocation();
+                setCurrentLocation();
+                return true;
             }
         } catch (err) {
             console.warn(err);
-            return null;
+            return false;
         }
     }, [setCurrentLocation]);
 
@@ -80,6 +86,19 @@ const useLocation = () => {
     return { requestLocationPermission, setCurrentLocation, watchCurrentPosition };
 };
 
+const updateUserLocation = async (currentL: GeolocationResponse) => {
+
+    Request.updateUserLocation({
+        latitude: currentL.coords.latitude,
+        longitude: currentL.coords.longitude
+    }, (success, error) => {
+
+        if (error) {
+            createLog(LOG_ACTIVITIES.UPDATE_CURRENT_LOCATION, error);
+        }
+    })
+}
+
 export const getCurrentLocation = () => {
     return new Promise<{ latitude: number, longitude: number }>((resolve, reject) => {
         const timeout = setTimeout(() => {
@@ -94,6 +113,8 @@ export const getCurrentLocation = () => {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 };
+                
+                updateUserLocation(position);
 
                 resolve(coords);
             },

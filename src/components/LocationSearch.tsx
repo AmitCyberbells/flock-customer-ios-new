@@ -7,6 +7,7 @@ import { GoogleLocation } from '../types/Location';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import { useSelector } from 'react-redux';
 import { StoreStates } from '../store/store';
+import { Fonts } from '../constants/Fonts';
 
 interface LocationSearchProps {
     onSelect: (location: GoogleLocation) => void
@@ -78,7 +79,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
                 suppressDefaultStyles={true}
             />
 
-            {resetButton && <TouchableOpacity onPress={() => { locationReset() }} style={{
+            {resetButton && <TouchableOpacity activeOpacity={0.9} onPress={() => { locationReset() }} style={{
                 padding: 10
             }}>
                 <Icon name='arrow-rotate-left' iconStyle="solid" size={20} color={Colors.grey} />
@@ -108,7 +109,7 @@ const defaultStyles = {
         borderRadius: 8,
         paddingVertical: 5,
         paddingHorizontal: 20,
-        fontSize: 15,
+        fontSize: Fonts.fs_15,
         flex: 1,
         marginBottom: 5,
         borderWidth: 1,
