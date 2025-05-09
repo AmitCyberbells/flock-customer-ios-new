@@ -249,7 +249,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           }}
           onPress={() => setOpenDatePicker(!openDatePicker)}>
           {Utils.isEmpty(form.fields.birthDate.value)
-            ? 'Date of Birth'
+            ? 'Date of Birth (optional)'
             : form.fields.birthDate.value}
         </Text>
         <TouchableOpacity
@@ -363,22 +363,14 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
               paddingHorizontal: 10,
               color: Colors.black,
             }}>
-            I am 18 years of age and agree to the{' '}
+            I confirm that I am of legal age in my jurisdiction and agree to the{' '}
             <Text
               style={{
                 textDecorationLine: 'underline',
                 color: Colors.primary_color_orange,
               }}>
-              Terms and Conditions
-            </Text>{' '}
-            as set out by the{' '}
-            <Text
-              style={{
-                textDecorationLine: 'underline',
-                color: Colors.primary_color_orange,
-              }}>
-              User Agreement.
-            </Text>{' '}
+              Terms of Service and Privacy Policy.
+            </Text>
           </Text>
         </TouchableOpacity>
       </View>

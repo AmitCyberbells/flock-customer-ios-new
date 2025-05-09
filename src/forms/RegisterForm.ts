@@ -41,9 +41,9 @@ const rules: Record<keyof FormFields, ValidationRule[]> = {
   firstname: [Validator.required('firstname')],
   lastname: [Validator.required('lastname')],
   email: [Validator.required('email'), Validator.email],
-  phone: [/*Validator.required('phone'),*/ Validator.phone],
+  phone: [/*Validator.required('phone'),*/Validator.phone],
   password: [Validator.required('password'), Validator.password],
-  birthDate: [Validator.required('birthDate')],
+  birthDate: [/*Validator.required('birthDate')*/],
 };
 
 // Define utility methods separately

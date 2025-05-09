@@ -13,7 +13,9 @@ type ImageviewProps = {
     borderRadius?: number, 
     backgroundColor?: string,
     borderColor?: string,
-    borderWidth?: number 
+    borderWidth?: number,
+    width?: number,
+    height?: number, 
   }>;
   onLoad?: () => void;
   imageType?: string;

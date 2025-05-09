@@ -437,8 +437,9 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
             }}>
             <TouchableOpacity
               activeOpacity={0.9}
-              onPress={() => checkin()}
+              onPress={() => venue.checkedin_count ? {} : checkin()}
               style={{ flex: 1 }}
+              disabled={venue.checkedin_count ? true : false}
             >
               <Text
                 style={{

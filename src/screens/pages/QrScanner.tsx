@@ -227,7 +227,7 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
         venue={venue}
         onClose={() => {
           showCheckinDialog(false);
-          props.navigation?.goBack();
+          props.navigation?.navigate('VenueDetails', {venue_id: venue.id});
         }} /> : null}
     </View>
   );

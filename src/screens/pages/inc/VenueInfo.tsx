@@ -1,4 +1,4 @@
-import { FlatList, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Platform, Text, TouchableOpacity, View } from 'react-native';
 import Venue, { Amenity } from '../../../types/Venue';
 import ScreenProps from '../../../types/ScreenProps';
 import Textview from '../../../components/Textview';
@@ -60,15 +60,22 @@ const VenueInfo: React.FC<
           marginRight: 15,
           backgroundColor: '#dfe4fb',
         }}>
-        <Imageview
+        {/* <Imageview
           url={item.icon}
-          style={{
+          imageStyle={{
             width: 50,
             height: 50,
           }}
           imageType={'server'}
           resizeMode={'contain'}
           tintColor={'#3251e4'}
+        /> */}
+        <Image 
+          source={{uri: item.icon}}
+          style={{
+            width: 30,
+            height: 30,
+          }}
         />
         <Textview
           text={item.name}
