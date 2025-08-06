@@ -18,6 +18,8 @@ import Loader from '../../components/Loader';
 import MtToast from '../../constants/MtToast';
 import InputField from '../../components/InputField';
 import { Fonts } from '../../constants/Fonts';
+import { useThemeColors } from '../../constants/useThemeColors';
+import { isIos } from '../../constants/IsPlatform';
 
 interface VenueLocation {
   address: string;
@@ -32,6 +34,7 @@ const VenueRequest: React.FC<ScreenProps<'VenueRequest'>> = ({ navigation }) => 
   const [loader, setLoader] = useState(false);
   const [venueName, setVenueName] = useState<string>('');
   const [location, setLocation] = useState<VenueLocation | null>(null);
+  const theme = useThemeColors();
 
   const handleLocationSelect = useCallback((selectedLocation: VenueLocation) => {
     setLocation(selectedLocation);
@@ -66,6 +69,142 @@ const VenueRequest: React.FC<ScreenProps<'VenueRequest'>> = ({ navigation }) => 
       MtToast.error('Failed to submit venue request. Please try again.');
     }
   }
+
+  const styles = StyleSheet.create({
+    content: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      paddingTop: 20,
+      paddingBottom: isIos ? 34 : 20,
+    },
+    inputsContainer: {
+      padding: 20,
+    },
+    inputWrapper: {
+      marginBottom: 16,
+    },
+    locationContainer: {
+      marginBottom: 16,
+    },
+    input: {
+      height: 56,
+      backgroundColor: theme.inputBackground,
+      borderRadius: 10,
+      paddingHorizontal: 20,
+      fontSize: Fonts.fs_16,
+      color: theme.text,
+      shadowColor: theme.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 4,
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: '#E5E5E5',
+    },
+    inputText: {
+      fontSize: Fonts.fs_16,
+      color: theme.text,
+    },
+    placeholderText: {
+      color: '#999',
+    },
+    googleContainer: {
+      flex: 0,
+    },
+    googleInput: {
+      height: 56,
+      backgroundColor: theme.inputBackground,
+      borderRadius: 10,
+      paddingHorizontal: 20,
+      fontSize: Fonts.fs_16,
+      color: theme.text,
+      shadowColor: theme.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 4,
+      borderWidth: 1,
+      borderColor: '#E5E5E5',
+    },
+    listView: {
+      backgroundColor: theme.inputBackground,
+      borderRadius: 16,
+      marginTop: 8,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: '#E5E5E5',
+      position: 'absolute',
+      top: 60,
+      left: 0,
+      right: 0,
+      zIndex: 1000,
+      maxHeight: 200,
+    },
+    recentSearchesContainer: {
+      marginTop: 16,
+      backgroundColor: Colors.white,
+      borderRadius: 16,
+      padding: 16,
+      shadowColor: Colors.black,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.05,
+      shadowRadius: 4,
+      elevation: 3,
+    },
+    recentSearchesTitle: {
+      fontSize: Fonts.fs_14,
+      fontWeight: '600',
+      color: '#666',
+      marginBottom: 12,
+    },
+    recentSearchesList: {
+      maxHeight: 200,
+    },
+    recentSearchItem: {
+      paddingVertical: 12,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: '#E5E5E5',
+    },
+    recentSearchContent: {
+      flex: 1,
+    },
+    recentSearchName: {
+      fontSize: Fonts.fs_16,
+      fontWeight: '500',
+      color: Colors.black,
+      marginBottom: 4,
+    },
+    recentSearchAddress: {
+      fontSize: Fonts.fs_14,
+      color: '#666',
+    },
+    continueButton: {
+      height: 56,
+      backgroundColor: Colors.primary_color_orange,
+      borderRadius: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 8,
+      opacity: 1,
+    },
+    continueButtonDisabled: {
+      opacity: 0.7,
+    },
+    continueButtonText: {
+      color: Colors.white,
+      fontSize: Fonts.fs_18,
+      fontWeight: '600',
+    },
+  });
 
   return (
     <FormLayout>
@@ -107,140 +246,6 @@ const VenueRequest: React.FC<ScreenProps<'VenueRequest'>> = ({ navigation }) => 
   );
 };
 
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    paddingTop: 20,
-    paddingBottom: Platform.OS === 'ios' ? 34 : 20,
-  },
-  inputsContainer: {
-    padding: 20,
-  },
-  inputWrapper: {
-    marginBottom: 16,
-  },
-  locationContainer: {
-    marginBottom: 16,
-  },
-  input: {
-    height: 56,
-    backgroundColor: Colors.white,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    fontSize: Fonts.fs_16,
-    color: Colors.black,
-    shadowColor: Colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#E5E5E5',
-  },
-  inputText: {
-    fontSize: Fonts.fs_16,
-    color: Colors.black,
-  },
-  placeholderText: {
-    color: '#999',
-  },
-  googleContainer: {
-    flex: 0,
-  },
-  googleInput: {
-    height: 56,
-    backgroundColor: Colors.white,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    fontSize: Fonts.fs_16,
-    color: Colors.black,
-    shadowColor: Colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    borderWidth: 1,
-    borderColor: '#E5E5E5',
-  },
-  listView: {
-    backgroundColor: Colors.white,
-    borderRadius: 16,
-    marginTop: 8,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#E5E5E5',
-    position: 'absolute',
-    top: 60,
-    left: 0,
-    right: 0,
-    zIndex: 1000,
-    maxHeight: 200,
-  },
-  recentSearchesContainer: {
-    marginTop: 16,
-    backgroundColor: Colors.white,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: Colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  recentSearchesTitle: {
-    fontSize: Fonts.fs_14,
-    fontWeight: '600',
-    color: '#666',
-    marginBottom: 12,
-  },
-  recentSearchesList: {
-    maxHeight: 200,
-  },
-  recentSearchItem: {
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E5E5E5',
-  },
-  recentSearchContent: {
-    flex: 1,
-  },
-  recentSearchName: {
-    fontSize: Fonts.fs_16,
-    fontWeight: '500',
-    color: Colors.black,
-    marginBottom: 4,
-  },
-  recentSearchAddress: {
-    fontSize: Fonts.fs_14,
-    color: '#666',
-  },
-  continueButton: {
-    height: 56,
-    backgroundColor: Colors.primary_color_orange,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8,
-    opacity: 1,
-  },
-  continueButtonDisabled: {
-    opacity: 0.7,
-  },
-  continueButtonText: {
-    color: Colors.white,
-    fontSize: Fonts.fs_18,
-    fontWeight: '600',
-  },
-});
+
 
 export default VenueRequest;

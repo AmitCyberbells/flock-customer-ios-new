@@ -16,11 +16,13 @@ import Utils from "../../services/Utils";
 import WebView from "react-native-webview";
 import TutorialItem from "../../components/TutorialItem";
 import { Environment } from "../../../env";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const Tutorials: React.FC<ScreenProps<'Tutorials'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
     const isIos = Platform.OS === 'ios';
     const [tutorials, setTutorials] = useState<Array<Tutorial>>([]);
+    const theme = useThemeColors();
 
     useEffect(() => {
         fetch_tutorials();
@@ -51,7 +53,7 @@ const Tutorials: React.FC<ScreenProps<'Tutorials'>> = (props) => {
     return (
         <View style={{
             flex: 1,
-            backgroundColor: Colors.white,
+            backgroundColor: theme.background,
             paddingBottom: 70
         }}>
             <Loader isLoading={loader} />

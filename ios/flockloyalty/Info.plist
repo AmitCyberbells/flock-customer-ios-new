@@ -22,6 +22,15 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>flockloyalty</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -29,7 +38,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-    	<true/>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>165.232.152.77</key>
@@ -40,11 +49,10 @@
 				<true/>
 			</dict>
 		</dict>
-		
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We need camera permission to take profile picture and QR scan</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescrition</key>
 	<string>This app needs to get your location for providing nearby venue's locations and relevant information.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs to get your location for providing nearby venue's locations and relevant information.</string>
@@ -80,5 +88,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>key_live_gFqcDFmJSAgztETjy36nSibcsCcT9ZNm</string>
+	</dict>
 </dict>
 </plist>

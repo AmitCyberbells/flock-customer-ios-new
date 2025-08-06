@@ -64,6 +64,10 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
             body.append('last_name', last_name);
         }
 
+        // Add contact to form data if it has changed
+        if (contact !== user.contact && !Utils.isEmpty(contact)) {
+            body.append('contact', contact);
+        }
 
         if (image !== user.image && uploadedImage) {
             body.append('image', {
@@ -122,6 +126,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
             if (success) {
                 OtpPageParams.verifyEmail = true;
                 OtpPageParams.verifyPhone = false;
+                OtpPageParams.email = email; // Update with current email
                 props.navigation?.navigate('Otp', OtpPageParams)
 
             } else {
@@ -134,7 +139,12 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
 
         if (!contact) {
             return MtToast.error('Contact is required');
-        };
+        }
+
+        // Validate phone number format
+        if (!Utils.isPhone(contact)) {
+            return MtToast.error('Please enter a valid phone number');
+        }
 
         setLoader(true);
 
@@ -142,12 +152,17 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
             setLoader(false);
 
             if (success) {
+                // Only show success message and navigate if OTP was actually sent
+                MtToast.success('OTP sent to your phone number');
+                
                 OtpPageParams.verifyEmail = false;
                 OtpPageParams.verifyPhone = true;
+                OtpPageParams.contact = contact; // Update with current contact
 
                 props.navigation?.navigate('Otp', OtpPageParams)
             } else {
-                MtToast.error(error.message);
+                // Show the actual error message from the API
+                MtToast.error(error?.message || 'Failed to send OTP. Please try again.');
             }
         });
     }
@@ -244,6 +259,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                 alignItems: 'center',
                                 backgroundColor: Colors.white,
                                 paddingVertical: isIos ? 17 : 0,
+                                paddingHorizontal: 15,
                                 borderBottomColor: Colors.red,
                                 borderBottomWidth: !Utils.isEmpty(last_name) && !Utils.isName(last_name || '') ? 0.5 : 0
                             }}
@@ -330,7 +346,8 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            backgroundColor: Colors.whitesmoke,
+                            backgroundColor: Colors.white, // Changed from whitesmoke to white for consistency
+                            paddingHorizontal: 10, // Added missing padding
                             paddingVertical: isIos ? 17 : 0,
                             marginTop: isIos ? 25 : 20,
                             borderBottomColor: Colors.red,
@@ -347,7 +364,8 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             placeholder="Enter phone number"
                             placeholderTextColor={Colors.grey}
                             keyboardType={'phone-pad'}
-                            editable={false}
+                            editable={true} // Changed from false to true
+                            returnKeyType={"done"}
                             value={contact}
                             onChangeText={value => {
                                 setContact(value)

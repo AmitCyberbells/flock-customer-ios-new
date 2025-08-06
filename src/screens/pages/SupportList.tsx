@@ -18,10 +18,12 @@ import Textview from "../../components/Textview";
 import NoData from "../../components/NoData";
 import Utils from "../../services/Utils";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
     const [supportRequests, setSupportRequests] = useState<SupportRequest[]>([]);
+    const theme = useThemeColors();
 
     useEffect(() => {
         const unsubscribe = props.navigation?.addListener('focus', () => {
@@ -102,8 +104,16 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
 
     const keyExtractor_supportReq = (item: SupportRequest, index: number) => index.toString();
 
+
+    const styles = StyleSheet.create({
+        Favcontainer: {
+            flex: 1,
+            backgroundColor: theme.background,
+        },
+    })
+
     return (
-        <View style={CSS.Favcontainer}>
+        <View style={styles.Favcontainer}>
             <Loader isLoading={loader} />
 
             <PageHeader

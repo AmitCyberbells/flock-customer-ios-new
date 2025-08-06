@@ -1,10 +1,13 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import StackNavigator from './StackNavigator';
 import CustomDrawerContent from './CustomDrawerContent';
+import { useThemeColors } from '../constants/useThemeColors';
 
 const Drawer = createDrawerNavigator();
 
 function SideMenu() {
+  const theme = useThemeColors();
+
   return (
     <Drawer.Navigator
       initialRouteName="Main"
@@ -13,6 +16,7 @@ function SideMenu() {
         drawerStyle: {
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
+          backgroundColor: theme.background
         },
       }}>
       <Drawer.Screen

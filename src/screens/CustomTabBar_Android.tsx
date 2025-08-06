@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Dimensions,
   StyleSheet,
+  useColorScheme,
 } from 'react-native';
 import Images from '../constants/Images';
 import Imageview from '../components/Imageview';
@@ -23,14 +24,66 @@ import Dash from './tabs/Dash';
 import ScreenProps from '../types/ScreenProps';
 import {CSS} from '../constants/CSS';
 import { isIos } from '../constants/IsPlatform';
+import { useThemeColors } from '../constants/useThemeColors';
 
 const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
   const {navigation} = props;
   const [index, setIndex] = useState(0);
+  const theme = useThemeColors();
+  const scheme = useColorScheme();
 
   function openTab(i: number) {
     setIndex(i);
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      height: '100%',
+      backgroundColor: theme.background,
+    },
+    imageBackground: {
+      width: Dimensions.get('window').width,
+      height: 100,
+      bottom: -10,
+      position: 'absolute',
+    },
+    bottomNav: {
+      width: '100%',
+      position: 'absolute',
+      bottom: 5,
+      backgroundColor: theme.backgroundfav,
+      shadowColor: '#dcdcdc',
+      shadowOpacity: 4,
+      height: isIos ? 80 : 70,
+    },
+    tabContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginHorizontal: isIos ? 23 : 15,
+      marginVertical: 0,
+    },
+    icon: {
+      width: isIos ? 30 : 25,
+      height: isIos ? 30 : 25,
+    },
+    tabText: {
+      fontSize: Fonts.fs_10,
+      fontFamily: Fonts.regular,
+      marginTop: 3,
+    },
+    notificationsTab: {
+      marginRight: 80,
+    },
+    floatingButton: {
+      position: 'absolute',
+      bottom: 22,
+      alignSelf: 'center'
+    },
+    floatingButtonImage: {
+      width: 70,
+      height: 70,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -47,9 +100,12 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
       )}
 
       <ImageBackground
-        source={Images.bottomNav}
+        source={scheme === 'dark' ? Images.bottomNavDark : Images.bottomNav}
         style={styles.imageBackground}
-        resizeMode={'cover'}>
+        resizeMode={'cover'}
+        // tintColor={scheme === 'dark' ? theme.backgroundfav : ''}
+        >
+          
         <View style={styles.bottomNav}>
           <View style={styles.tabContainer}>
             <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(0)} style={CSS.tab}>
@@ -157,51 +213,4 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
 
 export default CustomTabBar_Android;
 
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: '#000000',
-  },
-  imageBackground: {
-    width: Dimensions.get('window').width,
-    height: 100,
-    bottom: -10,
-    position: 'absolute',
-  },
-  bottomNav: {
-    width: '100%',
-    position: 'absolute',
-    bottom: 5,
-    backgroundColor: '#fff',
-    shadowColor: '#dcdcdc',
-    shadowOpacity: 4,
-    height: isIos ? 80 : 70,
-  },
-  tabContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: isIos ? 23 : 15,
-    marginVertical: 0,
-  },
-  icon: {
-    width: isIos ? 30 : 25,
-    height: isIos ? 30 : 25,
-  },
-  tabText: {
-    fontSize: Fonts.fs_10,
-    fontFamily: Fonts.regular,
-    marginTop: 3,
-  },
-  notificationsTab: {
-    marginRight: 80,
-  },
-  floatingButton: {
-    position: 'absolute',
-    bottom: 22,
-    alignSelf: 'center'
-  },
-  floatingButtonImage: {
-    width: 70,
-    height: 70,
-  },
-});
+

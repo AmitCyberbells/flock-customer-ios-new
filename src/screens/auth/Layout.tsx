@@ -7,6 +7,8 @@ import Imageview from '../../components/Imageview';
 import { isIos } from '../../constants/IsPlatform';
 import ScreenProps from '../../types/ScreenProps';
 import RootStackParamList from '../../types/RootStackParamList';
+import { useThemeColors } from '../../constants/useThemeColors';
+import { useColorScheme } from 'react-native';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -17,9 +19,16 @@ type LayoutProps = {
 
 const AuthLayout: React.FC<LayoutProps> = (props) => {
   const { children, isLoading, backButton, navigation, scrollViewStyle } = props;
+  const theme = useThemeColors();
+  const colorScheme = useColorScheme();
+  
+  // Use dark mode background if available, otherwise use default
+  const backgroundImage = colorScheme === 'dark' && Images.login_bg_darkmode 
+    ? Images.login_bg_darkmode 
+    : Images.login_back;
   
   return (
-    <ImageBackground source={Images.login_back} style={[CSS.LoginBackground]}>
+    <ImageBackground source={backgroundImage} style={[CSS.LoginBackground]}>
       <Loader isLoading={isLoading} />
 
       {backButton && <TouchableOpacity activeOpacity={0.9} onPress={() => navigation?.goBack()} style={{ marginTop: isIos ? 50 : 10, paddingLeft: 10 }}>

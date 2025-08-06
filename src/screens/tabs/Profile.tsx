@@ -21,6 +21,7 @@ import TabHeader from '../../components/TabHeader';
 import { isIos } from '../../constants/IsPlatform';
 import WalletService from '../../services/WalletService';
 import Loader from '../../components/Loader';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 type ProfileMenuItem = {
   id: number,
@@ -56,6 +57,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
   ];
 
   const { updateWalletBalances } = WalletService();
+  const theme = useThemeColors();
 
   useEffect(() => {
     updateWalletBalances(setIsLoading);
@@ -75,6 +77,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
               url={Images.blackArrow}
               style={styles.menuItemArrow}
               imageType={'local'}
+              tintColor={theme.text}
             />
           </View>
         </ShadowCard>
@@ -85,8 +88,169 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
 
   const keyExtractor_profileMenu = (item: any, index: number) => index.toString();
 
+  const styles = StyleSheet.create({
+    Favcontainer: {
+      flex: 1,
+      backgroundColor: theme.background,
+    },
+    container: {
+      paddingBottom: 120,
+      marginHorizontal: 15
+    },
+
+    profileImageContainer: {
+      alignItems: 'center',
+      marginTop: isIos ? 35 : 25,
+    },
+    imageWrapper: {
+      height: isIos ? 160 : 140,
+      width: isIos ? 160 : 140,
+      borderWidth: 0.4,
+      borderColor: Colors.grey,
+      borderRadius: isIos ? 80 : 70,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    profileImage: {
+      width: isIos ? 145 : 135,
+      height: isIos ? 145 : 135,
+      alignSelf: 'center',
+      resizeMode: 'cover',
+    },
+    userName: {
+      fontFamily: Fonts.medium,
+      color: theme.text,
+      textAlign: 'center',
+      fontSize: Fonts.fs_18,
+      marginTop: isIos ? 15 : 7,
+    },
+    userEmail: {
+      fontFamily: Fonts.medium,
+      color: theme.muteText,
+      textAlign: 'center',
+      fontSize: Fonts.fs_14,
+      marginTop: isIos ? 5 : 0,
+    },
+    feathersCard: {
+      //backgroundColor: Colors.white,
+      paddingHorizontal: isIos ? 20 : 15,
+      paddingVertical: isIos ? 10 : 7,
+      marginTop: isIos ? 30 : 20,
+    },
+    rowSpaceBetween: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    feathersTitle: {
+      fontFamily: Fonts.medium,
+      color: theme.muteText,
+      textAlign: 'center',
+      fontSize: Fonts.fs_14,
+    },
+    feathersCount: {
+      fontFamily: Fonts.medium,
+      color: theme.text,
+      fontSize: Fonts.fs_25,
+      marginTop: isIos ? 10 : 0,
+    },
+    divider: {
+      borderColor: Colors.grey,
+      borderWidth: isIos ? 0.6 : 0.3,
+      marginVertical: isIos ? 10 : 5,
+    },
+    statsContainer: {
+      flexDirection: 'row',
+      marginVertical: isIos ? 12 : 5,
+    },
+    statItem: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    statIcon: {
+      width: isIos ? 40 : 30,
+      height: isIos ? 40 : 30,
+    },
+    spendIcon: {
+      width: isIos ? 40 : 30,
+      height: isIos ? 40 : 30,
+      resizeMode: 'contain',
+    },
+    statTextContainer: {
+      paddingHorizontal: 15,
+    },
+    statLabel: {
+      fontFamily: Fonts.medium,
+      color: theme.muteText,
+      fontSize: Fonts.fs_14,
+      marginBottom: isIos ? 5 : 0,
+    },
+    statValue: {
+      fontFamily: Fonts.medium,
+      color: theme.text,
+      fontSize: Fonts.fs_17,
+      marginTop: isIos ? 2 : 0,
+    },
+    pointsCard: {
+     //backgroundColor: Colors.white,
+      paddingHorizontal: isIos ? 20 : 15,
+      paddingVertical: isIos ? 10 : 7,
+      marginTop: isIos ? 30 : 20,
+    },
+    pointsTitle: {
+      fontFamily: Fonts.medium,
+      color: theme.muteText,
+      textAlign: 'center',
+      fontSize: Fonts.fs_14,
+    },
+    pointsCount: {
+      fontFamily: Fonts.medium,
+      color: theme.text,
+      fontSize: Fonts.fs_25,
+      marginTop: isIos ? 10 : 0,
+    },
+    generalTitle: {
+      fontFamily: Fonts.medium,
+      color: Colors.grey,
+      fontSize: Fonts.fs_18,
+      fontWeight: '600',
+      marginTop: isIos ? 15 : 10,
+    },
+    menuList: {
+      flexGrow: 0,
+      marginBottom: 10,
+      marginTop: isIos ? 10 : 2,
+      paddingBottom: isIos ? 70 : 5,
+    },
+    menuListContent: {
+      paddingBottom: 30,
+    },
+    menuItemCard: {
+      backgroundColor: theme.inputBackground,
+      paddingHorizontal: isIos ? 20 : 15,
+      paddingVertical: 15,
+      marginVertical: isIos ? 7 : 5,
+    },
+    menuItemContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    menuItemText: {
+      fontFamily: Fonts.regular,
+      color: theme.text,
+      fontSize: Fonts.fs_17,
+    },
+    menuItemArrow: {
+      resizeMode: 'contain',
+      width: isIos ? 12 : 10,
+      height: isIos ? 12 : 10,
+    },
+  });
+
   return (
-    <View style={[CSS.Favcontainer]}>
+    <View style={[styles.Favcontainer]}>
       <Loader isLoading={isLoading} />
       <View style={[styles.container]}>
         <TabHeader {...props} title='My Profile' />
@@ -99,6 +263,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
                 imageStyle={{ borderRadius: isIos ? 80 : 70 }}
                 imageType={'server'}
                 resizeMode='cover'
+                tintColor={theme.greyIcon}
               />
             </View>
 
@@ -240,162 +405,5 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingBottom: 120,
-    marginHorizontal: 15
-  },
-
-  profileImageContainer: {
-    alignItems: 'center',
-    marginTop: isIos ? 35 : 25,
-  },
-  imageWrapper: {
-    height: isIos ? 160 : 140,
-    width: isIos ? 160 : 140,
-    borderWidth: 0.4,
-    borderColor: Colors.grey,
-    borderRadius: isIos ? 80 : 70,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  profileImage: {
-    width: isIos ? 135 : 125,
-    height: isIos ? 135 : 125,
-    alignSelf: 'center',
-    resizeMode: 'cover',
-  },
-  userName: {
-    fontFamily: Fonts.medium,
-    color: Colors.black,
-    textAlign: 'center',
-    fontSize: Fonts.fs_18,
-    marginTop: isIos ? 15 : 7,
-  },
-  userEmail: {
-    fontFamily: Fonts.medium,
-    color: Colors.light_grey,
-    textAlign: 'center',
-    fontSize: Fonts.fs_14,
-    marginTop: isIos ? 5 : 0,
-  },
-  feathersCard: {
-    backgroundColor: Colors.white,
-    paddingHorizontal: isIos ? 20 : 15,
-    paddingVertical: isIos ? 10 : 7,
-    marginTop: isIos ? 30 : 20,
-  },
-  rowSpaceBetween: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  feathersTitle: {
-    fontFamily: Fonts.medium,
-    color: Colors.light_grey,
-    textAlign: 'center',
-    fontSize: Fonts.fs_14,
-  },
-  feathersCount: {
-    fontFamily: Fonts.medium,
-    color: Colors.black,
-    fontSize: Fonts.fs_25,
-    marginTop: isIos ? 10 : 0,
-  },
-  divider: {
-    borderColor: Colors.grey,
-    borderWidth: isIos ? 0.6 : 0.3,
-    marginVertical: isIos ? 10 : 5,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    marginVertical: isIos ? 12 : 5,
-  },
-  statItem: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  statIcon: {
-    width: isIos ? 40 : 30,
-    height: isIos ? 40 : 30,
-  },
-  spendIcon: {
-    width: isIos ? 40 : 30,
-    height: isIos ? 40 : 30,
-    resizeMode: 'contain',
-  },
-  statTextContainer: {
-    paddingHorizontal: 15,
-  },
-  statLabel: {
-    fontFamily: Fonts.medium,
-    color: Colors.light_grey,
-    fontSize: Fonts.fs_14,
-    marginBottom: isIos ? 5 : 0,
-  },
-  statValue: {
-    fontFamily: Fonts.medium,
-    color: Colors.black,
-    fontSize: Fonts.fs_17,
-    marginTop: isIos ? 2 : 0,
-  },
-  pointsCard: {
-    backgroundColor: Colors.white,
-    paddingHorizontal: isIos ? 20 : 15,
-    paddingVertical: isIos ? 10 : 7,
-    marginTop: isIos ? 30 : 20,
-  },
-  pointsTitle: {
-    fontFamily: Fonts.medium,
-    color: Colors.light_grey,
-    textAlign: 'center',
-    fontSize: Fonts.fs_14,
-  },
-  pointsCount: {
-    fontFamily: Fonts.medium,
-    color: Colors.black,
-    fontSize: Fonts.fs_25,
-    marginTop: isIos ? 10 : 0,
-  },
-  generalTitle: {
-    fontFamily: Fonts.medium,
-    color: Colors.grey,
-    fontSize: Fonts.fs_18,
-    fontWeight: '600',
-    marginTop: isIos ? 15 : 10,
-  },
-  menuList: {
-    flexGrow: 0,
-    marginBottom: 10,
-    marginTop: isIos ? 10 : 2,
-    paddingBottom: isIos ? 70 : 5,
-  },
-  menuListContent: {
-    paddingBottom: 30,
-  },
-  menuItemCard: {
-    backgroundColor: Colors.white,
-    paddingHorizontal: isIos ? 20 : 15,
-    paddingVertical: 15,
-    marginVertical: isIos ? 7 : 5,
-  },
-  menuItemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  menuItemText: {
-    fontFamily: Fonts.regular,
-    color: Colors.black,
-    fontSize: Fonts.fs_17,
-  },
-  menuItemArrow: {
-    resizeMode: 'contain',
-    width: isIos ? 12 : 10,
-    height: isIos ? 12 : 10,
-  },
-});
 
 export default Profile;

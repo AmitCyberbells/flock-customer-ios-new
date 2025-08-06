@@ -24,6 +24,7 @@ import { isIos } from '../../constants/IsPlatform';
 import { Environment } from '../../../env';
 import { API } from '../../services/API';
 import { useIsFocused } from '@react-navigation/native';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const Register: React.FC<ScreenProps<'Register'>> = props => {
 
@@ -41,6 +42,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
 
   const [form, setForm] = useState(RegisterForm);
   const isFocused = useIsFocused();
+  const theme = useThemeColors();
 
   useEffect(() => {
     if (isFocused) {
@@ -105,6 +107,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         MtToast.success(success.message);
 
         console.log(success.data);
+        props.navigation?.navigate('Login');
         props.navigation?.navigate('Otp', {
           screenType: 'Login',
           verifyEmail: true,
@@ -142,6 +145,49 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
     props?.navigation?.navigate('WebPage', { title: 'Terms & Conditions', link: API.terms });
   }
 
+  const dynamicStyles = StyleSheet.create({
+    registerText: {
+      fontSize: Fonts.fs_25,
+      color: theme.text,
+      fontFamily: Fonts.medium,
+      alignSelf: 'center',
+      marginTop: 35,
+    },
+    registerSubtitle: {
+      fontSize: Fonts.fs_18,
+      color: theme.text,
+      fontFamily: Fonts.regular,
+      alignSelf: 'center',
+      marginTop: isIos ? 15 : 5,
+    },
+    boxViewCard: {
+      backgroundColor: theme.inputBackground,
+      paddingVertical: isIos ? 10 : 0,
+    },
+    textInput: {
+      flex: 1,
+      color: theme.text,
+      fontSize: Fonts.fs_14,
+      fontFamily: Fonts.regular,
+      height: 40
+    },
+    termsText: {
+      width: '48%',
+      paddingHorizontal: 10,
+      color: theme.text,
+    },
+    termsLink: {
+      textDecorationLine: 'underline',
+      color: Colors.primary_color_orange,
+    },
+    haveAccount: {
+      fontSize: Fonts.fs_12,
+      color: theme.muteText,
+      fontFamily: Fonts.regular,
+      paddingVertical: 10,
+    },
+  });
+
   const errorMsg = (msg: string) => (msg && <Text style={{ fontSize: Fonts.fs_10, color: Colors.red, marginHorizontal: 20 }}>{msg}</Text>)
 
   return (
@@ -159,24 +205,10 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         }}
       />
 
-      <Text
-        style={{
-          fontSize: Fonts.fs_25,
-          color: Colors.black,
-          fontFamily: Fonts.medium,
-          alignSelf: 'center',
-          marginTop: 35,
-        }}>
+      <Text style={dynamicStyles.registerText}>
         Register
       </Text>
-      <Text
-        style={{
-          fontSize: Fonts.fs_18,
-          color: Colors.black,
-          fontFamily: Fonts.regular,
-          alignSelf: 'center',
-          marginTop: isIos ? 15 : 5,
-        }}>
+      <Text style={dynamicStyles.registerSubtitle}>
         Create your account
       </Text>
 
@@ -190,16 +222,16 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         }}>
         <BoxView
           cardStyle={{
-            ...styles.boxViewCard,
+            ...dynamicStyles.boxViewCard,
             marginHorizontal: 0,
             width: '47.5%',
             borderColor: form.fields.firstname.isValid() ? Colors.transparent : Colors.red,
             borderBottomWidth: form.fields.firstname.isValid() ? 0 : 1,
           }}>
           <TextInput
-            style={styles.textInput}
+            style={dynamicStyles.textInput}
             placeholder="First Name"
-            placeholderTextColor={Colors.grey}
+            placeholderTextColor={theme.placeholder}
             returnKeyType={'done'}
             onChangeText={value => handleInputChange('firstname', value || '')}
           />
@@ -207,7 +239,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
 
         <BoxView
           cardStyle={{
-            ...styles.boxViewCard,
+            ...dynamicStyles.boxViewCard,
             width: '47.5%',
             borderColor: form.fields.lastname.isValid()
               ? Colors.transparent
@@ -215,9 +247,9 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
             borderBottomWidth: form.fields.lastname.isValid() ? 0 : 1,
           }}>
           <TextInput
-            style={styles.textInput}
+            style={dynamicStyles.textInput}
             placeholder="Last Name"
-            placeholderTextColor={Colors.grey}
+            placeholderTextColor={theme.placeholder}
             onChangeText={value => handleInputChange('lastname', value || '')}
           />
         </BoxView>
@@ -227,6 +259,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         cardStyle={{
           marginHorizontal: 20,
           paddingVertical: isIos ? 16 : 5,
+          backgroundColor: theme.inputBackground,
           borderColor: form.fields.birthDate.isValid()
             ? Colors.transparent
             : Colors.red,
@@ -243,8 +276,8 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
             padding: 5,
             fontSize: Fonts.fs_14,
             color: Utils.isEmpty(form.fields.birthDate.value)
-              ? Colors.grey
-              : Colors.black,
+              ? theme.placeholder
+              : theme.text,
             fontFamily: Fonts.regular,
           }}
           onPress={() => setOpenDatePicker(!openDatePicker)}>
@@ -259,21 +292,21 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           }}
           activeOpacity={0.9}
           onPress={() => setOpenDatePicker(!openDatePicker)}>
-          <Icon name={'calendar'} size={15} color={Colors.grey} />
+          <Icon name={'calendar'} size={15} color={theme.icon} />
         </TouchableOpacity>
       </BoxView>
       {errorMsg(form.fields.birthDate.error)}
       <BoxView
         cardStyle={{
-          ...styles.boxViewCard,
+          ...dynamicStyles.boxViewCard,
           marginHorizontal: 20,
           borderColor: form.fields.email.isValid() ? Colors.transparent : Colors.red,
           borderBottomWidth: form.fields.email.isValid() ? 0 : 1,
         }}>
         <TextInput
-          style={styles.textInput}
+          style={dynamicStyles.textInput}
           placeholder="Enter email address"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={theme.placeholder}
           keyboardType={'email-address'}
           onChangeText={value => handleInputChange('email', value || '')}
         />
@@ -281,15 +314,15 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
       {errorMsg(form.fields.email.error)}
       <BoxView
         cardStyle={{
-          ...styles.boxViewCard,
+          ...dynamicStyles.boxViewCard,
           marginHorizontal: 20,
           borderColor: form.fields.phone.isValid() ? Colors.transparent : Colors.red,
           borderBottomWidth: form.fields.phone.isValid() ? 0 : 1,
         }}>
         <TextInput
-          style={styles.textInput}
+          style={dynamicStyles.textInput}
           placeholder="Enter phone number (optional)"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={theme.placeholder}
           keyboardType={'phone-pad'}
           onChangeText={value => handleInputChange('phone', value || '')}
         />
@@ -298,7 +331,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
       <BoxView
         cardStyle={{
           marginHorizontal: 20,
-          backgroundColor: Colors.white,
+          backgroundColor: theme.inputBackground,
           paddingVertical: isIos ? 10 : 0,
           borderColor: form.fields.password.isValid()
             ? Colors.transparent
@@ -310,9 +343,9 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           flexDirection: 'row',
         }}>
         <TextInput
-          style={styles.textInput}
+          style={dynamicStyles.textInput}
           placeholder="Enter password"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={theme.placeholder}
           secureTextEntry={showPassword === false ? true : false}
           onChangeText={value => handleInputChange('password', value || '')}
         />
@@ -328,7 +361,7 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
           <Icon
             name={!showPassword ? 'eye-slash' : 'eye'}
             size={15}
-            color={Colors.grey}
+            color={theme.icon}
           />
         </TouchableOpacity>
       </BoxView>
@@ -357,18 +390,9 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.9} onPress={() => openTermsPage()}>
-          <Text
-            style={{
-              width: '48%',
-              paddingHorizontal: 10,
-              color: Colors.black,
-            }}>
+          <Text style={dynamicStyles.termsText}>
             I confirm that I am of legal age in my jurisdiction and agree to the{' '}
-            <Text
-              style={{
-                textDecorationLine: 'underline',
-                color: Colors.primary_color_orange,
-              }}>
+            <Text style={dynamicStyles.termsLink}>
               Terms of Service and Privacy Policy.
             </Text>
           </Text>
@@ -389,9 +413,9 @@ const Register: React.FC<ScreenProps<'Register'>> = props => {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <Text style={styles.haveAccount}>Have an account? </Text>
+          <Text style={dynamicStyles.haveAccount}>Have an account? </Text>
           <Textview
-            style={[styles.haveAccount, styles.haveAccountLink]}
+            style={[dynamicStyles.haveAccount, styles.haveAccountLink]}
             text="Login"
             text_click={loginClick}
           />

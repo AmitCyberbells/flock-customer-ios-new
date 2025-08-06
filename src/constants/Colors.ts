@@ -63,3 +63,93 @@ export const Colors = {
     border: '#333333',
   },
 };
+
+
+
+export const BaseColors = {
+  orange: '#FF8210',
+  lightOrange: '#ffe6cf',
+  orangeShade1: '#facea5',
+
+  colorOne: '#ffdfc3',
+  colorTwo: '#cad2f7',
+  colorThree: '#c3ced6',
+  colorFour: '#fff2be',
+  colorFive: '#ffdfc3',
+
+  venueIcon: '#234dd1',
+  blue: '#007AFF',
+  black: '#000000',
+  red: '#FF0000',
+  lightRed: '#FFCCCC',
+  darkRed: '#8B0000',
+  firebrick: '#B22222',
+  crimson: '#DC143C',
+  indianRed: '#CD5C5C',
+  lightCoral: '#F08080',
+  grey: '#8E8E8E',
+  lightGrey: '#B4B4B4',
+  darkBlue: '#103E5B',
+  lightBlue: '#234dd1', //'#2B4CE0',
+  blue3: '#ADD8E6',
+  white: '#FFFFFF',
+  basecolour:'#B4B4B4',
+  whiteSmoke: '#F5F5F5',
+  transparent: 'transparent',
+  success: '#4BB543',
+  error: '#FF0000',
+  categoryIconBg: '#dfe4fb',
+};
+
+
+export const LightTheme = {
+  text: '#11181C',
+  textDes:'#D1D5DB',
+  muteText: BaseColors.lightGrey,
+  placeholder: '#B4B4B4',
+  background: BaseColors.white,
+  backgroundfav: BaseColors.white,
+  inputBackground: BaseColors.whiteSmoke,
+  tint: tintColorLight,
+  icon: '#687076',
+  tabIconDefault: '#687076',
+  tabIconSelected: tintColorLight,
+  primary: BaseColors.orange,
+  secondary: BaseColors.lightOrange,
+  backgroundSecondary: BaseColors.whiteSmoke,
+  border: '#E0E0E0',
+  blueFont: BaseColors.lightBlue,
+  blueIcon: BaseColors.lightBlue,
+  greyIcon: BaseColors.grey,
+  cyanBlueIcon: '#18415a',
+  categoryIconBg: BaseColors.categoryIconBg,
+  shadowColor: BaseColors.black,
+  cardBackground: BaseColors.white,
+  white: BaseColors.white
+};
+
+export const DarkTheme = {
+  text: '#ECEDEE',
+  textDes:'#D1D5DB',
+  muteText: BaseColors.lightGrey,
+  placeholder: '#B4B4B4',
+  background: '#151718',
+  backgroundfav:'#1F1F1F',
+  inputBackground: '#1F1F1F',
+  tint: tintColorDark,
+  icon: '#9BA1A6',
+  tabIconDefault: '#9BA1A6',
+  tabIconSelected: tintColorDark,
+  primary: BaseColors.orange,
+  secondary: BaseColors.lightOrange,
+  backgroundSecondary: '#1F1F1F',
+  border: '#333333',
+  blueFont: BaseColors.white,
+  blueIcon: BaseColors.orange,
+  greyIcon: BaseColors.orange,
+  cyanBlueIcon: BaseColors.orange,
+  categoryIconBg: BaseColors.categoryIconBg,
+  shadowColor: BaseColors.basecolour,
+  cardBackground: '#2A2A2A',
+  white: BaseColors.white
+};

@@ -24,6 +24,8 @@ import { updateUserToStore } from '../../store/userReducer';
 import { login } from '../../store/authReducer';
 import { isIos } from '../../constants/IsPlatform';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getCurrentLocation } from '../../services/GetCurrentLocation';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const Login: React.FC<ScreenProps<'Login'>> = props => {
 
@@ -34,7 +36,9 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [pendingVenueId, setPendingVenueId] = useState<string | null>(null);
   const dispatch = useDispatch();
+  const theme = useThemeColors();
 
   useEffect(() => {
     console.log('login page');
@@ -45,8 +49,22 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
         props.navigation?.navigate('StartupAd');
       }
     }
+    // Check for pending check-in
+    const checkPendingCheckin = async () => {
+      try {
+        const pendingData = await AsyncStorage.getItem('pendingCheckin');
+        if (pendingData) {
+          const { venue_id } = JSON.parse(pendingData);
+          setPendingVenueId(venue_id);
+          console.log('[Login] Found pending check-in for venue:', venue_id);
+        }
+      } catch (error) {
+        console.error('[Login] Error checking pending check-in:', error);
+      }
+    };
 
     checkStartupAd();
+    checkPendingCheckin();
   }, []);
 
   const handleInputChange = (field: string, value: any) => {
@@ -90,6 +108,81 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
     return { isValid: Utils.isEmpty(error) && Utils.isEmpty(error2), error: error || error2 };
   };
 
+  // Process pending check-in after successful login
+  const processPendingCheckin = async () => {
+    try {
+      const pendingData = await AsyncStorage.getItem('pendingCheckin');
+      
+      if (pendingData) {
+        const { venue_id } = JSON.parse(pendingData);
+        console.log('[Login] Processing pending check-in for venue:', venue_id);
+        
+        if (venue_id) {
+          // Perform the check-in
+          await performCheckin(venue_id);
+        }
+      }
+    } catch (error) {
+      console.error('[Login] Error processing pending check-in:', error);
+    }
+  };
+
+  // Perform the actual check-in
+  const performCheckin = async (venueId: string) => {
+    try {
+      console.log('[Login] Starting check-in for venue:', venueId);
+      
+      // 1. Fetch venue details (optional, but can validate venue exists)
+      await new Promise<void>((resolve, reject) => {
+        Request.fetch_venue(Number(venueId), (success, error) => {
+          if (success && success.data) {
+            console.log('[Login] Venue found:', success.data);
+            resolve();
+          } else {
+            console.log('[Login] Venue fetch error:', error);
+            MtToast.error(error?.message || 'Venue not found');
+            reject(error);
+          }
+        });
+      });
+
+      // 2. Get current location
+      console.log('[Login] Getting current location...');
+      const location = await getCurrentLocation();
+      console.log('[Login] Got location:', location);
+
+      // 3. Call check-in API
+      console.log('[Login] Calling check-in API...');
+      await new Promise<void>((resolve, reject) => {
+        Request.checkin(
+          {
+            venue_id: Number(venueId),
+            lat: location.latitude,
+            long: location.longitude,
+          },
+          (success, error) => {
+            if (success) {
+              console.log('[Login] Check-in success:', success);
+              MtToast.success(success.message || 'Auto check-in successful!');
+              
+              // Clear any pending check-in data
+              AsyncStorage.removeItem('pendingCheckin');
+              setPendingVenueId(null);
+              resolve();
+            } else {
+              console.log('[Login] Check-in error:', error);
+              MtToast.error(error?.message || 'Auto check-in failed');
+              reject(error);
+            }
+          }
+        );
+      });
+    } catch (err) {
+      console.log('[Login] Error in performCheckin:', err);
+      // Error already handled by MtToast
+    }
+  };
+
   function registerClick() {
     props?.navigation?.navigate('Register');
   }
@@ -103,7 +196,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
     }
 
     setIsLoading(true);
-    Request.login({ email, password }, (success, error) => {
+    Request.login({ email, password }, async (success, error) => {
       setIsLoading(false);
       if (success) {
         console.log('login success', success);
@@ -126,6 +219,10 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           }),
         );
 
+        // Process any pending check-in after successful login
+        setTimeout(async () => {
+          await processPendingCheckin();
+        }, 1000); // Small delay to ensure login process is complete
 
       } else {
         console.log('login error', error);
@@ -139,25 +236,92 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
     props?.navigation?.navigate('ForgotPassword');
   }
 
+  const dynamicStyles = StyleSheet.create({
+    loginText: {
+      fontSize: Fonts.fs_25,
+      color: theme.text,
+      fontFamily: Fonts.medium,
+      alignSelf: 'center',
+      marginTop: 35,
+    },
+    loginSubtitle: {
+      fontSize: Fonts.fs_18,
+      color: theme.text,
+      fontFamily: Fonts.regular,
+      alignSelf: 'center',
+      marginTop: isIos ? 15 : 5,
+    },
+    boxViewCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginHorizontal: 20,
+      backgroundColor: theme.inputBackground,
+      paddingVertical: isIos ? 10 : 0,
+      marginTop: 27,
+    },
+    boxViewCardPassword: {
+      marginHorizontal: 20,
+      backgroundColor: theme.inputBackground,
+      paddingVertical: isIos ? 10 : 0,
+      marginTop: isIos ? 25 : 20,
+    },
+    textInput: {
+      flex: 1,
+      color: theme.text,
+      fontSize: Fonts.fs_14,
+      fontFamily: Fonts.regular,
+      height: 40
+    },
+    forgotPasswordText: {
+      fontSize: Fonts.fs_12,
+      color: theme.muteText,
+      fontFamily: Fonts.regular,
+      alignSelf: 'center',
+      marginTop: isIos ? 15 : 5,
+      paddingVertical: 10,
+    },
+    dontHaveAccountText: {
+      fontSize: Fonts.fs_12,
+      color: theme.muteText,
+      fontFamily: Fonts.regular,
+      alignSelf: 'center',
+      marginTop: isIos ? 15 : 5,
+      paddingVertical: 10,
+    },
+  });
+
   return (
-    <AuthLayout isLoading={isLoading} scrollViewStyle={{ marginTop: isIos ? 70 : 40 }}>
-      <Textview text_click={() => { }} text={'Login'} style={styles.loginText} />
+    <AuthLayout 
+      isLoading={isLoading} 
+      scrollViewStyle={{ marginTop: isIos ? 70 : 40 }}
+    >
+      <Textview text_click={() => { }} text={'Login'} style={dynamicStyles.loginText} />
       <Textview
         text_click={() => { }}
         text={'Login to your account'}
-        style={styles.loginSubtitle}
+        style={dynamicStyles.loginSubtitle}
       />
+      
+      {/* Show pending check-in message if exists */}
+      {pendingVenueId && (
+        <View style={styles.pendingCheckinContainer}>
+          <Text style={styles.pendingCheckinText}>
+            📍 You'll be automatically checked in after login
+          </Text>
+        </View>
+      )}
+
       <BoxView
         cardStyle={[
-          styles.boxViewCard,
+          dynamicStyles.boxViewCard,
           emailErr != '' ? styles.inputError : {},
         ]}>
         <TextInput
-          style={styles.textInput}
+          style={dynamicStyles.textInput}
           placeholder="Enter email address"
           autoCapitalize="none"
           keyboardType="email-address"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={theme.placeholder}
           onChangeText={value => handleInputChange('email', value)}
         />
       </BoxView>
@@ -166,14 +330,14 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
 
       <BoxView
         cardStyle={[
-          styles.boxViewCardPassword,
+          dynamicStyles.boxViewCardPassword,
           passwordErr != '' ? styles.inputError : {},
         ]}
         bodyStyle={styles.boxViewBody}>
         <TextInput
-          style={styles.textInput}
+          style={dynamicStyles.textInput}
           placeholder="Enter password"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={theme.placeholder}
           secureTextEntry={!showPassword}
           onChangeText={value => handleInputChange('password', value)}
         />
@@ -184,7 +348,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
           <Icon
             name={!showPassword ? 'eye-slash' : 'eye'}
             size={15}
-            color={Colors.grey}
+            color={theme.icon}
           />
         </TouchableOpacity>
       </BoxView>
@@ -195,7 +359,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
         <Textview
           text_click={() => { }}
           text={'Forgot password? '}
-          style={styles.forgotPasswordText}
+          style={dynamicStyles.forgotPasswordText}
         />
         <Textview
           text_click={forgotPassword}
@@ -216,7 +380,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
         <Textview
           text_click={() => { }}
           text={"Don't have account? "}
-          style={styles.dontHaveAccountText}
+          style={dynamicStyles.dontHaveAccountText}
         />
         <Textview
           text_click={registerClick}
@@ -242,6 +406,20 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.regular,
     alignSelf: 'center',
     marginTop: isIos ? 15 : 5,
+  },
+  pendingCheckinContainer: {
+    backgroundColor: Colors.primary_color_orange,
+    marginHorizontal: 20,
+    marginTop: 15,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  pendingCheckinText: {
+    fontSize: Fonts.fs_12,
+    color: Colors.white,
+    fontFamily: Fonts.medium,
+    textAlign: 'center',
   },
   boxViewCard: {
     flexDirection: 'row',

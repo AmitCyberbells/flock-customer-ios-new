@@ -7,6 +7,7 @@ const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
 
 const scale = DEVICE_WIDTH / 375; // Using 375 as base width
 const normalize = (size: number) => Math.round(scale * size);
+const isTallScreen = DEVICE_HEIGHT >= 890;
 
 export const CSS = StyleSheet.create({
   themeButton: {
@@ -181,17 +182,25 @@ export const CSS = StyleSheet.create({
     marginHorizontal: 3,
     marginBottom: -40
   },
+  
   home_value_image: {
-    width: '100%',
-    height: DEVICE_HEIGHT > 880 ? 250 : 180,
+    width: '92%',
+    height: '82%',
     borderRadius: 10,
     overflow: 'hidden',
+  //   width: '91%',
+  // aspectRatio: 16 / 9,
+  // borderRadius: 10,
+  // overflow: 'hidden',
+  // // alignSelf: 'center',
+  // marginVertical: 10,
   },
+  
   overlay: {
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust opacity by changing the last value (0.5 in this case)
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   view_detail: {
     position: 'absolute',

@@ -10,10 +10,13 @@ import ScreenProps from '../../types/ScreenProps';
 import Request from '../../services/Request';
 import MtToast from '../../constants/MtToast';
 import { isIos } from '../../constants/IsPlatform';
+import { useThemeColors } from '../../constants/useThemeColors';
+import { Fonts } from '../../constants/Fonts';
 
 const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
   const [email, setemail] = useState('');
   const [loader, setLoader] = useState(false);
+  const theme = useThemeColors();
 
   useEffect(() => {}, []);
 
@@ -38,19 +41,40 @@ const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
     });
   }
 
+  const dynamicStyles = StyleSheet.create({
+    forgotTitle: {
+      fontSize: Fonts.fs_25,
+      color: theme.text,
+      fontFamily: Fonts.medium,
+      alignSelf: 'center',
+      marginTop: 35,
+    },
+    boxView: {
+      paddingVertical: isIos ? 10 : 0,
+      marginTop: 30,
+      backgroundColor: theme.inputBackground,
+    },
+    textInput: {
+      height: 40,
+      color: theme.text,
+      fontSize: Fonts.fs_14,
+      fontFamily: Fonts.regular,
+    },
+  });
+
   return (
     <AuthLayout isLoading={loader} backButton={true} {...props}>
       <Textview
         text={'Forgot Password'}
-        style={CSS.title}
+        style={dynamicStyles.forgotTitle}
         text_click={() => {}}
       />
 
-      <BoxView cardStyle={styles.boxView}>
+      <BoxView cardStyle={dynamicStyles.boxView}>
         <TextInput
-          style={styles.textInput}
+          style={dynamicStyles.textInput}
           placeholder="Enter email address"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={theme.placeholder}
           keyboardType="email-address"
           onChangeText={value => setemail(value)}
         />
@@ -66,13 +90,7 @@ const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
 };
 
 const styles = StyleSheet.create({
-  boxView: {
-    paddingVertical: isIos ? 10 : 0,
-    marginTop: 30,
-  },
-  textInput: {
-    height: 40,
-  },
+  // Static styles that don't need theme changes
 });
 
 export default ForgotPassword;

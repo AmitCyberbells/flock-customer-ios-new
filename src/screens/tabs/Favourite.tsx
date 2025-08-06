@@ -19,6 +19,7 @@ import { isIos } from '../../constants/IsPlatform';
 import MtToast from '../../constants/MtToast';
 import ShadowCard from '../../components/ShadowCard';
 import Utils from '../../services/Utils';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
   const [selectedCategory, setSelectedCategory] = useState<Category>()
   const [categories, setCategories] = useState<Array<Category>>([]);
   const categoryColors = [Colors.color_one, Colors.color_two, Colors.color_three, Colors.color_four];
+  const theme = useThemeColors();
 
   useEffect(() => {
 
@@ -85,7 +87,7 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
             <ShadowCard
               style={{
                 alignItems: 'center',
-                backgroundColor: Colors.white,
+                backgroundColor: theme.inputBackground,
                 padding: 5,
                 borderRadius: 100
               }}
@@ -115,7 +117,7 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
                 text={item.name.length > 10 ? item.name.substring(0, 7) + '..' : item.name}
                 style={{
                   fontFamily: Fonts.regular,
-                  color: Colors.black,
+                  color: theme.text,
                   marginTop: isIos ? 14 : 9,
                   marginBottom: isIos ? 17 : 12,
                   textAlign: 'center',
@@ -161,7 +163,8 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
 
                 style={{
                   fontFamily: Fonts.regular,
-                  color: Colors.black,
+                  color: theme.text,
+                  // color: Colors.black,
                   marginTop: isIos ? 14 : 9,
                   marginBottom: isIos ? 17 : 12,
                   textAlign: 'center',
@@ -178,11 +181,33 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
 
   const keyExtractorcategory = (item: Category, index: number) => index.toString();
 
+  const style = StyleSheet.create({
+    absoluteObj: {
+      position: 'absolute',
+      top: -10,
+      left: 0,
+      right: 0,
+      height: Utils.DEVICE_HEIGHT * 0.92
+    },
+    categoryWrapperCard: {
+      backgroundColor: theme.backgroundfav,
+      borderRadius: 20,
+      paddingTop: isIos ? 90 : 60,
+      paddingBottom: 20,
+      paddingHorizontal: 5,
+      // shadowColor: theme.shadowColor,
+      shadowOffset: { width: 0, height: 2 }, // Only bottom shadow
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: isIos ? 2.5 : 2,
+    }
+  })
+
   return (
-    <View style={[CSS.Favcontainer, { paddingHorizontal: 15 }]}>
+    <View style={[CSS.Favcontainer, { paddingHorizontal: 15, backgroundColor: theme.background }]}>
       <Loader isLoading={isLoading} />
 
-      <TabHeader title={'Favourites'} navigation={props.navigation} hideSideMenuButton={true} />
+      <TabHeader title={'Favourites'} navigation={props.navigation} hideSideMenuButton={true}  backgroundColor={theme.backgroundfav} />
 
       <View style={style.absoluteObj}>
         <View style={style.categoryWrapperCard}>
@@ -243,24 +268,3 @@ const Favorites: React.FC<ScreenProps<'Tabs'>> = props => {
 export default Favorites;
 
 
-const style = StyleSheet.create({
-  absoluteObj: {
-    position: 'absolute',
-    top: -10,
-    left: 0,
-    right: 0,
-    height: Utils.DEVICE_HEIGHT * 0.92
-  },
-  categoryWrapperCard: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    paddingTop: isIos ? 90 : 60,
-    paddingBottom: 20,
-    paddingHorizontal: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 }, // Only bottom shadow
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: isIos ? 2.5 : 7,
-  }
-})

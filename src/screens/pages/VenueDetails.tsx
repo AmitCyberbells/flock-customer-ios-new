@@ -30,6 +30,7 @@ import Chips from '../../components/Chips';
 import WalletService from '../../services/WalletService';
 import { CSS } from '../../constants/CSS';
 import Utils from '../../services/Utils';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
   const { route } = props;
@@ -39,6 +40,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
   const [informationTab, setInformationTab] = useState<boolean>(true);
   const [offersTab, setOffersTab] = useState<boolean>(false);
   const { updateWalletBalances } = WalletService();
+  const theme = useThemeColors();
 
   useEffect(() => {
     if (route?.params?.venue_id) {
@@ -195,7 +197,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
   return (
     <View
       style={{
-        backgroundColor: Colors.white,
+        backgroundColor: theme.background,
         flex: 1,
         paddingHorizontal: 15,
       }}>
@@ -287,7 +289,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               text={venue?.name || ''}
               style={{
                 fontSize: Fonts.fs_25,
-                color: Colors.black,
+                color: theme.text,
                 fontFamily: Fonts.medium,
               }}
             />
@@ -306,13 +308,14 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 name="location-dot"
                 iconStyle="solid"
                 size={Fonts.fs_16}
+                color={theme.text}
               />
 
               <Textview
                 text={venue?.location || ''}
                 style={{
                   fontSize: Fonts.fs_14,
-                  color: Colors.black,
+                  color: theme.text,
                   fontFamily: Fonts.medium
                 }}
                 lines={2}
@@ -334,7 +337,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 text={'Important Notice'}
                 style={{
                   fontSize: Fonts.fs_15,
-                  color: Colors.black,
+                  color: theme.text,
                   fontFamily: Fonts.medium,
                 }}
               />
@@ -343,7 +346,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                 text={venue?.notice || 'No important notices at the moment. Stay tuned for updates!'}
                 style={{
                   fontSize: Fonts.fs_13,
-                  color: Colors.light_grey,
+                  color: theme.muteText,
                   fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}
@@ -430,7 +433,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               position: 'absolute',
               paddingHorizontal: 20,
               paddingVertical: 10,
-              backgroundColor: 'white',
+              backgroundColor: theme.background,
               bottom: 0,
               right: 0,
               left: 0,

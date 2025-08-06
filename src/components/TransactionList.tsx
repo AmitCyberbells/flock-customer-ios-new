@@ -17,6 +17,7 @@ import Images from "../constants/Images";
 import Utils from "../services/Utils";
 import MtToast from "../constants/MtToast";
 import { CSS } from "../constants/CSS";
+import { useThemeColors } from "../constants/useThemeColors";
 
 type TransactionListProps = {
     setLoader: (isLoading: boolean) => void,
@@ -28,6 +29,7 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
     const { setLoader, recordLimit, windowHeight } = props;
     const [transactions, setTransactions] = useState<Array<WalletLog>>([]);
     const [loading, setIsLoading] = useState<boolean>(false);
+    const theme = useThemeColors();
 
     useEffect(() => {
         loadTransactions();
@@ -131,6 +133,80 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
 
     const keyExtractor_transactionList = (item: WalletLog, index: number) => index.toString();
 
+    const styles = StyleSheet.create({
+        divider: {
+            borderColor: Colors.grey,
+            borderWidth: isIos ? 0.6 : 0.3,
+            marginVertical: isIos ? 10 : 5,
+        },
+        transactionsList: {
+            flexGrow: 0,
+            marginTop: isIos ? 18 : 15,
+            marginHorizontal: 10,
+            marginBottom: isIos ? 80 : 85,
+        },
+        transactionsHeader: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: isIos ? 20 : 15,
+        },
+        transactionsTitle: {
+            fontFamily: Fonts.medium,
+            color: theme.text,
+            fontSize: Fonts.fs_18,
+            marginHorizontal: isIos ? 17 : 15,
+        },
+        seeAllText: {
+            fontFamily: Fonts.regular,
+            color: Colors.light_grey,
+            fontSize: Fonts.fs_14,
+            marginHorizontal: isIos ? 17 : 15,
+        },
+        transactionItem: {
+            marginVertical: 10,
+            flexDirection: 'row',
+            marginHorizontal: isIos ? 5 : 2,
+            alignItems: 'center',
+        },
+        transactionImage: {
+            backgroundColor: theme.background,
+            width: 45,
+            height: 45,
+            padding: 2,
+            borderRadius: 100,
+            justifyContent: 'center',
+        },
+        transactionAvatar: {
+            width: '100%',
+            height: '100%',
+            borderRadius: 50,
+        },
+        transactionDetails: {
+            marginHorizontal: 10,
+            flex: 1,
+        },
+        transactionName: {
+            fontFamily: Fonts.medium,
+            color: theme.text,
+            fontSize: Fonts.fs_14,
+        },
+        transactionDate: {
+            fontFamily: Fonts.regular,
+            color: Colors.grey,
+            fontSize: Fonts.fs_13,
+            marginTop: isIos ? 5 : 0,
+        },
+        transactionAmount: {
+            fontFamily: Fonts.medium,
+            fontSize: Fonts.fs_16,
+        },
+        pointIcon: {
+            width: isIos ? 20 : 20,
+            height: isIos ? 17 : 15
+        }
+    })
+
     return (
         <View style={{ flex: 1 }}>
             {transactions.length > 0 ?
@@ -154,76 +230,3 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
 
 export default TransactionList;
 
-const styles = StyleSheet.create({
-    divider: {
-        borderColor: Colors.grey,
-        borderWidth: isIos ? 0.6 : 0.3,
-        marginVertical: isIos ? 10 : 5,
-    },
-    transactionsList: {
-        flexGrow: 0,
-        marginTop: isIos ? 18 : 15,
-        marginHorizontal: 10,
-        marginBottom: isIos ? 80 : 85,
-    },
-    transactionsHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: isIos ? 20 : 15,
-    },
-    transactionsTitle: {
-        fontFamily: Fonts.medium,
-        color: Colors.black,
-        fontSize: Fonts.fs_18,
-        marginHorizontal: isIos ? 17 : 15,
-    },
-    seeAllText: {
-        fontFamily: Fonts.regular,
-        color: Colors.light_grey,
-        fontSize: Fonts.fs_14,
-        marginHorizontal: isIos ? 17 : 15,
-    },
-    transactionItem: {
-        marginVertical: 10,
-        flexDirection: 'row',
-        marginHorizontal: isIos ? 5 : 2,
-        alignItems: 'center',
-    },
-    transactionImage: {
-        backgroundColor: Colors.white,
-        width: 45,
-        height: 45,
-        padding: 2,
-        borderRadius: 100,
-        justifyContent: 'center',
-    },
-    transactionAvatar: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 50,
-    },
-    transactionDetails: {
-        marginHorizontal: 10,
-        flex: 1,
-    },
-    transactionName: {
-        fontFamily: Fonts.medium,
-        color: Colors.black,
-        fontSize: Fonts.fs_14,
-    },
-    transactionDate: {
-        fontFamily: Fonts.regular,
-        color: Colors.grey,
-        fontSize: Fonts.fs_13,
-        marginTop: isIos ? 5 : 0,
-    },
-    transactionAmount: {
-        fontFamily: Fonts.medium,
-        fontSize: Fonts.fs_16,
-    },
-    pointIcon: {
-        width: isIos ? 20 : 20,
-        height: isIos ? 17 : 15
-    }
-})

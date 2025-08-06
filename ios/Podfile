@@ -25,7 +25,6 @@ target 'flockloyalty' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
@@ -33,6 +32,9 @@ target 'flockloyalty' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
+
+  # Add Branch SDK
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
 
   target 'flockloyaltyTests' do
     inherit! :complete

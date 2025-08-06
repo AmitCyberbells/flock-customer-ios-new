@@ -1,5 +1,6 @@
 PODS:
   - boost (1.84.0)
+  - BranchSDK (3.12.1)
   - DoubleConversion (1.1.6)
   - DVAssetLoaderDelegate (0.3.3)
   - FBLazyVector (0.76.5)
@@ -1409,6 +1410,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-branch (6.7.1):
+    - BranchSDK (= 3.12.1)
+    - React-Core
   - react-native-date-picker (5.0.8):
     - DoubleConversion
     - glog
@@ -1482,7 +1486,7 @@ PODS:
     - React-Core
   - react-native-netinfo (11.4.1):
     - React-Core
-  - react-native-safe-area-context (5.0.0):
+  - react-native-safe-area-context (5.4.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1495,8 +1499,8 @@ PODS:
     - React-featureflags
     - React-graphics
     - React-ImageManager
-    - react-native-safe-area-context/common (= 5.0.0)
-    - react-native-safe-area-context/fabric (= 5.0.0)
+    - react-native-safe-area-context/common (= 5.4.0)
+    - react-native-safe-area-context/fabric (= 5.4.0)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-rendererdebug
@@ -1505,7 +1509,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-safe-area-context/common (5.0.0):
+  - react-native-safe-area-context/common (5.4.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1526,7 +1530,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-safe-area-context/fabric (5.0.0):
+  - react-native-safe-area-context/fabric (5.4.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2329,6 +2333,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-branch (from `../node_modules/react-native-branch`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
@@ -2385,6 +2390,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BranchSDK
     - DVAssetLoaderDelegate
     - Firebase
     - FirebaseAnalytics
@@ -2484,6 +2490,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-branch:
+    :path: "../node_modules/react-native-branch"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
   react-native-geolocation:
@@ -2593,6 +2601,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 1dca942403ed9342f98334bf4c3621f011aa7946
+  BranchSDK: 7135af6602a105fa6be3ad6c606a7f78b0131b5d
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
   DVAssetLoaderDelegate: 0caec20e4e08b8560b691131539e9180024d4bce
   FBLazyVector: 1bf99bb46c6af9a2712592e707347315f23947aa
@@ -2618,7 +2627,7 @@ SPEC CHECKSUMS:
   lottie-react-native: b07af01ccb04d9cfb0014cb14f1fcf2d82f87c50
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  RCT-Folly: bf5c0376ffe4dd2cf438dcf86db385df9fdce648
+  RCT-Folly: 84578c8756030547307e4572ab1947de1685c599
   RCTDeprecation: fb7d408617e25d7f537940000d766d60149c5fea
   RCTRequired: 9aaf0ffcc1f41f0c671af863970ef25c422a9920
   RCTTypeSafety: e9a6e7d48184646eb0610295b74c0dd02768cbb2
@@ -2647,6 +2656,7 @@ SPEC CHECKSUMS:
   React-logger: ae95f0effa7e1791bd6f7283caddca323d4fbc1e
   React-Mapbuffer: f0c766c9dfb313c91b07457beb4e4ec9b2e02435
   React-microtasksnativemodule: 23565fc14a9588c3116cdf279c8124d7285856cc
+  react-native-branch: 62dfbb6dbb4f6cac5ceedcd7cc539cdba779f051
   react-native-date-picker: 0df233236b40b6f561372af793d4eb3fb5af790f
   react-native-geolocation: 19e121dda71716926a4558790f69344951f2a3ce
   react-native-get-random-values: d16467cf726c618e9c7a8c3c39c31faa2244bbba
@@ -2654,7 +2664,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: 76a5099cce0a300f9922040dffb19503dca20abc
   react-native-maps: 9febd31278b35cd21e4fad2cf6fa708993be5dab
   react-native-netinfo: cec9c4e86083cb5b6aba0e0711f563e2fbbff187
-  react-native-safe-area-context: e9b890accad835990103058aeae3a3506bfc0276
+  react-native-safe-area-context: cf99808dce5a0d2ce6c35262be753982610f580e
   react-native-slider: 891bc2b61f848c3f3d50904978f99421d608816d
   react-native-vector-icons: b374b457b5dcc42a1e9dced3828db5704edafe62
   react-native-video: e8f0a7abfe5fa724cf9e1f2d373238a9631f3735
@@ -2706,6 +2716,6 @@ SPEC CHECKSUMS:
   VisionCamera: 030bcbf22791d698926e7c0e3b804126165e62e3
   Yoga: 7548e4449365bf0ef60db4aefe58abff37fcabec
 
-PODFILE CHECKSUM: e57e1621a90910fe462e433677e3fb3bda02aa14
+PODFILE CHECKSUM: c4e79394752fdb5c5109709bda38e26a615bb2b6
 
 COCOAPODS: 1.16.2

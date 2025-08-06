@@ -27,6 +27,7 @@ import ShadowCard from "../../components/ShadowCard";
 import Textview from "../../components/Textview";
 import { Fonts } from "../../constants/Fonts";
 import RippleLoader from "../../components/RippleLoader";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,6 +36,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
     const { MinRadius: MIN_RADIUS, MaxRadius: MAX_RADIUS } = Environment.Location;
     const { area: AREA_ZOOM } = Environment.Location.Zoom;
 
+    const theme = useThemeColors();
     const location = useSelector((state: StoreStates) => state.location);
     const { requestLocationPermission } = useLocation();
 
@@ -188,7 +190,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
 
     const navigateToVenue = (venue: Venue) => {
         actionSheetRef.current?.hide();
-        
+
         props.navigation?.navigate('VenueDetails', { venue_id: venue.id });
     }
 
@@ -196,7 +198,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
         <View>
 
             {venue.images.length > 0 ?
-                <Image source={{ uri: venue.images[venue.images.length-1].large_image }} style={styles.cardImage} />
+                <Image source={{ uri: venue.images[venue.images.length - 1].large_image }} style={styles.cardImage} />
                 : <FallbackSvg
                     wrapperStyle={{ marginTop: 0 }}
                     overlayStyle={{ borderRadius: 0 }}
@@ -208,7 +210,7 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
             <View style={styles.cardContent}>
                 <View style={styles.cardHeader}>
                     <Text style={styles.cardType}>
-                        <Icon name='map-pin' iconStyle="solid" style={{ marginRight: 3 }} /> {venue.location || '-'}
+                        <Icon name='map-pin' iconStyle="solid" style={{ marginRight: 3, color: theme.text }} /> {venue.location || '-'}
                     </Text>
                     {/* <View style={styles.ratingContainer}>
                         <Text style={styles.ratingText}>★ 3.5</Text>
@@ -240,46 +242,332 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
 
     const actionSheetRef = useRef<ActionSheetRef>(null)
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+        },
+        map: {
+            ...StyleSheet.absoluteFillObject,
+            top: 70
+        },
+        radiusControl: {
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+            backgroundColor: theme.background,
+            padding: 15,
+            borderRadius: 12,
+            width: isIos ? 240 : 220,
+            shadowColor: theme.shadowColor,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+            borderWidth: 1,
+            borderColor: '#f0f0f0',
+        },
+        radiusControl2: {
+            position: 'relative',
+            width: 160,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center', // Ensures content stays vertically centered
+        },
+        radiusLabel: {
+            fontSize: Fonts.fs_14,
+            fontWeight: '600',
+            color: theme.text,
+            textAlign: 'center',
+            alignSelf: 'center', // Ensures the label is centered within its container
+            marginRight: 10,
+        },
+        radiusValueContainer: {
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+
+            width: '100%',
+        },
+        radiusBubble: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: theme.inputBackground,
+            paddingHorizontal: 12,
+            paddingVertical: 6,
+            borderRadius: 20,
+            minWidth: 70,
+            justifyContent: 'center',
+        },
+        radiusBubbleActive: {
+            backgroundColor: '#8282FF20',
+            borderColor: '#8282FF',
+            borderWidth: 1,
+        },
+        radiusValue: {
+            fontSize: Fonts.fs_16,
+            fontWeight: '600',
+            color: theme.muteText,
+            marginRight: 4,
+        },
+        radiusUnit: {
+            fontSize: Fonts.fs_12,
+            color: '#666',
+        },
+        slider: {
+            width: '100%',
+            height: 30,
+        },
+        radiusRangeLabels: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 4,
+            marginTop: 4,
+        },
+        rangeLabel: {
+            fontSize: Fonts.fs_10,
+            color: '#666',
+        },
+        card: {
+            backgroundColor: 'white',
+            borderRadius: 15,
+            width: width - 70,
+            marginBottom: 15,
+            marginRight: 20,
+            elevation: 4,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+        },
+        cardImage: {
+            width: '100%',
+            height: 100
+        },
+        cardContent: {
+            padding: 15,
+            backgroundColor: theme.background
+        },
+        cardHeader: {
+            flexDirection: 'row',
+            //justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 8,
+            gap: 3
+        },
+        cardType: {
+            fontSize: Fonts.fs_12,
+            color: theme.text,
+            backgroundColor: theme.inputBackground,
+            paddingHorizontal: 8,
+            paddingVertical: 4,
+            borderRadius: 10,
+        },
+        cardTitle: {
+            fontSize: Fonts.fs_18,
+            fontWeight: 'bold',
+            marginBottom: 4,
+            color: theme.text
+        },
+        cardDescription: {
+            fontSize: Fonts.fs_14,
+            color: '#666',
+            marginBottom: 8,
+        },
+        ratingContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        ratingText: {
+            fontSize: Fonts.fs_14,
+            color: '#FFD700',
+            fontWeight: 'bold',
+        },
+        distanceText: {
+            fontSize: Fonts.fs_12,
+            color: '#666',
+            marginTop: 4,
+        },
+        categoryContainer: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            marginTop: 8,
+        },
+        categoryTag: {
+            backgroundColor: '#f0f0f0',
+            paddingHorizontal: 8,
+            paddingVertical: 4,
+            borderRadius: 10,
+            marginRight: 8,
+            marginBottom: 4,
+        },
+        categoryText: {
+            fontSize: Fonts.fs_12,
+            color: '#666',
+        },
+        markerContainer: {
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        selectedMarker: {
+            transform: [{ scale: 1.2 }],
+        },
+        markerContent: {
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 5,
+            borderWidth: 2,
+            borderColor: '#8282FF',
+        },
+        markerIcon: {
+            fontSize: Fonts.fs_20,
+        },
+        currentLocationButton: {
+            //marginLeft: 5,
+            flex: 1
+        },
+        locationButton: {
+            backgroundColor: 'white',
+            width: 35,
+            height: 35,
+            borderRadius: 22,
+            justifyContent: 'center',
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+        },
+        locationButtonIcon: {
+            fontSize: Fonts.fs_18,
+        },
+        headerContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: theme.background,
+            paddingVertical: 5,
+            paddingRight: 10,
+            justifyContent: 'space-between',
+            paddingTop: isIos ? 50 : 10
+        },
+        headerSearchBox: {
+            flexDirection: 'row',
+            width: isIos
+                ? (Dimensions.get('window').width * 70) / 100
+                : (Dimensions.get('window').width * 73) / 100,
+            height: isIos ? 50 : 40,
+            backgroundColor: Colors.whitesmoke,
+            borderRadius: 25,
+            alignItems: 'center',
+            paddingHorizontal: 10,
+        },
+        gpTextInput: {
+            height: '100%',
+            backgroundColor: '#F6F6F6',
+            color: 'black',
+            marginVertical: 2,
+            borderWidth: 1,
+            borderColor: '#eee',
+
+            borderRadius: 15,
+            paddingHorizontal: 15,
+            shadowColor: '#eee',
+            shadowRadius: 8,
+
+        },
+        gpTextInputContainer: {
+            marginTop: isIos ? 5 : 0,
+            marginHorizontal: 10,
+        },
+        inputText: {
+            fontSize: Fonts.fs_16,
+            color: Colors.black,
+        },
+        placeholderText: {
+            color: '#999',
+        },
+        googleContainer: {
+            flex: 0,
+        },
+        googleInput: {
+            height: 56,
+            backgroundColor: Colors.white,
+            borderRadius: 28,
+            paddingHorizontal: 20,
+            fontSize: Fonts.fs_16,
+            color: Colors.black,
+            shadowColor: Colors.black,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 6,
+            elevation: 4,
+            borderWidth: 1,
+            borderColor: '#E5E5E5',
+        },
+        listView: {
+            backgroundColor: Colors.white,
+            borderRadius: 16,
+            marginTop: 8,
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: '#E5E5E5',
+            position: 'absolute',
+            top: 60,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            maxHeight: 200,
+        },
+    });
+
     return (
         <View style={styles.container}>
             {isLoading && <RippleLoader />}
 
             {isLoading && <ShadowCard
-                    style={{
-                        backgroundColor: Colors.white,
-                        height: isIos ? 110 : 90,
-                        width: '90%',
-                        borderRadius: 10,
-                        overflow: 'hidden',
-                        position: 'absolute',
-                        top: isIos ? 130 : 90,
-                        left: '5%',
-                        zIndex: 1
-                    }}
-                >
-                    <View>
-                        <Textview
-                            text={'Hold On !'}
-                            style={{
-                                fontSize: Fonts.fs_18,
-                                color: Colors.black,
-                                fontFamily: Fonts.medium,
-                                alignSelf: 'center'
-                            }}
-                        />
-                        <Textview
-                            text={'We are finding Venues around you'}
-                            style={{
-                                fontSize: Fonts.fs_15,
-                                color: Colors.black,
-                                fontFamily: Fonts.medium,
-                                alignSelf: 'center',
-                                marginTop: isIos ? 10 : 2
-                            }}
-                        />
-                    </View>
+                style={{
+                    backgroundColor: Colors.white,
+                    height: isIos ? 110 : 90,
+                    width: '90%',
+                    borderRadius: 10,
+                    overflow: 'hidden',
+                    position: 'absolute',
+                    top: isIos ? 130 : 90,
+                    left: '5%',
+                    zIndex: 1
+                }}
+            >
+                <View>
+                    <Textview
+                        text={'Hold On !'}
+                        style={{
+                            fontSize: Fonts.fs_18,
+                            color: Colors.black,
+                            fontFamily: Fonts.medium,
+                            alignSelf: 'center'
+                        }}
+                    />
+                    <Textview
+                        text={'We are finding Venues around you'}
+                        style={{
+                            fontSize: Fonts.fs_15,
+                            color: Colors.black,
+                            fontFamily: Fonts.medium,
+                            alignSelf: 'center',
+                            marginTop: isIos ? 10 : 2
+                        }}
+                    />
+                </View>
 
-                </ShadowCard>}
+            </ShadowCard>}
 
             <View style={[styles.headerContainer, { zIndex: 999 }]}>
                 <TouchableOpacity activeOpacity={0.9} onPress={() => props.navigation?.goBack()} style={{ width: 50 }}>
@@ -388,10 +676,10 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
                             top: 5,
                             right: 5,
                             zIndex: 10,
-                            backgroundColor: Colors.black,
+                            backgroundColor: theme.text,
                             borderRadius: 20
                         }} onPress={() => actionSheetRef.current?.hide()}>
-                            <Icon name="circle-xmark" iconStyle="solid" size={30} color={'white'}  />
+                            <Icon name="circle-xmark" iconStyle="solid" size={30} color={theme.background} />
                         </Pressable>
 
                         {selectedVenue ? renderVenueCard(selectedVenue, 0) : <NoData />}
@@ -401,292 +689,6 @@ const Map: React.FC<ScreenProps<'Map'>> = (props) => {
         </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-        top: 70
-    },
-    radiusControl: {
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        backgroundColor: 'white',
-        padding: 15,
-        borderRadius: 12,
-        width: 240,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        borderWidth: 1,
-        borderColor: '#f0f0f0',
-    },
-    radiusControl2: {
-        position: 'relative',
-        width: 160,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center', // Ensures content stays vertically centered
-    },
-    radiusLabel: {
-        fontSize: Fonts.fs_14,
-        fontWeight: '600',
-        color: '#333',
-        textAlign: 'center',
-        alignSelf: 'center', // Ensures the label is centered within its container
-        marginRight: 10,
-    },
-    radiusValueContainer: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-
-        width: '100%',
-    },
-    radiusBubble: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#f0f0f0',
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 20,
-        minWidth: 70,
-        justifyContent: 'center',
-    },
-    radiusBubbleActive: {
-        backgroundColor: '#8282FF20',
-        borderColor: '#8282FF',
-        borderWidth: 1,
-    },
-    radiusValue: {
-        fontSize: Fonts.fs_16,
-        fontWeight: '600',
-        color: '#333',
-        marginRight: 4,
-    },
-    radiusUnit: {
-        fontSize: Fonts.fs_12,
-        color: '#666',
-    },
-    slider: {
-        width: '100%',
-        height: 30,
-    },
-    radiusRangeLabels: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 4,
-        marginTop: 4,
-    },
-    rangeLabel: {
-        fontSize: Fonts.fs_10,
-        color: '#666',
-    },
-    card: {
-        backgroundColor: 'white',
-        borderRadius: 15,
-        width: width - 70,
-        marginBottom: 15,
-        marginRight: 20,
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-    },
-    cardImage: {
-        width: '100%',
-        height: 100
-    },
-    cardContent: {
-        padding: 15,
-    },
-    cardHeader: {
-        flexDirection: 'row',
-        //justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 8,
-        gap: 3
-    },
-    cardType: {
-        fontSize: Fonts.fs_12,
-        color: '#666',
-        backgroundColor: '#f0f0f0',
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 10,
-    },
-    cardTitle: {
-        fontSize: Fonts.fs_18,
-        fontWeight: 'bold',
-        marginBottom: 4,
-    },
-    cardDescription: {
-        fontSize: Fonts.fs_14,
-        color: '#666',
-        marginBottom: 8,
-    },
-    ratingContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    ratingText: {
-        fontSize: Fonts.fs_14,
-        color: '#FFD700',
-        fontWeight: 'bold',
-    },
-    distanceText: {
-        fontSize: Fonts.fs_12,
-        color: '#666',
-        marginTop: 4,
-    },
-    categoryContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginTop: 8,
-    },
-    categoryTag: {
-        backgroundColor: '#f0f0f0',
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 10,
-        marginRight: 8,
-        marginBottom: 4,
-    },
-    categoryText: {
-        fontSize: Fonts.fs_12,
-        color: '#666',
-    },
-    markerContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    selectedMarker: {
-        transform: [{ scale: 1.2 }],
-    },
-    markerContent: {
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 5,
-        borderWidth: 2,
-        borderColor: '#8282FF',
-    },
-    markerIcon: {
-        fontSize: Fonts.fs_20,
-    },
-    currentLocationButton: {
-        //marginLeft: 5,
-        flex: 1
-    },
-    locationButton: {
-        backgroundColor: 'white',
-        width: 35,
-        height: 35,
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    locationButtonIcon: {
-        fontSize: Fonts.fs_18,
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255,255,255,0.8)',
-        paddingVertical: 5,
-        paddingRight: 10,
-        justifyContent: 'space-between',
-        paddingTop: isIos ? 50 : 10
-    },
-    headerSearchBox: {
-        flexDirection: 'row',
-        width: isIos
-            ? (Dimensions.get('window').width * 70) / 100
-            : (Dimensions.get('window').width * 73) / 100,
-        height: isIos ? 50 : 40,
-        backgroundColor: Colors.whitesmoke,
-        borderRadius: 25,
-        alignItems: 'center',
-        paddingHorizontal: 10,
-    },
-    gpTextInput: {
-        height: '100%',
-        backgroundColor: '#F6F6F6',
-        color: 'black',
-        marginVertical: 2,
-        borderWidth: 1,
-        borderColor: '#eee',
-
-        borderRadius: 15,
-        paddingHorizontal: 15,
-        shadowColor: '#eee',
-        shadowRadius: 8,
-
-    },
-    gpTextInputContainer: {
-        marginTop: isIos ? 5 : 0,
-        marginHorizontal: 10,
-    },
-    inputText: {
-        fontSize: Fonts.fs_16,
-        color: Colors.black,
-    },
-    placeholderText: {
-        color: '#999',
-    },
-    googleContainer: {
-        flex: 0,
-    },
-    googleInput: {
-        height: 56,
-        backgroundColor: Colors.white,
-        borderRadius: 28,
-        paddingHorizontal: 20,
-        fontSize: Fonts.fs_16,
-        color: Colors.black,
-        shadowColor: Colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-        borderWidth: 1,
-        borderColor: '#E5E5E5',
-    },
-    listView: {
-        backgroundColor: Colors.white,
-        borderRadius: 16,
-        marginTop: 8,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#E5E5E5',
-        position: 'absolute',
-        top: 60,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        maxHeight: 200,
-    },
-});
-
 
 
 export default Map;

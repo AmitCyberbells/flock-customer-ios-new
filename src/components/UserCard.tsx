@@ -9,9 +9,11 @@ import { useSelector } from 'react-redux';
 import { StoreStates } from '../store/store';
 import Images from '../constants/Images';
 import { isIos } from '../constants/IsPlatform';
+import { useThemeColors } from '../constants/useThemeColors';
 
 const UserCard: React.FC = () => {
   const user: User = useSelector((state: StoreStates) => state.user);
+  const theme = useThemeColors();
 
   return (
 
@@ -37,6 +39,7 @@ const UserCard: React.FC = () => {
         url={user?.image ?? Images.profileImg}
         imageType={'server'}
         resizeMode={'cover'}
+        tintColor={theme.greyIcon}
       />
 
       <View style={{ justifyContent: 'center', marginLeft: 10, flexShrink: 1 }}>
@@ -44,7 +47,7 @@ const UserCard: React.FC = () => {
           numberOfLines={2}
           style={{
             fontFamily: Fonts.medium,
-            color: Colors.black,
+            color: theme.text,
             fontSize: Fonts.fs_16,
           }}>
           {user.first_name + ' ' + user.last_name}

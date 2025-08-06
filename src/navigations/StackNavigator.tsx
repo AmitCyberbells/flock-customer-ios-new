@@ -31,10 +31,14 @@ import SupportForm from '../screens/pages/SupportForm';
 import FeathersHistory from '../screens/pages/FeathersHistory';
 import SupportTicket from '../screens/pages/SupportTicket';
 import VenuePointsHistory from '../screens/pages/VenuePointsHistory';
+import { useThemeColors } from '../constants/useThemeColors';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigator() {
+
+  const theme = useThemeColors();
+
   return (
     <Stack.Navigator initialRouteName="Tabs">
       <Stack.Screen
@@ -53,7 +57,7 @@ export default function StackNavigator() {
             {...props}
             title="My Offers"
             showBackButton
-            backgroundColor={Colors.white}
+            backgroundColor={theme.background}
           />
         ),
       }} />
@@ -66,7 +70,7 @@ export default function StackNavigator() {
               {...props}
               title="Saved Offers"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -77,7 +81,7 @@ export default function StackNavigator() {
             {...props}
             title="FAQs"
             showBackButton
-            backgroundColor={Colors.white}
+            backgroundColor={theme.background}
           />
         ),
       }} />
@@ -88,7 +92,7 @@ export default function StackNavigator() {
               {...props}
               title="Report a venue"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -99,7 +103,7 @@ export default function StackNavigator() {
             {...props}
             title="Tutorials"
             showBackButton
-            backgroundColor={Colors.white}
+            backgroundColor={theme.background}
           />
         ),
       }} />
@@ -111,7 +115,7 @@ export default function StackNavigator() {
             {...props}
             title="Request a venue"
             showBackButton
-            backgroundColor={Colors.white}
+            backgroundColor={theme.background}
           />
         ),
       }} />
@@ -149,7 +153,7 @@ export default function StackNavigator() {
               {...props}
               title="Categories"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -163,7 +167,7 @@ export default function StackNavigator() {
               {...props}
               title="Change Password"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -177,7 +181,7 @@ export default function StackNavigator() {
               {...props}
               title="Hot Venues"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -191,7 +195,7 @@ export default function StackNavigator() {
               {...props}
               title="QR Code Preview"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -205,7 +209,7 @@ export default function StackNavigator() {
               {...props}
               title="Edit Profile"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -219,7 +223,7 @@ export default function StackNavigator() {
               {...props}
               title="Transaction History"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -233,7 +237,7 @@ export default function StackNavigator() {
               {...props}
               title="Delete Account"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -261,7 +265,7 @@ export default function StackNavigator() {
               {...props}
               title="Support"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}
@@ -275,7 +279,7 @@ export default function StackNavigator() {
               {...props}
               title="Feathers"
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
             />
           ),
         }}

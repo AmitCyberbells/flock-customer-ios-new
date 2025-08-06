@@ -16,20 +16,22 @@ import { isIos } from '../../constants/IsPlatform';
 import NoData from '../../components/NoData';
 import VirtualizedList from '../../components/VirtualizedList';
 import Utils from '../../services/Utils';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const ImageSkelton: React.FC<{ item: Notification }> = (props) => {
   const { item } = props;
 
   return (
-    <View style={{ 
+    <View style={{
       justifyContent: 'center',
       alignItems: 'center',
       height: isIos ? 50 : 40,
       width: isIos ? 50 : 40,
-      padding: 10, 
-      backgroundColor: Colors.dark_blue, 
-      borderRadius: 50, 
-      overflow: 'hidden' }}>
+      padding: 10,
+      backgroundColor: Colors.dark_blue,
+      borderRadius: 50,
+      overflow: 'hidden'
+    }}>
 
       <Text style={{
         color: Colors.white,
@@ -48,7 +50,7 @@ const ImageSkelton: React.FC<{ item: Notification }> = (props) => {
 const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<Array<Notification>>([]);
-  const { width } = Dimensions.get("window");
+  const theme = useThemeColors();
 
   useEffect(() => {
     fetch_notifications();
@@ -78,8 +80,8 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
         }}>
 
           {!Utils.isEmpty(item.data.image) ?
-           
-            <Imageview 
+
+            <Imageview
               url={item.data.image}
               style={{
                 width: isIos ? 50 : 40,
@@ -97,7 +99,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
             <Text
               style={{
                 fontFamily: Fonts.regular,
-                color: Colors.black,
+                color: theme.text,
                 fontSize: Fonts.fs_14
               }}
             >
@@ -107,7 +109,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
             <Text
               style={{
                 fontFamily: Fonts.regular,
-                color: Colors.grey,
+                color: theme.textDes,
                 fontSize: Fonts.fs_12
               }}
             >
@@ -135,8 +137,13 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
   const keyExtractor_notificationList = (item: Notification, index: number) => index.toString();
 
   return (
-    <View style={[CSS.Favcontainer, { paddingHorizontal: 15 }]}>
-      <TabHeader title="Notifications" navigation={props.navigation} hideSideMenuButton={true}/>
+    <View style={[CSS.Favcontainer, { paddingHorizontal: 15, backgroundColor: theme.background }]}>
+      <TabHeader
+        title="Notifications"
+        navigation={props.navigation}
+        hideSideMenuButton={true}
+
+      />
 
       <Loader isLoading={isLoading} />
 
@@ -149,10 +156,11 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               data={notifications}
-              style={{ 
-                marginTop: isIos ? 18 : 15, 
+              style={{
+                marginTop: isIos ? 18 : 15,
                 marginHorizontal: 10,
-                marginBottom: isIos ? 80 : 65 }}
+                marginBottom: isIos ? 80 : 65
+              }}
               renderItem={renderItem_notificationList}
               keyExtractor={keyExtractor_notificationList}
             />

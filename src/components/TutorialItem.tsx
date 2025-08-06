@@ -13,6 +13,7 @@ import RootStackParamList from "../types/RootStackParamList";
 import MtToast from "../constants/MtToast";
 import { isIos } from "../constants/IsPlatform";
 import ShadowCard from "./ShadowCard";
+import { useThemeColors } from "../constants/useThemeColors";
 
 type TutorialItemProp = {
     tutorial: Tutorial
@@ -20,6 +21,7 @@ type TutorialItemProp = {
 
 const TutorialItem: React.FC<ScreenProps<keyof RootStackParamList> & TutorialItemProp> = (props) => {
     const { tutorial, navigation } = props;
+    const theme = useThemeColors();
 
     const playTutorial = () => {
 
@@ -32,6 +34,49 @@ const TutorialItem: React.FC<ScreenProps<keyof RootStackParamList> & TutorialIte
             MtToast.error('Video url is invalid!');
         }
     }
+
+    const style = StyleSheet.create({
+        playButtonContainer: { 
+            flex: 1,
+            backgroundColor: Colors.light_grey, 
+            borderRadius: 5,
+            paddingVertical: 10,
+            width: '100%' 
+        },
+        playButton: {
+            width: 50,
+            height: 50,
+            alignSelf: 'center',
+        },
+        item: {
+            flex: 1, // Ensures equal width
+            backgroundColor: theme.inputBackground,
+            borderRadius: 5,
+            padding: 2,
+            alignItems: 'center',
+            marginHorizontal: 2,
+            marginVertical: 5
+        },
+        py_0: {
+            paddingVertical: 0,
+        },
+        desc: {
+            fontFamily: Fonts.regular,
+            color: Colors.light_grey,
+            fontSize: Fonts.fs_10,
+            marginTop: isIos ? 5 : 0,
+        },
+        title: {
+            fontFamily: Fonts.medium,
+            color: theme.text,
+            fontSize: Fonts.fs_18,
+            marginTop: isIos ? 8 : 4,
+        },
+        px_5: {
+            paddingHorizontal: 5,
+        },
+    
+    });
 
     return (
         <ShadowCard style={style.item}>
@@ -49,48 +94,5 @@ const TutorialItem: React.FC<ScreenProps<keyof RootStackParamList> & TutorialIte
         </ShadowCard>
     )
 }
-
-const style = StyleSheet.create({
-    playButtonContainer: { 
-        flex: 1,
-        backgroundColor: Colors.light_grey, 
-        borderRadius: 5,
-        paddingVertical: 10,
-        width: '100%' 
-    },
-    playButton: {
-        width: 50,
-        height: 50,
-        alignSelf: 'center',
-    },
-    item: {
-        flex: 1, // Ensures equal width
-        backgroundColor: Colors.white,
-        borderRadius: 5,
-        padding: 2,
-        alignItems: 'center',
-        marginHorizontal: 2,
-        marginVertical: 5
-    },
-    py_0: {
-        paddingVertical: 0,
-    },
-    desc: {
-        fontFamily: Fonts.regular,
-        color: Colors.light_grey,
-        fontSize: Fonts.fs_10,
-        marginTop: isIos ? 5 : 0,
-    },
-    title: {
-        fontFamily: Fonts.medium,
-        color: Colors.black,
-        fontSize: Fonts.fs_18,
-        marginTop: isIos ? 8 : 4,
-    },
-    px_5: {
-        paddingHorizontal: 5,
-    },
-
-});
 
 export default TutorialItem;

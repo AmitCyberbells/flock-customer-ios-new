@@ -17,6 +17,7 @@ import WalletService from '../../../services/WalletService';
 import ShadowCard from '../../../components/ShadowCard';
 import { CSS } from '../../../constants/CSS';
 import Chips from '../../../components/Chips';
+import { useThemeColors } from '../../../constants/useThemeColors';
 
 type VenueInfoProps = { venue: Venue, setOffersTab: (tab: boolean) => void };
 
@@ -24,6 +25,7 @@ const VenueInfo: React.FC<
   ScreenProps<'VenueDetails'> & VenueInfoProps
 > = props => {
   const { venue, setOffersTab } = props;
+  const theme = useThemeColors();
   const [seeAllDays, setSeeAllDays] = useState(false);
   const { updateWalletBalances } = WalletService();
   const wallet = useSelector((state: StoreStates) => state.wallet);
@@ -76,6 +78,7 @@ const VenueInfo: React.FC<
             width: 30,
             height: 30,
           }}
+          tintColor={'#3251e4'}
         />
         <Textview
           text={item.name}
@@ -102,7 +105,7 @@ const VenueInfo: React.FC<
         text={'About'}
         style={{
           fontSize: Fonts.fs_15,
-          color: Colors.black,
+          color: theme.text,
           fontFamily: Fonts.medium,
           marginTop: isIos ? 24 : 15,
         }}
@@ -113,7 +116,7 @@ const VenueInfo: React.FC<
         style={{
           fontFamily: Fonts.regular,
           fontSize: Fonts.fs_13,
-          color: Colors.light_grey,
+          color: theme.muteText,
           marginTop: isIos ? 10 : 3,
         }}
       />
@@ -123,7 +126,7 @@ const VenueInfo: React.FC<
           text={'Opening Hours'}
           style={{
             fontSize: Fonts.fs_15,
-            color: Colors.black,
+            color: theme.text,
             fontFamily: Fonts.medium,
             marginTop: isIos ? 24 : 15,
           }}
@@ -136,7 +139,7 @@ const VenueInfo: React.FC<
                 text={hour.start_day}
                 style={{
                   fontSize: Fonts.fs_14,
-                  color: Colors.black,
+                  color: theme.text,
                   fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}
@@ -148,7 +151,7 @@ const VenueInfo: React.FC<
                       flex: 1,
                       textAlign: 'left',
                       fontSize: Fonts.fs_14,
-                      color: Colors.black,
+                      color: theme.text,
                       fontFamily: Fonts.regular
                     }}
                   >
@@ -162,7 +165,7 @@ const VenueInfo: React.FC<
                       flex: 1,
                       textAlign: 'right',
                       fontSize: Fonts.fs_14,
-                      color: Colors.black,
+                      color: theme.text,
                       fontFamily: Fonts.regular
                     }}
                   >
@@ -195,7 +198,7 @@ const VenueInfo: React.FC<
             <Text
               style={{
                 fontSize: Fonts.fs_15,
-                color: Colors.light_blue,
+                color: theme.blueFont,
                 fontFamily: Fonts.regular,
               }}>
               {seeAllDays === false ? 'See all' : 'See less'}
@@ -209,18 +212,21 @@ const VenueInfo: React.FC<
               imageType={'local'}
               url={seeAllDays === false ? Images.blueDropdown : Images.dropUp}
               resizeMode={'contain'}
-              tintColor={Colors.light_blue}
+              tintColor={theme.blueIcon}
             />
           </View>
         </TouchableOpacity>
       </View>
 
-      <ShadowCard style={{ marginHorizontal: 2, paddingVertical: 10 }}>
+      <ShadowCard style={{ 
+        marginHorizontal: 2, 
+        paddingVertical: 10 
+      }}>
         <View>
           <Text
             style={{
               fontSize: Fonts.fs_15,
-              color: Colors.black,
+              color: theme.text,
               fontFamily: Fonts.medium,
             }}>
             {'Available Points'}
@@ -234,7 +240,7 @@ const VenueInfo: React.FC<
               <Text
                 style={{
                   fontSize: Fonts.fs_14,
-                  color: Colors.black,
+                  color: theme.text,
                   fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}>
@@ -256,7 +262,7 @@ const VenueInfo: React.FC<
               <Text
                 style={{
                   fontSize: Fonts.fs_14,
-                  color: Colors.black,
+                  color: theme.text,
                   fontFamily: Fonts.regular,
                   marginTop: isIos ? 10 : 3,
                 }}>
@@ -300,10 +306,9 @@ const VenueInfo: React.FC<
         {/* List of venue names of this vendor */}
         {siblingVenues?.length ? (
           <View style={{ borderTopColor: Colors.light_grey, borderTopWidth: 1, paddingTop: 10, marginVertical: 10 }}>
-            <Text>{'Your venue points are also redeemable at:'}</Text>
+            <Text style={{color: theme.text}}>{'Your venue points are also redeemable at:'}</Text>
           </View>
         ) : null}
-
         {siblingVenues?.length ? (
           <Chips items={siblingVenues.map(item => ({
             ...item,
@@ -316,7 +321,7 @@ const VenueInfo: React.FC<
         text={'Property Amenities'}
         style={{
           fontSize: Fonts.fs_15,
-          color: Colors.black,
+          color: theme.text,
           fontFamily: Fonts.medium,
           marginTop: isIos ? 24 : 15,
         }}

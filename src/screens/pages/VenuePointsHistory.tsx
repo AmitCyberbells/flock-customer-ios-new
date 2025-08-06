@@ -15,6 +15,7 @@ import { Fonts } from "../../constants/Fonts";
 import Icon from "@react-native-vector-icons/fontawesome6";
 import Images from "../../constants/Images";
 import PageHeader from "../../navigations/PageHeader";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 type VenueHistoryProps = {
 } & ScreenProps<'VenuePointsHistory'>;
@@ -25,6 +26,7 @@ const VenuePointsHistory: React.FC<VenueHistoryProps> = (props) => {
 
     const [loader, setLoader] = useState(false);
     const [transactions, setTransactions] = useState<VenuePointsHistoryType[]>([]);
+    const theme = useThemeColors();
 
     useEffect(() => {
 
@@ -56,7 +58,7 @@ const VenuePointsHistory: React.FC<VenueHistoryProps> = (props) => {
         ({ item, index }: { item: VenuePointsHistoryType, index: number }) => (
 
             <ShadowCard style={{
-                backgroundColor: Colors.white,
+                backgroundColor: theme.cardBackground,
                 paddingHorizontal: isIos ? 10 : 7,
                 paddingVertical: isIos ? 10 : 7,
                 //height: Utils.DEVICE_HEIGHT * 21.5 / 100,
@@ -92,7 +94,7 @@ const VenuePointsHistory: React.FC<VenueHistoryProps> = (props) => {
                         <Text
                             style={{
                                 fontFamily: Fonts.medium,
-                                color: Colors.black,
+                                color: theme.text,
                                 fontSize: Fonts.fs_17
                             }}
                         >{item.venue_name}</Text>
@@ -129,7 +131,7 @@ const VenuePointsHistory: React.FC<VenueHistoryProps> = (props) => {
                             <Text
                                 style={{
                                     fontFamily: Fonts.medium,
-                                    color: Colors.black,
+                                    color: theme.text,
                                     fontSize: Fonts.fs_17,
                                     marginTop: isIos ? 2 : 0
                                 }}
@@ -158,7 +160,7 @@ const VenuePointsHistory: React.FC<VenueHistoryProps> = (props) => {
                             <Text
                                 style={{
                                     fontFamily: Fonts.medium,
-                                    color: Colors.black,
+                                    color: theme.text,
                                     fontSize: Fonts.fs_17,
                                     marginTop: isIos ? 2 : 0
                                 }}
@@ -177,12 +179,12 @@ const VenuePointsHistory: React.FC<VenueHistoryProps> = (props) => {
 
 
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.white }}>
+        <View style={{ flex: 1, backgroundColor: theme.background }}>
             <PageHeader
               {...props}
               title={(rewardType === 'feather_points' ? 'Feathers' : 'Venue Points') + " History"}
               showBackButton
-              backgroundColor={Colors.white}
+              backgroundColor={theme.background}
               titleStyle={{
                 fontSize: Fonts.fs_18
               }}

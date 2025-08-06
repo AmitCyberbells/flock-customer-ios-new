@@ -9,10 +9,12 @@ import { Colors } from '../../constants/Colors';
 import NoData from '../../components/NoData';
 import OffersList from '../../components/OffersList';
 import MtToast from '../../constants/MtToast';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const SavedOffers: React.FC<ScreenProps<'SavedOffers'>> = props => {
   const [offers, setOffers] = useState<Array<Offer>>([]);
   const [loader, setIsLoading] = useState(false);
+  const theme = useThemeColors();
 
   useEffect(() => {
     fetch_offers();
@@ -33,7 +35,7 @@ const SavedOffers: React.FC<ScreenProps<'SavedOffers'>> = props => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white }}>
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
       <Loader isLoading={loader} />
 
       {offers.length > 0 ?

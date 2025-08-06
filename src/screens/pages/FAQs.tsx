@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Image, Platform, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Platform, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ScreenProps from "../../types/ScreenProps";
 import Request from "../../services/Request";
 import Loader from "../../components/Loader";
@@ -14,11 +14,13 @@ import FAQ from "../../types/FAQ";
 import Utils from "../../services/Utils";
 import MtToast from "../../constants/MtToast";
 import PageHeader from "../../navigations/PageHeader";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const isIos = Platform.OS === 'ios';
     const [faqs, setFaqs] = useState<Array<FAQ>>();
+    const theme = useThemeColors();
 
     useEffect(() => {
         fetch_faq();
@@ -70,7 +72,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        backgroundColor: Colors.whitesmoke,
+                        backgroundColor: theme.inputBackground,
                         paddingVertical: isIos ? 20 : 13,
                         paddingHorizontal: isIos ? 20 : 20,
                         borderRadius: 10,
@@ -79,7 +81,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                         text={item.question}
                         style={{
                             fontFamily: Fonts.medium,
-                            color: Colors.black,
+                            color: theme.text,
                             fontSize: Fonts.fs_17
                         }}
 
@@ -101,7 +103,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                         ?
                         <View
                             style={{
-                                backgroundColor: Colors.whitesmoke,
+                                backgroundColor: theme.inputBackground,
                                 paddingVertical: 13,
                                 paddingHorizontal: isIos ? 20 : 20,
                                 borderRadius: 10,
@@ -113,7 +115,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                                 text={item.answer}
                                 style={{
                                     fontFamily: Fonts.regular,
-                                    color: Colors.black,
+                                    color: theme.text,
                                     fontSize: Fonts.fs_15,
                                     marginTop: isIos ? 10 : 0
                                 }}
@@ -130,16 +132,22 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
         ), [faqs]);
     const keyExtractor_list = (item: FAQ, index: number) => index.toString();
 
+    const styles = StyleSheet.create({
+        Favcontainer: {
+            flex: 1,
+            backgroundColor: theme.background,
+        }
+    })
 
     return (
-        <View style={CSS.Favcontainer}>
+        <View style={styles.Favcontainer}>
             <Loader isLoading={isLoading} />
 
             <Textview
                 text={'Top questions '}
                 style={{
                     fontFamily: Fonts.medium,
-                    color: Colors.black,
+                    color: theme.text,
                     marginTop: 25,
                     fontSize: Fonts.fs_18,
                     marginHorizontal: isIos ? 12 : 10

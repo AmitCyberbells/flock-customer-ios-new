@@ -11,11 +11,92 @@ import { useDispatch, useSelector } from 'react-redux';
 import { refreshDeviceToken, subscribeNotifications } from '../store/authReducer';
 import { StoreStates } from '../store/store';
 
+// Global flag to prevent multiple initializations
+let isFirebaseInitialized = false;
+
 const Firebase = () => {
 
     const _isIOS = isIos;
     const dispatch = useDispatch();
     const auth = useSelector((state: StoreStates) => state.auth)
+
+    // Initialize Firebase and background handlers
+    const initializeFirebase = async () => {
+        // Prevent multiple initializations
+        if (isFirebaseInitialized) {
+            console.log('Firebase already initialized, skipping...');
+            return;
+        }
+
+        console.log('Initializing Firebase background handlers...');
+        isFirebaseInitialized = true;
+
+        // Helper function to show notifications
+        const showNotification = async (message: FirebaseMessagingTypes.RemoteMessage) => {
+            try {
+                // Create a unique ID for the notification
+                const notificationId = message.messageId || `notification_${Date.now()}_${Math.random()}`;
+                
+                // Create a channel (required for Android)
+                const channelId = await notifee.createChannel({
+                    id: 'flockloyalty-default',
+                    name: 'Default Channel',
+                    sound: 'default',
+                    importance: 4, // High importance
+                });
+
+                await notifee.displayNotification({
+                    id: notificationId, // Add unique ID
+                    title: message.notification?.title || 'Flock Notification',
+                    body: message.notification?.body || 'You have a new notification',
+                    data: message.data,
+                    android: {
+                        channelId,
+                        //smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+                        // pressAction is needed if you want the notification to open the app when pressed
+                        pressAction: {
+                            id: 'default',
+                            mainComponent: 'Venues'
+                        },
+                    },
+                    ios: {
+                        // iOS specific options
+                        foregroundPresentationOptions: {
+                            badge: true,
+                            sound: true,
+                            banner: true,
+                            list: true,
+                        },
+                        // Enable notification display for iOS
+                        critical: false,
+                    },
+                });
+            } catch (error) {
+                console.error('Error displaying notification:', error);
+            }
+        };
+
+        // Register background message handler (ONLY ONCE)
+        getMessaging().setBackgroundMessageHandler(async remoteMessage => {
+            console.log('Background message received:', remoteMessage);
+            
+            // Handle background notification data
+            if (remoteMessage.data) {
+                console.log('Background notification data:', remoteMessage.data);
+                
+                // Display notification for background messages
+                await showNotification(remoteMessage);
+                
+                // You can add custom logic here to handle specific background notifications
+                // For example, updating local storage, making API calls, etc.
+            }
+            
+            // Return a promise to indicate the background task is complete
+            return Promise.resolve();
+        });
+
+        console.log('Firebase background handlers initialized successfully');
+    };
 
     const firebaseConfig = async (callback: (initialized: boolean) => void) => {
         if (_isIOS) {
@@ -27,6 +108,8 @@ const Firebase = () => {
 
                 await firebaseApp.initializeApp(firebaseConfig, config)
                     .then(async res => {
+                        // Initialize background handlers after Firebase is configured
+                        await initializeFirebase();
                         callback(true)
                     }).catch((error) => {
                         callback(false)
@@ -34,9 +117,13 @@ const Firebase = () => {
 
             } else {
                 firebaseApp.app()
+                // Initialize background handlers
+                await initializeFirebase();
                 callback(true)
             }
         } else {
+            // Initialize background handlers for Android
+            await initializeFirebase();
             callback(true)
         }
     }
@@ -73,26 +160,27 @@ const Firebase = () => {
 }
 
 export const notifeeSettings = () => {
+    // Flag to prevent duplicate foreground handlers
+    let isForegroundHandlerRegistered = false;
+
     const onMessageReceivedForeground = async () => {
-        console.log('on message received: ')
+        // Prevent duplicate registration
+        if (isForegroundHandlerRegistered) {
+            console.log('Foreground handler already registered, skipping...');
+            return;
+        }
+
+        console.log('Registering foreground message handler...');
+        isForegroundHandlerRegistered = true;
+
         // Request permissions (required for iOS)
         if (isIos) await notifee.requestPermission()
 
         try {
             getMessaging().onMessage(async remoteMessage => {
-                console.log(remoteMessage)
-                if (isIos) {
-                    /* PushNotificationIOS.addNotificationRequest({
-                        id: remoteMessage.messageId,
-                        body: remoteMessage.notification.body,
-                        title: remoteMessage.notification.title,
-                        // userInfo: remoteMessage.data,
-                    }); */
-                } else {
-                    // Display a notification
-                    showNotification(remoteMessage)
-                }
-                // console.log('on Message received', JSON.stringify(remoteMessage));
+                console.log('Foreground message received:', remoteMessage)
+                // Display notification for both iOS and Android
+                await showNotification(remoteMessage)
             })
 
         } catch (e) {
@@ -100,43 +188,48 @@ export const notifeeSettings = () => {
         }
     }
 
-    const onMessageReceivedBackground = async () => {
-        notifee.onBackgroundEvent(async ({ type, detail }) => {
-            const { notification, pressAction } = detail;
-
-            // Check if the user pressed the "Mark as read" action
-            if (type === EventType.ACTION_PRESS && pressAction?.id === 'mark-as-read') {
-                // Update external API
-                /* await fetch(`https://my-api.com/chat/${notification.data.chatId}/read`, {
-                  method: 'POST',
-                }); */
-
-                // Remove the notification
-                if (notification?.id) { await notifee.cancelNotification(notification?.id) };
-            }
-        });
-    }
-
     const showNotification = async (message: FirebaseMessagingTypes.RemoteMessage) => {
-        // Create a channel (required for Android)
-        const channelId = await notifee.createChannel({
-            id: 'flockloyalty-andx' + Utils.generateUniqueString(6),
-            name: 'Default Channel',
-        });
+        try {
+            // Create a unique ID for the notification
+            const notificationId = message.messageId || `notification_${Date.now()}_${Math.random()}`;
+            
+            // Create a channel (required for Android)
+            const channelId = await notifee.createChannel({
+                id: 'flockloyalty-default',
+                name: 'Default Channel',
+                sound: 'default',
+                importance: 4, // High importance
+            });
 
-        await notifee.displayNotification({
-            title: message.notification?.title,
-            body: message.notification?.body,
-            android: {
-                channelId,
-                //smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
-                // pressAction is needed if you want the notification to open the app when pressed
-                pressAction: {
-                    id: Utils.generateUniqueString(16),
-                    mainComponent: 'Venues'
+            await notifee.displayNotification({
+                id: notificationId, // Add unique ID
+                title: message.notification?.title || 'Flock Notification',
+                body: message.notification?.body || 'You have a new notification',
+                data: message.data,
+                android: {
+                    channelId,
+                    //smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+                    // pressAction is needed if you want the notification to open the app when pressed
+                    pressAction: {
+                        id: 'default',
+                        mainComponent: 'Venues'
+                    },
                 },
-            },
-        });
+                ios: {
+                    // iOS specific options
+                    foregroundPresentationOptions: {
+                        badge: true,
+                        sound: true,
+                        banner: true,
+                        list: true,
+                    },
+                    // Enable notification display for iOS
+                    critical: false,
+                },
+            });
+        } catch (error) {
+            console.error('Error displaying notification:', error);
+        }
     }
 
     const getNotificationPermission = async () => {
@@ -162,7 +255,6 @@ export const notifeeSettings = () => {
         console.log('notification permission: ', accessGranted)
         if (accessGranted) {
             onMessageReceivedForeground();
-            onMessageReceivedBackground();
         }
 
         return accessGranted;

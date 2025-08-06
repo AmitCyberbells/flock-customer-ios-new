@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux';
 import { StoreStates } from '../../store/store';
 import { isIos } from '../../constants/IsPlatform';
 import Utils from '../../services/Utils';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
 
@@ -34,6 +35,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
 
   const [refreshing, setRefreshing] = useState(false);
   const location = useSelector((state: StoreStates) => state.location);
+  const theme = useThemeColors();
 
   useEffect(() => {
     fetch_venues();
@@ -97,7 +99,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
                 ? (Dimensions.get('window').width * 70) / 100
                 : (Dimensions.get('window').width * 73) / 100,
               height: isIos ? 50 : 40,
-              backgroundColor: Colors.whitesmoke,
+              backgroundColor: theme.inputBackground,
               borderRadius: 25,
               alignItems: 'center',
               paddingHorizontal: 15,
@@ -115,10 +117,11 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
             <TextInput
               style={{
                 flex: 1,
-                color: Colors.black,
+                color: theme.text,
                 paddingLeft: 20,
                 fontSize: Fonts.fs_14,
                 fontFamily: Fonts.regular,
+                // backgroundColor:"#FFFFFF"
               }}
               placeholder="Search here"
               placeholderTextColor={Colors.light_grey}
@@ -150,6 +153,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
                 }}
                 imageType={'local'}
                 url={Images.location}
+                tintColor={theme.cyanBlueIcon}
               />
             </TouchableOpacity>
           </View>
@@ -162,7 +166,7 @@ const HotVenues: React.FC<ScreenProps<'Venues'>> = props => {
               numColumns={2}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-              data={venues}
+              data={venues.slice(0, 3)} // Limit to first 3 venues
               style={{
                 marginHorizontal: '2%',
                 marginTop: isIos ? 2 : 0,

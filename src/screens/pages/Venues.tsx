@@ -28,6 +28,7 @@ import MtToast from '../../constants/MtToast';
 import { isIos } from '../../constants/IsPlatform';
 import Utils from '../../services/Utils';
 import IsVenueOpened from '../../constants/IsVenueOpened';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 const Venues: React.FC<ScreenProps<'Venues'>> = props => {
   const [categories, setCategories] = useState(
@@ -42,6 +43,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
 
   const [refreshing, setRefreshing] = useState(false);
   const location = useSelector((state: StoreStates) => state.location);
+  const theme = useThemeColors();
 
   useEffect(() => {
     fetch_venues();
@@ -95,53 +97,56 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
   };
 
   const renderItem_category = useCallback(
-    ({ item, index }: Item) => (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => category_click(item, index)}
-        style={{
-          alignItems: 'center',
-          marginTop: isIos ? 0 : 0,
-          width: isIos ? 90 : 75,
-          marginBottom: isIos ? 7 : 15,
-        }}>
-        <View
+    ({ item, index }: Item) => {
+      const isSpecialCategory = ['Lifestyles', 'Lifestyle', 'Casual', 'Nightlife'].includes(item.name);
+      return (
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => category_click(item, index)}
           style={{
-            height: isIos ? 67 : 58,
-            width: isIos ? 67 : 58,
-            borderRadius: 10,
-            overflow: 'hidden',
             alignItems: 'center',
-            backgroundColor:
-              item.id == selectedCategory ? '#2b4ce0' : '#dfe4fb',
-            justifyContent: 'center',
+            marginTop: isIos ? 0 : 0,
+            width: isIos ? 90 : 75,
+            marginBottom: isIos ? 7 : 15,
           }}>
-          <Imageview
+          <View
             style={{
-              width: isIos ? 30 : 25,
-              height: isIos ? 30 : 25,
-            }}
-            url={item.icon}
-            imageType={'server'}
-            resizeMode={'contain'}
-            tintColor={item.id == selectedCategory ? Colors.white : '#2b4ce0'}
-          />
-        </View>
+              height: isIos ? 67 : 58,
+              width: isIos ? 67 : 58,
+              borderRadius: 10,
+              overflow: 'hidden',
+              alignItems: 'center',
+              backgroundColor:
+                item.id == selectedCategory ? theme.primary : theme.categoryIconBg,
+              justifyContent: 'center',
+            }}>
+            <Imageview
+              style={{
+                width: isIos ? 30 : 25,
+                height: isIos ? 30 : 25,
+              }}
+              url={item.icon}
+              imageType={'server'}
+              resizeMode={'contain'}
+              tintColor={item.id == selectedCategory ? Colors.white : theme.primary}
+            />
+          </View>
 
-        <Textview
-          text={item.name}
-          style={{
-            fontFamily: Fonts.regular,
-            color: '#2b4ce0',
-            marginTop: 5,
-            textAlign: 'center',
-            fontSize: Fonts.fs_12,
-          }}
-          lines={1}
-        />
-      </TouchableOpacity>
-    ),
-    [categories, selectedCategory],
+          <Textview
+            text={item.name}
+            style={{
+              fontFamily: Fonts.regular,
+              color: isSpecialCategory ? theme.text : theme.primary,
+              marginTop: 5,
+              textAlign: 'center',
+              fontSize: Fonts.fs_12,
+            }}
+            lines={1}
+          />
+        </TouchableOpacity>
+      );
+    },
+    [categories, selectedCategory, theme.text, theme.primary],
   );
 
   const keyExtractor_category = (item: any, index: number) => index.toString();
@@ -166,7 +171,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
                 ? (Dimensions.get('window').width * 70) / 100
                 : (Dimensions.get('window').width * 73) / 100,
               height: isIos ? 50 : 40,
-              backgroundColor: Colors.whitesmoke,
+              backgroundColor: theme.inputBackground,
               borderRadius: 25,
               alignItems: 'center',
               paddingHorizontal: 15,
@@ -184,7 +189,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
             <TextInput
               style={{
                 flex: 1,
-                color: Colors.black,
+                color: theme.text,
                 paddingLeft: 20,
                 fontSize: Fonts.fs_14,
                 fontFamily: Fonts.regular,
@@ -219,6 +224,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
                 }}
                 imageType={'local'}
                 url={Images.location}
+                tintColor={theme.cyanBlueIcon}
               />
             </TouchableOpacity>
           </View>

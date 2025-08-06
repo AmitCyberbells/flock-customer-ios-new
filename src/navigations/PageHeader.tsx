@@ -8,6 +8,7 @@ import ScreenProps from '../types/ScreenProps';
 import RootStackParamList from '../types/RootStackParamList';
 import { isIos } from '../constants/IsPlatform';
 import { CSS } from '../constants/CSS';
+import { useThemeColors } from '../constants/useThemeColors';
 
 type PageHeaderProps = {
   title?: string;
@@ -22,6 +23,8 @@ const PageHeader: React.FC<
   (NativeStackHeaderProps | ScreenProps<keyof RootStackParamList>) & PageHeaderProps
 > = props => {
   const { children, titleStyle } = props;
+
+  const theme = useThemeColors();
 
   return (
     <View
@@ -58,7 +61,7 @@ const PageHeader: React.FC<
       <Text
         style={[{
           fontFamily: Fonts.medium,
-          color: props.textColor ?? Colors.black,
+          color: props.textColor ?? theme.text,
           textAlign: 'center',
           fontSize: Fonts.fs_20,
           paddingHorizontal: 10,

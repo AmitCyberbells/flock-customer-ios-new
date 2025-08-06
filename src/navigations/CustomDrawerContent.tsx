@@ -18,11 +18,13 @@ import { isIos } from '../constants/IsPlatform';
 import { resetWallet } from '../store/walletReducer';
 import { resetLocation } from '../store/locationReducer';
 import { resetUserToStore } from '../store/userReducer';
+import { useThemeColors } from '../constants/useThemeColors';
 
 export default function CustomDrawerContent(
   props: DrawerContentComponentProps,
 ) {
   const dispatch = useDispatch();
+  const theme = useThemeColors();
 
   const currentRoute = useNavigationState(
     state => state?.routes[state.index]?.state?.routes,
@@ -106,6 +108,7 @@ export default function CustomDrawerContent(
             activeBackgroundColor={Colors.primary_color_orange}
             activeTintColor={Colors.white}
             focused={routeName === item.slug}
+            labelStyle={{ color: theme.text }}
           />
         );
       })}

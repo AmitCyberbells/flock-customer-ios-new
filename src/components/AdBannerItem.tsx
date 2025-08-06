@@ -20,7 +20,7 @@ const AdBannerItem: React.FC<AdBannerProps> = (props) => {
                 {loading && (
                     <SkeletonView />
                 )}
-                <Image source={{uri: item.image}} style={{flex: 1}} onLoad={() => setLoading(false)}/>
+                <Image source={{uri: item.image}} style={{flex: 1}} onLoad={() => setLoading(false)} resizeMode="stretch"/>
             </TouchableOpacity>
         </View>
     );

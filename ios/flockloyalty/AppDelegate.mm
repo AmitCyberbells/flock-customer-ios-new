@@ -4,7 +4,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <Firebase.h>
 #import "RNBootSplash.h"
-
+#import <RNBranch/RNBranch.h> 
 
 @implementation AppDelegate
 
@@ -17,7 +17,7 @@
 {
   [FIRApp configure];
   [GMSServices provideAPIKey:@"AIzaSyA4D0ULsoSN1GhRqCcL0JtnyUnpLPDX1Do"];
-
+  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
   self.moduleName = @"flockloyalty";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
@@ -38,6 +38,26 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+// iOS 9+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  return [RNBranch application:app openURL:url options:options];
+}
+ 
+// iOS < 9
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+  return [RNBranch application:application
+                       openURL:url
+             sourceApplication:sourceApplication
+                    annotation:annotation];
+}
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+  restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+  return [RNBranch continueUserActivity:userActivity];
 }
 
 @end
