@@ -10,6 +10,7 @@ import MapView, { Marker, Region } from "react-native-maps";
 import Utils from "../services/Utils";
 import { Environment } from "../../env";
 import { isIos } from "../constants/IsPlatform";
+import { useThemeColors } from "../constants/useThemeColors";
 
 type NearestVenuesProps = {
     venue: Venue
@@ -22,6 +23,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
     const { area: AREA_ZOOM } = Environment.Location.Zoom;
     const [region, setRegion] = useState<Region>();
     const [toggleNearest, setToggleNearest] = useState<boolean>(false);
+    const theme = useThemeColors();
 
     useEffect(() => {
         toggleNearestVenueList();
@@ -68,7 +70,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                     text={(item.name?.length || 0) > 30 ? item.name.substring(0, 30) + '...' : item.name}
                     style={{
                         fontFamily: Fonts.regular,
-                        color: '#616161',
+                        color: theme.muteText,
                         fontSize: Fonts.fs_15,
                     }}
                     lines={1}
@@ -81,7 +83,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                         text={item.distance.toFixed(3) + 'km'}
                         style={{
                             fontFamily: Fonts.regular,
-                            color: '#103E5B',
+                            color: theme.muteText,
                             fontSize: Fonts.fs_12
                         }}
                         lines={1}
@@ -95,6 +97,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                         }}
                         imageType={"local"}
                         resizeMode={"cover"}
+                        tintColor={theme.cyanBlueIcon}
                     />
                 </View>
             </View>
@@ -120,7 +123,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                     text={'Nearby Spots'}
                     style={{
                         fontSize: Fonts.fs_15,
-                        color: Colors.black,
+                        color: theme.text,
                         fontFamily: Fonts.medium,
                         marginTop: isIos ? 25 : 18,
                     }}
@@ -129,7 +132,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                     text={' (Within 5 kms)'}
                     style={{
                         fontSize: Fonts.fs_13,
-                        color: Colors.grey,
+                        color: theme.muteText,
                         fontFamily: Fonts.medium,
                         marginTop: isIos ? 25 : 18,
                     }}
@@ -213,7 +216,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                             <Text
                                 style={{
                                     fontSize: Fonts.fs_15,
-                                    color: Colors.light_blue,
+                                    color: theme.blueFont,
                                     fontFamily: Fonts.regular,
                                 }}>
                                 {toggleNearest ? 'See all' : 'See less'}
@@ -227,7 +230,7 @@ const NearestVenues: React.FC<NearestVenuesProps> = (props) => {
                                     height: isIos ? 15 : 12,
                                 }}
                                 resizeMode="contain"
-                                tintColor={Colors.light_blue}
+                                tintColor={theme.blueIcon}
                             />
                         </View>
                     </TouchableOpacity>

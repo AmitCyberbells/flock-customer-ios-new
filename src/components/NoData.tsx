@@ -1,24 +1,24 @@
-import {Dimensions, Text, View} from 'react-native';
-import Imageview from './../components/Imageview';
-import Images from '../constants/Images';
+import {Text, View} from 'react-native';
 import {CSS} from '../constants/CSS';
 import { Colors } from '../constants/Colors';
 import { Fonts } from '../constants/Fonts';
-const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
+import { useThemeColors } from '../constants/useThemeColors';
 
 type NoDataProps = {
   isLoading?: boolean
 } 
 
 const NoData: React.FC<NoDataProps> = ({isLoading}) => {
+  const theme = useThemeColors();
+   
   return (
     <View style={CSS.no_data_view}>
       {!isLoading && <Text
         style={{
           paddingVertical: 6,
           paddingHorizontal: 12,
-          backgroundColor: Colors.whitesmoke,
-          color: Colors.black,
+          backgroundColor: theme.inputBackground,//Colors.whitesmoke,
+          color: theme.text,
           borderRadius: 20,
           overflow: 'hidden',
           fontSize: Fonts.fs_14,

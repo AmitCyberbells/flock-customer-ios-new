@@ -24,6 +24,7 @@ import MtToast from '../../constants/MtToast';
 import DropdownMenu from '../../components/DropdownMenu';
 import { isAndroid, isIos } from '../../constants/IsPlatform';
 import { Fonts } from '../../constants/Fonts';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 interface DeleteAccountProps extends ScreenProps<'DeleteAccount'> { }
 
@@ -32,6 +33,7 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const user = useSelector((state: StoreStates) => state.user)
     const dispatch = useDispatch();
+    const theme = useThemeColors();
 
     const deleteReasons = [
         "Select reason",
@@ -111,32 +113,67 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({ navigation }) => {
         );
     }
 
+    const dynamicStyles = StyleSheet.create({
+        infoField: {
+            backgroundColor: theme.cardBackground,
+            borderRadius: 5,
+            padding: 16,
+            marginBottom: 16,
+            shadowColor: theme.shadowColor,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 6,
+            elevation: 4,
+        },
+        infoText: {
+            fontSize: Fonts.fs_16,
+            color: theme.text,
+        },
+        reasonLabel: {
+            fontSize: Fonts.fs_16,
+            color: theme.text,
+            marginBottom: 8,
+        },
+        pickerContainer: {
+            backgroundColor: theme.inputBackground,
+            borderRadius: 5,
+            overflow: 'hidden',
+        },
+        picker: {
+            color: theme.text,
+            height: 56,
+        },
+    });
+
     return (
         <FormLayout>
 
             <View style={styles.content}>
 
                 <View style={styles.infoContainer}>
-                    <View style={styles.infoField}>
-                        <Text style={styles.infoText}>{user.first_name + ' ' + user.last_name}</Text>
+                    <View style={dynamicStyles.infoField}>
+                        <Text style={dynamicStyles.infoText}>{user.first_name + ' ' + user.last_name}</Text>
                     </View>
 
-                    <View style={styles.infoField}>
-                        <Text style={styles.infoText}>{user?.email}</Text>
+                    <View style={dynamicStyles.infoField}>
+                        <Text style={dynamicStyles.infoText}>{user?.email}</Text>
                     </View>
 
-                    <View style={styles.infoField}>
-                        <Text style={styles.infoText}>{user?.contact}</Text>
+                    <View style={dynamicStyles.infoField}>
+                        <Text style={dynamicStyles.infoText}>{user?.contact}</Text>
                     </View>
                 </View>
 
                 <View style={styles.reasonContainer}>
-                    <Text style={styles.reasonLabel}>Choose reason</Text>
-                    {isAndroid ? <View style={styles.pickerContainer}>
+                    <Text style={dynamicStyles.reasonLabel}>Choose reason</Text>
+                    {isAndroid ? <View style={dynamicStyles.pickerContainer}>
                         <Picker
                             selectedValue={reason}
                             onValueChange={(itemValue) => setReason(itemValue)}
-                            style={styles.picker}
+                            style={dynamicStyles.picker}
                         >
                             {deleteReasons.map((item, index) => (
                                 <Picker.Item key={index} label={item} value={item} />
@@ -197,40 +234,8 @@ const styles = StyleSheet.create({
     infoContainer: {
         marginBottom: 30,
     },
-    infoField: {
-        backgroundColor: Colors.white,
-        borderRadius: 5,
-        padding: 16,
-        marginBottom: 16,
-        shadowColor: Colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-    },
-    infoText: {
-        fontSize: Fonts.fs_16,
-        color: Colors.black,
-    },
     reasonContainer: {
         marginBottom: 30,
-    },
-    reasonLabel: {
-        fontSize: Fonts.fs_16,
-        color: '#666',
-        marginBottom: 8,
-    },
-    pickerContainer: {
-        backgroundColor: '#F0F0FF',
-        borderRadius: 5,
-        overflow: 'hidden',
-    },
-    picker: {
-        color: Colors.grey,
-        height: 56,
     },
     continueButton: {
         height: 56,

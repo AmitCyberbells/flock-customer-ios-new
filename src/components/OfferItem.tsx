@@ -16,6 +16,7 @@ import FallbackSvg from './FallbackSvg';
 import MtToast from '../constants/MtToast';
 import Chips from './Chips';
 import ShadowCard from './ShadowCard';
+import { useThemeColors } from '../constants/useThemeColors';
 
 type OfferItem = {
   offer: Offer,
@@ -49,11 +50,99 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
   const showQrcode = () => {
     console.log(offer.last_redeem)
 
-    props.navigation?.navigate('QrPreview', { 
+    props.navigation?.navigate('QrPreview', {
       data: JSON.stringify({ redeem_id: offer.last_redeem?.id }),
-      coupon: offer.last_redeem?.coupon_code || '' 
+      coupon: offer.last_redeem?.coupon_code || ''
     });
   }
+
+
+  const { width } = Dimensions.get('window');
+  const theme = useThemeColors();
+
+  const style = StyleSheet.create({
+    item: {
+      flex: 1, // Ensures equal width
+      marginHorizontal: 0,
+      marginVertical: 0,
+      backgroundColor: theme.inputBackground,
+      borderRadius: 5,
+      padding: 2,
+      alignItems: 'center',
+      maxWidth: (width / 2) - 15
+    },
+    redeemPoint: {
+      flexDirection: 'row',
+      height: 23,
+      justifyContent: 'flex-start',
+      backgroundColor: theme.inputBackground,
+      borderRadius: 5,
+      alignItems: 'center',
+      paddingHorizontal: 5,
+      borderColor: theme.border,
+      borderWidth: 0.5
+    },
+    pointText: {
+      fontFamily: Fonts.regular,
+      color: theme.text,
+      fontSize: Fonts.fs_11,
+    },
+    pointsRow: {
+      flexDirection: 'row',
+      height: 25,
+      justifyContent: 'space-between',
+      position: 'absolute',
+      bottom: 2,
+      paddingHorizontal: 4,
+      zIndex: 1,
+      gap: 3,
+      width: '100%'
+    },
+    py_0: {
+      paddingVertical: 0,
+    },
+    desc: {
+      fontFamily: Fonts.regular,
+      color: theme.muteText,
+      fontSize: Fonts.fs_11,
+      marginTop: isIos ? 5 : 3,
+    },
+    title: {
+      fontFamily: Fonts.medium,
+      color: theme.text,
+      fontSize: Fonts.fs_14,
+      marginTop: isIos ? 8 : 4,
+    },
+    px_5: {
+      paddingHorizontal: 5,
+    },
+    actionBtnsContainer: {
+      flexDirection: 'row',
+      marginVertical: 5,
+      justifyContent: 'space-between',
+    },
+    buttonText: {
+      fontFamily: Fonts.regular,
+      color: theme.white,
+      fontSize: Fonts.fs_10,
+      textAlign: 'center',
+    },
+    shadowButton: {
+      backgroundColor: theme.background,
+      justifyContent: 'center',
+      marginHorizontal: 2,
+      paddingHorizontal: 5,
+      paddingVertical: 7,
+    },
+    touchableBtn: {
+      paddingHorizontal: isIos ? 0 : 7,
+      flex: 1,
+      height: isIos ? 30 : 27,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 5,
+    }
+  });
 
   return (
     <BoxView cardStyle={style.item} bodyStyle={[style.py_0, {
@@ -73,7 +162,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
             imageType={'server'}
             resizeMode={'cover'}
           /> :
-          <FallbackSvg overlayStyle={{borderRadius: 5}} wrapperStyle={{ marginTop: 0 }} androidHeight={80} iosHeight={100} />
+          <FallbackSvg overlayStyle={{ borderRadius: 5 }} wrapperStyle={{ marginTop: 0 }} androidHeight={80} iosHeight={100} />
         }
 
         <View style={style.pointsRow}>
@@ -120,7 +209,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
 
       <Textview text={offer.name} style={[style.title, style.px_5]} lines={1} />
 
-      <Chips items={[{ name: offer.venue?.name || '' }]}  containerStyle={{ paddingHorizontal: 3}}/>
+      <Chips items={[{ name: offer.venue?.name || '' }]} containerStyle={{ paddingHorizontal: 3 }} />
 
       <Textview
         text={offer.description}
@@ -131,7 +220,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
 
       {(!offer.last_redeem || offer.last_redeem?.expired_at || offer.last_redeem?.confirmed) ?
 
-        <View style={[style.actionBtnsContainer, {paddingHorizontal: 3}]}>
+        <View style={[style.actionBtnsContainer, { paddingHorizontal: 3 }]}>
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => toggleOffer(offer)}
@@ -139,7 +228,7 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
             <ShadowCard
               style={style.shadowButton}>
               <Text
-                style={[style.buttonText, { color: Colors.venueIconColor }]}>
+                style={[style.buttonText, { color: theme.blueFont }]}>
                 {offer.favourite ? 'Remove' : 'Save'}
               </Text>
             </ShadowCard>
@@ -191,90 +280,6 @@ const OfferItem: React.FC<ScreenProps<keyof RootStackParamList> & OfferItem> = (
   );
 };
 
-const { width } = Dimensions.get('window');
 
-const style = StyleSheet.create({
-  item: {
-    flex: 1, // Ensures equal width
-    marginHorizontal: 0,
-    marginVertical: 0,
-    backgroundColor: Colors.white,
-    borderRadius: 5,
-    padding: 2,
-    alignItems: 'center',
-    maxWidth: (width / 2) - 15
-  },
-  redeemPoint: {
-    flexDirection: 'row',
-    height: 23,
-    justifyContent: 'flex-start',
-    backgroundColor: 'white',
-    borderRadius: 5,
-    alignItems: 'center',
-    paddingHorizontal: 5,
-    borderColor: Colors.whitesmoke,
-    borderWidth: 0.5
-  },
-  pointText: {
-    fontFamily: Fonts.regular,
-    color: Colors.black,
-    fontSize: Fonts.fs_11,
-  },
-  pointsRow: {
-    flexDirection: 'row',
-    height: 25,
-    justifyContent: 'space-between',
-    position: 'absolute',
-    bottom: 2,
-    paddingHorizontal: 4,
-    zIndex: 1,
-    gap: 3,
-    width: '100%'
-  },
-  py_0: {
-    paddingVertical: 0,
-  },
-  desc: {
-    fontFamily: Fonts.regular,
-    color: Colors.light_grey,
-    fontSize: Fonts.fs_11,
-    marginTop: isIos ? 5 : 3,
-  },
-  title: {
-    fontFamily: Fonts.medium,
-    color: Colors.black,
-    fontSize: Fonts.fs_14,
-    marginTop: isIos ? 8 : 4,
-  },
-  px_5: {
-    paddingHorizontal: 5,
-  },
-  actionBtnsContainer: {
-    flexDirection: 'row',
-    marginVertical: 5,
-    justifyContent: 'space-between',
-  },
-  buttonText: {
-    fontFamily: Fonts.regular,
-    color: Colors.white,
-    fontSize: Fonts.fs_10,
-    textAlign: 'center',
-  },
-  shadowButton: {
-    backgroundColor: Colors.white,
-    justifyContent: 'center',
-    marginHorizontal: 2,
-    paddingHorizontal: 5,
-    paddingVertical: 7,
-  },
-  touchableBtn: {
-    paddingHorizontal: isIos ? 0 : 7,
-    flex: 1,
-    height: isIos ? 30 : 27,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-  }
-});
 
 export default OfferItem;

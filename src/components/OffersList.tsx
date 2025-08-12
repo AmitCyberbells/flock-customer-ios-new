@@ -11,6 +11,7 @@ import MtToast from "../constants/MtToast";
 import WalletService from "../services/WalletService";
 import RedeemedOffers from "../types/RedeemedOffers";
 import RedeemOfferSuccess from "./RedeemSuccess";
+import { useThemeColors } from "../constants/useThemeColors";
 
 type OffersListProps = {
     offersData: Array<Offer>,
@@ -24,6 +25,7 @@ const OffersList: React.FC<OffersListProps> = (props) => {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedOffer, setSelectedOffer] = useState<Offer>();
     const {updateWalletBalances} = WalletService();
+    const theme = useThemeColors();
 
     useEffect(() => {
         updateWalletBalances();

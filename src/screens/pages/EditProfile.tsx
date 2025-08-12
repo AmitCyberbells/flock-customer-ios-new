@@ -404,9 +404,9 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                     <TouchableOpacity activeOpacity={0.9} onPress={submit} disabled={!isFormValid()} style={{
                         backgroundColor: Colors.primary_color_orange,
                         marginTop: 40,
-                        paddingVertical: isIos ? 15 : 10,
+                        paddingVertical: isIos ? 5 : 10,
                         borderRadius: 5,
-                        height: 50,
+                        height: 60,
                         justifyContent: 'center',
                         opacity: isFormValid() ? 1 : 0.5
                     }}>

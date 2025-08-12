@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, ViewStyle } from "r
 import Venue from "../types/Venue";
 import { Colors } from "../constants/Colors";
 import { Fonts } from "../constants/Fonts";
+import { useThemeColors } from "../constants/useThemeColors";
 
 
 interface ChipsProps {
@@ -11,6 +12,27 @@ interface ChipsProps {
 }
 
 const Chips: React.FC<ChipsProps> = ({ items, containerStyle }) => {
+  const theme = useThemeColors();
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 6, // Adds spacing between items (React Native 0.71+)
+    },
+    tag: {
+      fontSize: Fonts.fs_13,
+      color: Colors.grey,
+      fontFamily: Fonts.medium,
+      backgroundColor: theme.background,
+      borderRadius: 5,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      marginRight: 6,
+      overflow: "hidden",
+    },
+  });
+
   return (
     <View style={[styles.container, containerStyle]}>
       <FlatList
@@ -40,24 +62,5 @@ const Chips: React.FC<ChipsProps> = ({ items, containerStyle }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6, // Adds spacing between items (React Native 0.71+)
-  },
-  tag: {
-    fontSize: Fonts.fs_13,
-    color: Colors.grey,
-    fontFamily: Fonts.medium,
-    backgroundColor: Colors.whitesmoke,
-    borderRadius: 5,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginRight: 6,
-    overflow: "hidden",
-  },
-});
 
 export default Chips;
