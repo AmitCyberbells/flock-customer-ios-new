@@ -51,6 +51,8 @@ type RootStackParamList = {
         title?: string
     },
     WebPage: WebPageParams,
+    WebPage2: { title: string; link: string },
+
     ChangePassword: undefined,
     HotVenues: undefined,
     QrPreview: {

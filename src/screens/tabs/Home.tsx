@@ -97,12 +97,13 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
               url={item.icon}
               imageType={'server'}
               resizeMode={'contain'}
-              tintColor={theme.primary}
+              tintColor={theme.category}
+              
             />
           </View>
           <Textview
             text={item.name.length > 10 ? item.name.substring(0, 8) + '..' : item.name}
-            style={[styles.categoryText, { color: isSpecialCategory ? theme.text : Colors.black }]}
+            style={[styles.categoryText, { color: isSpecialCategory ? theme.categoryText : Colors.black }]}
             lines={1}
           />
         </TouchableOpacity>
@@ -176,11 +177,13 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
     },
     categoriesList: {
       alignItems: 'center',
-      marginTop: isIos ? 12 : 20
+      marginTop: isIos ? 12 : 20,
+      
     },
     categoriesListContent: {
       justifyContent: 'center',
-      gap: 10
+      gap: 10,
+     
     },
     categoriesFlatList: {
       flexGrow: 0
@@ -214,10 +217,11 @@ const Home: React.FC<ScreenProps<'Tabs'>> = props => {
       alignItems: 'center',
       backgroundColor: '#dfe4fb',
       justifyContent: 'center',
+      
     },
     categoryIcon: {
       width: isIos ? 37 : 32,
-      height: isIos ? 40 : 35,
+      height: isIos ? 40 : 35,   
     },
     categoryText: {
       fontFamily: Fonts.regular,

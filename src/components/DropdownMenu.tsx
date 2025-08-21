@@ -11,6 +11,7 @@ import {
 import { Colors } from "../constants/Colors";
 import Icon from "@react-native-vector-icons/fontawesome6";
 import { Fonts } from "../constants/Fonts";
+import { useThemeColors } from "../constants/useThemeColors";
 
 interface DropdownOption<T> {
   value: T;
@@ -33,6 +34,7 @@ const DropdownMenu = <T extends string | number>({
   const [visible, setVisible] = useState(false);
 
   const selectedOption = options.find(option => option.value === selectedValue)
+  const theme = useThemeColors();
   const handleSelect = (option: DropdownOption<T>) => {
     onSelect(option);
     setVisible(false);
@@ -43,6 +45,58 @@ const DropdownMenu = <T extends string | number>({
     setVisible(false);
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      width: "100%",
+      alignItems: "center",
+    },
+    dropdownButton: {
+      width: '100%',
+      padding: 12,
+      backgroundColor: theme.inputBackground,
+      borderRadius: 5,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    buttonText: {
+      color:theme.text ,
+      fontSize: Fonts.fs_16,
+    },
+    overlay: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0,0,0,0.3)",
+    },
+   
+    dropdown: {
+      height: 300,
+      width: '80%',
+      backgroundColor:theme.cardBackground,
+      borderRadius: 5,
+      paddingVertical: 10,
+      shadowColor: "#000",
+      shadowOpacity: 0.1,
+      shadowRadius: 5,
+      elevation: 5,
+    },
+    option: {
+      padding: 10,
+      //alignItems: "center",
+      borderColor: Colors.light_grey,
+      borderBottomWidth: 1
+    },
+    optionText: {
+      fontSize: Fonts.fs_16,
+      color: theme.text,
+    },
+    appContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  });
   return (
     <View style={styles.container}>
       {/* Dropdown Button */}
@@ -73,56 +127,5 @@ const DropdownMenu = <T extends string | number>({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    alignItems: "center",
-  },
-  dropdownButton: {
-    width: '100%',
-    padding: 12,
-    backgroundColor: Colors.whitesmoke,
-    borderRadius: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  buttonText: {
-    color: Colors.black,
-    fontSize: Fonts.fs_16,
-  },
-  overlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.3)",
-  },
-  dropdown: {
-    height: 300,
-    width: '80%',
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    paddingVertical: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  option: {
-    padding: 10,
-    //alignItems: "center",
-    borderColor: Colors.light_grey,
-    borderBottomWidth: 1
-  },
-  optionText: {
-    fontSize: Fonts.fs_16,
-    color: "#333",
-  },
-  appContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default DropdownMenu;

@@ -57,7 +57,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
             <Pressable onPress={() => props.navigation?.navigate('SupportTicket', { ticket_id: item.id })}>
                 <ShadowCard
                     style={{
-                        backgroundColor: Colors.white,
+                        backgroundColor: theme.inputBackground,
                         marginHorizontal: 15,
                         marginTop: 20,
                         paddingVertical: 8,
@@ -68,7 +68,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
                     <Text
                         style={{
                             fontFamily: Fonts.medium,
-                            color: Colors.black,
+                            color: theme.text,
                             fontSize: Fonts.fs_15
                         }}>
                         {item.title}
@@ -77,7 +77,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
                     <Text
                         style={{
                             fontFamily: Fonts.medium,
-                            color: Colors.black,
+                            color: theme.text,
                             fontSize: Fonts.fs_13
 
                         }} numberOfLines={4} >
@@ -90,7 +90,7 @@ const SupportList: React.FC<ScreenProps<'SupportList'>> = (props) => {
                         text={item.created_at}
                         style={{
                             fontFamily: Fonts.regular,
-                            color: Colors.grey,
+                            color: theme.text,
                             textAlign: 'right',
                             marginTop: 15,
                             fontSize: Fonts.fs_12

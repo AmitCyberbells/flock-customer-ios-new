@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,86 +7,34 @@ import {
   TouchableOpacity,
   Platform,
   ImageBackground,
-  Dimensions,
-  StyleSheet,
-  useColorScheme,
 } from 'react-native';
-import Images from '../constants/Images';
 import Imageview from '../components/Imageview';
-import {Colors} from '../constants/Colors';
 import Textview from '../components/Textview';
-import {Fonts} from '../constants/Fonts';
+import Images from '../constants/Images';
+import { Fonts } from '../constants/Fonts';
+import { Colors } from '../constants/Colors';
 import Home from './tabs/Home';
 import Notifications from './tabs/Notifications';
+import Dash from './tabs/Dash';
 import Favorites from './tabs/Favourite';
 import Profile from './tabs/Profile';
-import Dash from './tabs/Dash';
 import ScreenProps from '../types/ScreenProps';
-import {CSS} from '../constants/CSS';
-import { isIos } from '../constants/IsPlatform';
 import { useThemeColors } from '../constants/useThemeColors';
 
-const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
-  const {navigation} = props;
-  const [index, setIndex] = useState(0);
-  const theme = useThemeColors();
-  const scheme = useColorScheme();
+const CustomTabBar_IOS: React.FC<ScreenProps<'Tabs'>> = props => {
+  const { navigation } = props;
+  const routes = navigation?.getState().routes;
+  const [index, set_index] = useState(0);
+  const theme =useThemeColors();
 
-  function openTab(i: number) {
-    setIndex(i);
+  function click_handle(type: string, i: number) {
+    set_index(i);
+    // props.navigation.navigate(type)
+    console.log('click');
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      height: '100%',
-      backgroundColor: theme.background,
-    },
-    imageBackground: {
-      width: Dimensions.get('window').width,
-      height: 100,
-      bottom: -10,
-      position: 'absolute',
-    },
-    bottomNav: {
-      width: '100%',
-      position: 'absolute',
-      bottom: 5,
-      backgroundColor: theme.backgroundfav,
-      // shadowColor: '#dcdcdc',
-      // shadowOpacity: 4,
-      height: isIos ? 80 : 70,
-    },
-    tabContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginHorizontal: isIos ? 5 : 15,
-      marginVertical: 0,
-    },
-    icon: {
-      width: isIos ? 30 : 25,
-      height: isIos ? 30 : 25,
-    },
-    tabText: {
-      fontSize: Fonts.fs_10,
-      fontFamily: Fonts.regular,
-      marginTop: 3,
-    },
-    notificationsTab: {
-      marginRight: 60,
-    },
-    floatingButton: {
-      position: 'absolute',
-      bottom: 28,
-      alignSelf: 'center'
-    },
-    floatingButtonImage: {
-      width: 80,
-      height: 80,
-    },
-  });
-
   return (
-    <View style={styles.container}>
+    <View style={{ height: '100%' }}>
       {index === 0 ? (
         <Home navigation={props.navigation} />
       ) : index === 1 ? (
@@ -99,117 +47,180 @@ const CustomTabBar_Android: React.FC<ScreenProps<'Tabs'>> = props => {
         <Profile navigation={props.navigation} />
       )}
 
-      <ImageBackground
-        source={scheme === 'dark' ? Images.bottomNavDark : Images.bottomNav}
-        style={styles.imageBackground}
-        resizeMode={'cover'}
-        // tintColor={scheme === 'dark' ? theme.backgroundfav : ''}
-        >
-          
-        <View style={styles.bottomNav}>
-          <View style={styles.tabContainer}>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(0)} style={CSS.tab}>
-              <Imageview
-                style={styles.icon}
-                imageType={'local'}
-                url={Images.home}
-                tintColor={
-                  0 == index ? Colors.primary_color_orange : Colors.light_grey
-                }
-              />
-              <Textview
-                text={'Home'}
-                style={[
-                  styles.tabText,
-                  {
-                    color:
-                      0 == index
-                        ? Colors.primary_color_orange
-                        : Colors.light_grey,
-                  },
-                ]}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(1)}
-              style={[CSS.tab, styles.notificationsTab]}>
-              <Imageview
-                style={styles.icon}
-                imageType={'local'}
-                url={Images.notify}
-                tintColor={
-                  1 == index ? Colors.primary_color_orange : Colors.light_grey
-                }
-              />
-              <Textview
-                text={'Notifications'}
-                style={[
-                  styles.tabText,
-                  {
-                    color:
-                      1 == index
-                        ? Colors.primary_color_orange
-                        : Colors.light_grey,
-                  },
-                ]}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(3)} style={CSS.tab}>
-              <Imageview
-                style={styles.icon}
-                imageType={'local'}
-                url={Images.fav}
-                tintColor={
-                  3 == index ? Colors.primary_color_orange : Colors.light_grey
-                }
-              />
-              <Textview
-                text={'Favourites'}
-                style={[
-                  styles.tabText,
-                  {
-                    color:
-                      3 == index
-                        ? Colors.primary_color_orange
-                        : Colors.light_grey,
-                  },
-                ]}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => openTab(4)} style={CSS.tab}>
-              <Imageview
-                style={styles.icon}
-                imageType={'local'}
-                url={Images.profile}
-                tintColor={
-                  4 == index ? Colors.primary_color_orange : Colors.light_grey
-                }
-              />
-              <Textview
-                text={'Profile'}
-                style={[
-                  styles.tabText,
-                  {
-                    color:
-                      4 == index
-                        ? Colors.primary_color_orange
-                        : Colors.light_grey,
-                  },
-                ]}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
 
-        <TouchableOpacity
-          activeOpacity={0.9}
-          style={styles.floatingButton}
-          onPress={() => openTab(2)}>
-          <Image style={styles.floatingButtonImage} source={Images.bird} />
-        </TouchableOpacity>
-      </ImageBackground>
+
+<View
+  style={{
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    backgroundColor: theme.backgroundfav,
+    shadowColor:theme.shadow,
+    shadowOpacity: 0.3, 
+    position: 'absolute',
+    bottom: 15,
+    left: '50%',
+    transform: [{ translateX: -45 }], // 45 = width / 2
+  }}>
+  <View style={{ height: 70 }} />
+</View>
+
+
+      <View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          bottom: 0,
+          backgroundColor: theme.backgroundfav,
+          shadowColor: theme.shadow,
+          shadowOpacity: 0.3,
+          height: 80,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginHorizontal: 23,
+            marginTop: 15,
+          }}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => click_handle('Home', 0)}
+            style={{ alignContent: 'center', alignItems: 'center' }}>
+            <Imageview
+              style={{
+                width: 30,
+                height: 30,
+              }}
+              imageType={'local'}
+              url={Images.home}
+              tintColor={
+                0 == index ? Colors.primary_color_orange : Colors.light_grey
+              }
+            />
+            <Textview
+              text={'Home'}
+              style={{
+                fontSize: Fonts.fs_10,
+                color:
+                  0 == index ? Colors.primary_color_orange : Colors.light_grey,
+                fontFamily: Fonts.regular,
+                marginTop: 3,
+              }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => click_handle('Notification', 1)}
+            style={{
+              alignContent: 'center',
+              alignItems: 'center',
+              marginRight: 80,
+            }}>
+            <Imageview
+              style={{
+                width: 30,
+                height: 30,
+              }}
+              imageType={'local'}
+              url={Images.notify}
+              tintColor={
+                1 == index ? Colors.primary_color_orange : Colors.light_grey
+              }
+            />
+            <Textview
+              text={'Notifications'}
+              style={{
+                fontSize: Fonts.fs_10,
+                color:
+                  1 == index ? Colors.primary_color_orange : Colors.light_grey,
+                fontFamily: Fonts.regular,
+                marginTop: 3,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => click_handle('Favorites', 3)}
+            style={{ alignContent: 'center', alignItems: 'center' }}>
+            <Imageview
+              style={{
+                width: 30,
+                height: 30,
+              }}
+              imageType={'local'}
+              url={Images.fav}
+              tintColor={
+                3 == index ? Colors.primary_color_orange : Colors.light_grey
+              }
+            />
+            <Textview
+              text={'Favourites'}
+              style={{
+                fontSize: Fonts.fs_10,
+                color:
+                  3 == index ? Colors.primary_color_orange : Colors.light_grey,
+                fontFamily: Fonts.regular,
+                marginTop: 3,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => click_handle('Profile', 4)}
+            style={{ alignContent: 'center', alignItems: 'center' }}>
+            <Imageview
+              style={{
+                width: 30,
+                height: 30,
+              }}
+              imageType={'local'}
+              url={Images.profile}
+              tintColor={
+                4 == index ? Colors.primary_color_orange : Colors.light_grey
+              }
+            />
+            <Textview
+              text={'Profile'}
+              style={{
+                fontSize: Fonts.fs_10,
+                color: 4 == index ? Colors.primary_color_orange : Colors.light_grey,
+                fontFamily: Fonts.regular,
+                marginTop: 3
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <TouchableOpacity
+  style={{
+    width: 84,
+    height: 83,
+    position: 'absolute',
+    bottom: 20,
+    left: '50%',
+    transform: [{ translateX: -42 }], // 42 = width / 2
+    backgroundColor: theme.backgroundfav,
+    borderRadius: 45,
+    overflow: 'hidden',
+  }}
+  onPress={() => click_handle('Inu', 2)}
+  activeOpacity={1}>
+  <Image
+    style={{
+      width: 80,
+      height: 80,
+      resizeMode: 'contain',
+      marginLeft: 2,
+    }}
+    source={Images.bird}
+  />
+</TouchableOpacity>
+
     </View>
   );
 };
 
-export default CustomTabBar_Android;
-
+export default CustomTabBar_IOS;

@@ -31,6 +31,7 @@ import WalletService from '../../services/WalletService';
 import { CSS } from '../../constants/CSS';
 import Utils from '../../services/Utils';
 import { useThemeColors } from '../../constants/useThemeColors';
+import IsVenueOpened from '../../constants/IsVenueOpened';
 
 const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
   const { route } = props;
@@ -101,6 +102,11 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
     if (venue.checkedin_count) {
       // already checkedin .. now get the remaining hours and minutes for the next checkin
       return checkinApi();
+    }
+
+    // Check if venue is open before allowing check-in
+    if (!IsVenueOpened(venue)) {
+      return MtToast.error('This venue is currently closed. Please visit during business hours.');
     }
 
     props.navigation?.navigate('QrScanner', { venue });
@@ -442,7 +448,7 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
               activeOpacity={0.9}
               onPress={() => venue.checkedin_count ? {} : checkin()}
               style={{ flex: 1 }}
-              disabled={venue.checkedin_count ? true : false}
+              disabled={venue.checkedin_count ? true : !IsVenueOpened(venue)}
             >
               <Text
                 style={{
@@ -450,11 +456,12 @@ const VenueDetails: React.FC<ScreenProps<'VenueDetails'>> = props => {
                   color: Colors.white,
                   fontFamily: Fonts.medium,
                   textAlign: 'center',
-                  backgroundColor: venue.checkedin_count ? Colors.orange_shade1 : Colors.primary_color_orange,
+                  backgroundColor: venue.checkedin_count ? Colors.orange_shade1 : 
+                    (IsVenueOpened(venue) ? Colors.primary_color_orange : Colors.light_grey),
                   paddingVertical: isIos ? 20 : 17,
                   borderRadius: 10,
                 }}>
-                {venue.checkedin_count ? 'Checked-In' : 'Check-In'}
+              {venue.checkedin_count ? 'Checked-In' : 'Check-In'}
               </Text>
             </TouchableOpacity>
           </View>

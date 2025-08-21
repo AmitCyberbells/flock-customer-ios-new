@@ -521,8 +521,8 @@ const QrScanner: React.FC<ScreenProps<'QrScanner'>> = props => {
             }}>
               <Camera
                 style={{
-                  borderWidth: 1,
-                  borderColor: Colors.red,
+                  borderWidth: 0,
+                  // borderColor: Colors.red,
                   width: '100%',
                   height: '100%',
                 }}

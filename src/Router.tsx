@@ -28,6 +28,7 @@ import { getCurrentLocation } from './services/GetCurrentLocation';
 import axios from 'axios';
 import CheckInPopup from './components/CheckInPopup';
 import Venue from './types/Venue';
+import IsVenueOpened from './constants/IsVenueOpened';
 
 const Router = () => {
   const isLoggedIn = useSelector((state: StoreStates) => state.auth.isLoggedIn);
@@ -269,6 +270,15 @@ const Router = () => {
           if (success && success.data) {
             console.log('[PerformCheckin] Venue found:', success.data);
             venueData = success.data;
+            
+            // Check if venue is open before allowing check-in
+            if (!IsVenueOpened(venueData)) {
+              console.log('[PerformCheckin] Venue is closed, preventing check-in');
+              MtToast.error('This venue is currently closed. Please visit during business hours.');
+              reject(new Error('Venue is closed'));
+              return;
+            }
+            
             resolve();
           } else {
             console.log('[PerformCheckin] Venue fetch error:', error);

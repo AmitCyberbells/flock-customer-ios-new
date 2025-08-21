@@ -15,10 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authReducer";
 import { StoreStates } from "../../store/store";
 import { Validator } from "../../services/Validator";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
-
+    const theme = useThemeColors();
     const [old_password, setOldPassword] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [password_confirmation, setPasswordConfirmation] = useState<string>();
@@ -99,6 +100,32 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
         setPasswordConfirmation(pass);
     }
 
+    
+const styles = StyleSheet.create({
+    formContainer: {
+        marginHorizontal: 15,
+        alignItems: "center"
+    },
+    inputCard: {
+        backgroundColor: theme.inputBackground,
+        paddingVertical: Platform.OS == 'ios' ? 10 : 0,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 8
+    },
+    textInput: {
+        flex: 1,
+        color: theme.text,
+        fontSize: Fonts.fs_14,
+        fontFamily: Fonts.regular,
+    },
+    eyeIcon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+    }
+});
     return (
         <FormLayout>
             <Loader isLoading={loader} />
@@ -216,30 +243,5 @@ const ChangePassword: React.FC<ScreenProps<'ChangePassword'>> = (props) => {
     )
 }
 
-const styles = StyleSheet.create({
-    formContainer: {
-        marginHorizontal: 15,
-        alignItems: "center"
-    },
-    inputCard: {
-        backgroundColor: Colors.white,
-        paddingVertical: Platform.OS == 'ios' ? 17 : 0,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 8
-    },
-    textInput: {
-        flex: 1,
-        color: Colors.black,
-        fontSize: Fonts.fs_14,
-        fontFamily: Fonts.regular,
-    },
-    eyeIcon: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-    }
-});
 
 export default ChangePassword;

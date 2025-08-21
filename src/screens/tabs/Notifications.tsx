@@ -109,7 +109,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
             <Text
               style={{
                 fontFamily: Fonts.regular,
-                color: theme.textDes,
+                color: theme.text,
                 fontSize: Fonts.fs_12
               }}
             >
@@ -121,7 +121,7 @@ const Notifications: React.FC<ScreenProps<'Tabs'>> = props => {
         <Text
           style={{
             fontFamily: Fonts.regular,
-            color: Colors.grey,
+            color: theme.text,
             fontSize: Fonts.fs_12,
             textAlign: 'right',
             marginBottom: isIos ? 5 : 5

@@ -71,6 +71,4 @@ const TabHeader: React.FC<ScreenProps<keyof RootStackParamList> & TabHeaderProps
   );
 };
 
-
-
 export default TabHeader;

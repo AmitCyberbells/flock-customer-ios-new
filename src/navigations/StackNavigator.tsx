@@ -32,6 +32,7 @@ import FeathersHistory from '../screens/pages/FeathersHistory';
 import SupportTicket from '../screens/pages/SupportTicket';
 import VenuePointsHistory from '../screens/pages/VenuePointsHistory';
 import { useThemeColors } from '../constants/useThemeColors';
+import WebPage2 from '../screens/pages/WebPage2';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ export default function StackNavigator() {
         component={OTPScreen}
         options={{ headerShown: false }}
       />
+       
       <Stack.Screen
         name="Tabs"
         component={CustomTabBar}
@@ -109,6 +111,8 @@ export default function StackNavigator() {
       }} />
       <Stack.Screen name="VideoPlayer" component={VideoPlayer} options={{ headerShown: false }} />
       <Stack.Screen name="WebPage" component={WebPage} options={{ headerShown: false }} />
+      <Stack.Screen name="WebPage2" component={WebPage2} options={{ headerShown: false }} />
+   
       <Stack.Screen name="VenueRequest" component={VenueRequest} options={{
         header: props => (
           <PageHeader

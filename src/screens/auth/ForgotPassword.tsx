@@ -50,12 +50,12 @@ const ForgotPassword: React.FC<ScreenProps<'ForgotPassword'>> = props => {
       marginTop: 35,
     },
     boxView: {
-      paddingVertical: isIos ? 10 : 0,
+      paddingVertical: isIos ?5 : 0,
       marginTop: 30,
       backgroundColor: theme.inputBackground,
     },
     textInput: {
-      height: 40,
+      height: 35,
       color: theme.text,
       fontSize: Fonts.fs_14,
       fontFamily: Fonts.regular,

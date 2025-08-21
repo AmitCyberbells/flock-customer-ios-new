@@ -117,7 +117,7 @@ const Venues: React.FC<ScreenProps<'Venues'>> = props => {
               overflow: 'hidden',
               alignItems: 'center',
               backgroundColor:
-                item.id == selectedCategory ? theme.primary : theme.categoryIconBg,
+                item.id == selectedCategory ? theme.category : theme.categoryIconBg,
               justifyContent: 'center',
             }}>
             <Imageview

@@ -39,7 +39,7 @@ const UserCard: React.FC = () => {
         url={user?.image ?? Images.profileImg}
         imageType={'server'}
         resizeMode={'cover'}
-        tintColor={theme.greyIcon}
+        // tintColor={theme.greyIcon}
       />
 
       <View style={{ justifyContent: 'center', marginLeft: 10, flexShrink: 1 }}>

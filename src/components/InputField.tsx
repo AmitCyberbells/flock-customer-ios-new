@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { TextInput, View, Text, StyleSheet, TextInputProps, ViewStyle, TextStyle } from 'react-native';
 import { Colors } from '../constants/Colors';
 import { Fonts } from '../constants/Fonts';
+import { useThemeColors } from '../constants/useThemeColors';
+
+
 
 // Define the props type for the component
 interface InputFieldProps extends TextInputProps {
@@ -34,7 +37,7 @@ const InputField: React.FC<InputFieldProps> = ({
   useEffect(() => {
     validateInput(value);
   }, [value]);
-
+  const theme = useThemeColors();
   const validateInput = (text: string) => {
     if (required && !text.trim()) {
       setError('This field is required');
@@ -53,6 +56,29 @@ const InputField: React.FC<InputFieldProps> = ({
 
     setError('');
   };
+  // Styles
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    fontSize: Fonts.fs_16,
+    color:theme.text
+   
+  },
+  inputError: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: Fonts.fs_12,
+    padding: 5
+  },
+});
 
   return (
     <View style={[styles.container, style]}>
@@ -70,26 +96,6 @@ const InputField: React.FC<InputFieldProps> = ({
   );
 };
 
-// Styles
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 5,
-    fontSize: Fonts.fs_16,
-  },
-  inputError: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: Fonts.fs_12,
-    padding: 5
-  },
-});
+
 
 export default InputField;

@@ -276,4 +276,3 @@ const Report: React.FC<ScreenProps<'Report'>> = (props) => {
 }
 
 export default Report;
-

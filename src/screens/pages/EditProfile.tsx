@@ -1,4 +1,4 @@
-import { Alert, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import ScreenProps from "../../types/ScreenProps";
 import FormLayout from "./layouts/FormLayout";
 import Loader from "../../components/Loader";
@@ -19,6 +19,7 @@ import { OtpParams } from "../../types/RootStackParamList";
 import MtToast from "../../constants/MtToast";
 import { isIos } from "../../constants/IsPlatform";
 import { createLog, LOG_ACTIVITIES } from "../../services/AppLog";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
     const [loader, setLoader] = useState<boolean>(false);
@@ -32,6 +33,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
     const [image, setImage] = useState<string | undefined>(user.image);
     const [uploadedImage, setUploadedImage] = useState<Asset | undefined>();
     const dispatch = useDispatch();
+    const theme = useThemeColors();
 
     const isFormValid = () => (!Utils.anyEmpty([first_name, email, contact]));
 
@@ -173,6 +175,41 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
         setUploadedImage(sources[0])
         showImagePicker(false);
     }
+    
+        // const dynamicStyles = StyleSheet.create({
+        //     infoField: {
+        //         backgroundColor: theme.cardBackground,
+        //         borderRadius: 5,
+        //         padding: 16,
+        //         marginBottom: 16,
+        //         shadowColor: theme.shadowColor,
+        //         shadowOffset: {
+        //             width: 0,
+        //             height: 2,
+        //         },
+        //         shadowOpacity: 0.1,
+        //         shadowRadius: 6,
+        //         elevation: 4,
+        //     },
+        //     infoText: {
+        //         fontSize: Fonts.fs_16,
+        //         color: theme.text,
+        //     },
+        //     reasonLabel: {
+        //         fontSize: Fonts.fs_16,
+        //         color: theme.text,
+        //         marginBottom: 8,
+        //     },
+        //     pickerContainer: {
+        //         backgroundColor: theme.inputBackground,
+        //         borderRadius: 5,
+        //         overflow: 'hidden',
+        //     },
+        //     picker: {
+        //         color: theme.text,
+        //         height: 56,
+        //     },
+        // });
 
     return (
         <FormLayout>
@@ -224,11 +261,11 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                backgroundColor: Colors.white,
+                                backgroundColor: theme.cardBackground,
                                 paddingVertical: isIos ? 17 : 0,
                                 paddingHorizontal: 15,
                                 flex: 1,
-                                borderBottomColor: Colors.red,
+                                // borderBottomColor: Colors.red,
                                 borderBottomWidth: Utils.isName(first_name || '') ? 0 : 0.5
                             }}
                         >
@@ -236,7 +273,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             <TextInput
                                 style={{
                                     width: '100%',
-                                    color: Colors.black,
+                                    color: theme.text, // Use a valid color value
                                     fontSize: Fonts.fs_14,
                                     fontFamily: Fonts.regular
                                 }}
@@ -257,10 +294,10 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                 flex: 1,
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                backgroundColor: Colors.white,
+                                backgroundColor: theme.cardBackground,
                                 paddingVertical: isIos ? 17 : 0,
                                 paddingHorizontal: 15,
-                                borderBottomColor: Colors.red,
+                                // borderBottomColor: Colors.red,
                                 borderBottomWidth: !Utils.isEmpty(last_name) && !Utils.isName(last_name || '') ? 0.5 : 0
                             }}
                         >
@@ -268,7 +305,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             <TextInput
                                 style={{
                                     flex: 1,
-                                    color: Colors.black,
+                                    color: theme.text,
                                     fontSize: Fonts.fs_14,
                                     fontFamily: Fonts.regular
                                 }}
@@ -289,7 +326,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            backgroundColor: Colors.whitesmoke,
+                            backgroundColor: theme.cardBackground,
                             paddingHorizontal: 10,
                             paddingVertical: isIos ? 17 : 0,
                             marginTop: isIos ? 25 : 20,
@@ -299,7 +336,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                     >
                         <TextInput
                             style={{
-                                color: Colors.black,
+                                color: theme.text,
                                 fontSize: Fonts.fs_14,
                                 fontFamily: Fonts.regular,
                                 flex: 1
@@ -346,7 +383,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            backgroundColor: Colors.white, // Changed from whitesmoke to white for consistency
+                            backgroundColor: theme.cardBackground, // Changed from whitesmoke to white for consistency
                             paddingHorizontal: 10, // Added missing padding
                             paddingVertical: isIos ? 17 : 0,
                             marginTop: isIos ? 25 : 20,
@@ -356,7 +393,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                     >
                         <TextInput
                             style={{
-                                color: Colors.black,
+                                color: theme.text,
                                 fontSize: Fonts.fs_14,
                                 fontFamily: Fonts.regular,
                                 flex: 1
@@ -372,7 +409,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                             }}
                         />
 
-                        {
+                        {/* {
                             !Utils.isEmpty(user.contact_verified_at) ?
 
                                 <Imageview
@@ -397,7 +434,7 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
                                         {"Verify"}
                                     </Text>
                                 </TouchableOpacity>
-                        }
+                        } */}
 
                     </ShadowCard>
 
@@ -426,5 +463,6 @@ const EditProfile: React.FC<ScreenProps<'EditProfile'>> = props => {
         </FormLayout>
     )
 }
+
 
 export default EditProfile;

@@ -19,10 +19,12 @@ import Request from "../../services/Request";
 import SupportRequest, { SupportReply } from "../../types/SupportRequest";
 import { isIos } from "../../constants/IsPlatform";
 import { Fonts } from "../../constants/Fonts";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 
 const SupportTicket: React.FC<ScreenProps<'SupportTicket'>> = (props) => {
     const { route } = props;
+     const theme = useThemeColors();
 
     const [messages, setMessages] = useState<SupportReply[]>([]);
     const ticket_id = route?.params ? route.params['ticket_id'] : undefined;
@@ -112,6 +114,65 @@ const SupportTicket: React.FC<ScreenProps<'SupportTicket'>> = (props) => {
         </View>
     );
 
+
+// Styles
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: theme.inputBackground, // Use theme.inputBackground here
+
+    },
+    messageContainer: {
+        padding: 12,
+        marginVertical: 4,
+        marginHorizontal: 10,
+        borderRadius: 10,
+        maxWidth: "80%"
+    },
+    userMessage: {
+        alignSelf: "flex-end",
+        backgroundColor: Colors.orange_shade1
+    },
+    adminMessage: {
+        alignSelf: "flex-start",
+        backgroundColor: Colors.white,
+    },
+    messageText: {
+        color: Colors.black,
+        fontSize: Fonts.fs_16,
+    },
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 10,
+        backgroundColor: theme.inputBackground,
+        borderTopWidth: 1,
+        borderColor: "#CCC",
+        paddingBottom: isIos ? 30 : 0
+    },
+    input: {
+        color: theme.text,
+        flex: 1,
+        height: 40,
+        borderWidth: 1,
+        borderColor: "#CCC",
+        borderRadius: 5,
+        paddingHorizontal: 15,
+        marginRight: 10
+    },
+    sendButton: {
+        backgroundColor: Colors.primary_color_orange,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    sendText: {
+        color: Colors.white,
+        fontSize: Fonts.fs_16,
+    },
+});
+
+
     return (
         <View style={styles.container}>
 
@@ -156,59 +217,3 @@ const SupportTicket: React.FC<ScreenProps<'SupportTicket'>> = (props) => {
 };
 
 export default SupportTicket;
-
-// Styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#F5F5F5",
-    },
-    messageContainer: {
-        padding: 12,
-        marginVertical: 4,
-        marginHorizontal: 10,
-        borderRadius: 10,
-        maxWidth: "80%"
-    },
-    userMessage: {
-        alignSelf: "flex-end",
-        backgroundColor: Colors.orange_shade1
-    },
-    adminMessage: {
-        alignSelf: "flex-start",
-        backgroundColor: Colors.white,
-    },
-    messageText: {
-        color: Colors.black,
-        fontSize: Fonts.fs_16,
-    },
-    inputContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 10,
-        backgroundColor: "#FFF",
-        borderTopWidth: 1,
-        borderColor: "#CCC",
-        paddingBottom: isIos ? 30 : 0
-    },
-    input: {
-        color: Colors.black,
-        flex: 1,
-        height: 40,
-        borderWidth: 1,
-        borderColor: "#CCC",
-        borderRadius: 5,
-        paddingHorizontal: 15,
-        marginRight: 10
-    },
-    sendButton: {
-        backgroundColor: Colors.primary_color_orange,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-    },
-    sendText: {
-        color: Colors.white,
-        fontSize: Fonts.fs_16,
-    },
-});

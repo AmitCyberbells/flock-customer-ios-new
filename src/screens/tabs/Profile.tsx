@@ -263,7 +263,7 @@ const Profile: React.FC<ScreenProps<'Tabs'>> = props => {
                 imageStyle={{ borderRadius: isIos ? 80 : 70 }}
                 imageType={'server'}
                 resizeMode='cover'
-                tintColor={theme.greyIcon}
+                // tintColor={theme.greyIcon}
               />
             </View>
 

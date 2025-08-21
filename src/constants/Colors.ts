@@ -109,6 +109,7 @@ export const LightTheme = {
   placeholder: '#B4B4B4',
   background: BaseColors.white,
   backgroundfav: BaseColors.white,
+  shadow:'#dcdcdc',
   inputBackground: BaseColors.whiteSmoke,
   tint: tintColorLight,
   icon: '#687076',
@@ -125,7 +126,9 @@ export const LightTheme = {
   categoryIconBg: BaseColors.categoryIconBg,
   shadowColor: BaseColors.black,
   cardBackground: BaseColors.white,
-  white: BaseColors.white
+  white: BaseColors.white,
+  category:BaseColors.lightBlue,
+  categoryText:BaseColors.lightBlue
 };
 
 export const DarkTheme = {
@@ -135,6 +138,7 @@ export const DarkTheme = {
   placeholder: '#B4B4B4',
   background: '#151718',
   backgroundfav:'#1F1F1F',
+  shadow:'#1F1F1F',
   inputBackground: '#1F1F1F',
   tint: tintColorDark,
   icon: '#9BA1A6',
@@ -151,5 +155,7 @@ export const DarkTheme = {
   categoryIconBg: BaseColors.categoryIconBg,
   shadowColor: BaseColors.basecolour,
   cardBackground: '#2A2A2A',
-  white: BaseColors.white
+  white: BaseColors.white,
+  category:BaseColors.orange,
+  categoryText:BaseColors.orange
 };

@@ -49,7 +49,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
         container: {
             flexDirection: 'row',
             gap: 5,
-            alignItems: 'center'
+            alignItems: 'center',
+            position: 'relative', // Ensure proper positioning context for dropdown
+            zIndex: 1000, // Ensure container has high z-index
         }
     });
     
@@ -58,7 +60,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
             flex: 1,
         },
         textInputContainer: {
-            flexDirection: 'row'
+            flexDirection: 'row',
+            position: 'relative',
+            zIndex: 1000,
         },
         textInput: {
             color: theme.text,
@@ -74,12 +78,20 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
             height: 55
         },
         listView: {
-            elevation: 5, // Ensures it doesn't blend into the background
+            position: 'absolute',
+            top: 60, // Position below the input field
+            left: 0,
+            right: 0,
+            zIndex: 1000, // Ensure it appears above other elements
+            elevation: 5, // Android shadow
             shadowColor: theme.shadowColor, 
             shadowOpacity: 0.3, 
             shadowRadius: 5, 
             borderWidth: 1,
-            borderColor: Colors.whitesmoke
+            borderColor: Colors.whitesmoke,
+            backgroundColor: theme.background,
+            borderRadius: 8,
+            maxHeight: 200, // Limit dropdown height
         },
         row: {
             backgroundColor: theme.background,

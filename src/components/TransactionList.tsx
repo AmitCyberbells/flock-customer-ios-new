@@ -78,16 +78,16 @@ const TransactionList: React.FC<TransactionListProps> = (props) => {
                             style={styles.transactionName}
                             lines={2}
                         />
-                        {offer ? <View style={{ marginBottom: isIos ? 5 : 3 }}><Text style={{ fontSize: Fonts.fs_13 }} numberOfLines={1}>{offer.name}</Text></View> : null}
+                        {offer ? <View style={{ marginBottom: isIos ? 5 : 3 }}><Text style={{ fontSize: Fonts.fs_13 , color:theme.text}} numberOfLines={1}>{offer.name}</Text></View> : null}
                         {venue ? <View style={{ flexDirection: 'row', gap: isIos ? 4 : 2 }}>
                             <Image src={Images.uri(Images.VenueOffer)}
                                 style={styles.pointIcon}
                             />
-                            <Text style={{ fontSize: Fonts.fs_13 }} numberOfLines={1}>{venue.name}</Text>
+                            <Text style={{ fontSize: Fonts.fs_13,color: theme.text }} numberOfLines={1}>{venue.name}</Text>
                         </View>: null}
                         <View style={{ flexDirection: 'row', gap: 2, marginTop: isIos ? 5 : 3 }}>
                             <Icon name="clock" color={Colors.light_grey} />
-                            <Text style={{ fontSize: Fonts.fs_10 }}>{item.created_at}</Text>
+                            <Text style={{ fontSize: Fonts.fs_10, color: theme.text }}>{item.created_at}</Text>
                         </View>
 
                     </View>

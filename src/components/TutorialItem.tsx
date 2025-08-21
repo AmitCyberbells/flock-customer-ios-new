@@ -50,7 +50,7 @@ const TutorialItem: React.FC<ScreenProps<keyof RootStackParamList> & TutorialIte
         },
         item: {
             flex: 1, // Ensures equal width
-            backgroundColor: theme.inputBackground,
+        backgroundColor: theme.inputBackground,
             borderRadius: 5,
             padding: 2,
             alignItems: 'center',

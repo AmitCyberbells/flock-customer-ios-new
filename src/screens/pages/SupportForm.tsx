@@ -20,6 +20,7 @@ import Loader from '../../components/Loader';
 import InputField from '../../components/InputField';
 import { isIos } from '../../constants/IsPlatform';
 import { Fonts } from '../../constants/Fonts';
+import { useThemeColors } from '../../constants/useThemeColors';
 
 interface SupportProps extends ScreenProps<'SupportForm'> {
     initialData?: {
@@ -34,6 +35,7 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
     const [query, setQuery] = useState('');
     const [loader, setLoader] = useState(false);
     const user = useSelector((state: StoreStates) => state.user)
+    const theme = useThemeColors();
 
     const handleContinue = useCallback(async () => {
         if (!subject.trim() || !query.trim()) {
@@ -64,6 +66,109 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
         }
     }, [subject, query, navigation]);
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: Colors.white,
+        },
+        keyboardAvoidingView: {
+            flex: 1,
+        },
+        scrollView: {
+            flex: 1,
+            paddingTop: 20
+        },
+        scrollViewContent: {
+            flexGrow: 1,
+            paddingBottom: isIos ? 40 : 150,
+        },
+        backButton: {
+            padding: 20,
+        },
+        backButtonText: {
+            fontSize: Fonts.fs_24,
+            color: Colors.blue,
+        },
+        title: {
+            fontSize: Fonts.fs_24,
+            fontWeight: '600',
+            textAlign: 'center',
+            marginBottom: 20,
+        },
+        content: {
+            flex: 1,
+            paddingHorizontal: 20,
+        },
+        infoContainer: {
+            marginBottom: 20,
+        },
+        infoField: {
+            backgroundColor: theme.cardBackground,
+            borderRadius: 10,
+            padding: 16,
+            marginBottom: 16,
+            shadowColor: Colors.black,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 6,
+            elevation: 4,
+        },
+        infoText: {
+            fontSize: Fonts.fs_16,
+            color: theme.text,
+        },
+        inputContainer: {
+            marginBottom: 20,
+        },
+        borderTransparent: {
+            color: theme.text,
+            borderColor: 'transparent'
+        },
+        inputWrapper: {
+            borderRadius: 10,
+            backgroundColor: theme.cardBackground,
+            shadowColor: Colors.black,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 6,
+            elevation: 4,
+        },
+        input: {
+            height: 56,
+            borderRadius: 10,
+            paddingHorizontal: 20,
+            fontSize: Fonts.fs_16,
+            color: Colors.black,
+        },
+        queryInput: {
+            height: 150,
+            paddingTop: 16,
+            paddingBottom: 16,
+        },
+        continueButton: {
+            height: 56,
+            backgroundColor: Colors.primary_color_orange,
+            borderRadius: 5,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 8,
+        },
+        continueButtonDisabled: {
+            opacity: 0.7,
+        },
+        continueButtonText: {
+            color: Colors.white,
+            fontSize: Fonts.fs_18,
+            fontWeight: '600',
+        },
+    });
+    
     return (
         <FormLayout>
 
@@ -86,9 +191,12 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
                             <Text style={styles.infoText}>{user.email}</Text>
                         </View>
 
-                        <View style={styles.infoField}>
-                            <Text style={styles.infoText}>{user.contact}</Text>
-                        </View>
+                        {/* Only render the contact field if the user has a contact */}
+                        {user.contact ? (
+                            <View style={styles.infoField}>
+                                <Text style={styles.infoText}>{user.contact}</Text>
+                            </View>
+                        ) : null}
                     </View>
 
                     <View style={styles.inputContainer}>
@@ -133,108 +241,5 @@ const SupportForm: React.FC<SupportProps> = ({ navigation, initialData }) => {
         </FormLayout>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.white,
-    },
-    keyboardAvoidingView: {
-        flex: 1,
-    },
-    scrollView: {
-        flex: 1,
-        paddingTop: 20
-    },
-    scrollViewContent: {
-        flexGrow: 1,
-        paddingBottom: isIos ? 40 : 150,
-    },
-    backButton: {
-        padding: 20,
-    },
-    backButtonText: {
-        fontSize: Fonts.fs_24,
-        color: Colors.blue,
-    },
-    title: {
-        fontSize: Fonts.fs_24,
-        fontWeight: '600',
-        textAlign: 'center',
-        marginBottom: 20,
-    },
-    content: {
-        flex: 1,
-        paddingHorizontal: 20,
-    },
-    infoContainer: {
-        marginBottom: 20,
-    },
-    infoField: {
-        backgroundColor: Colors.white,
-        borderRadius: 10,
-        padding: 16,
-        marginBottom: 16,
-        shadowColor: Colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-    },
-    infoText: {
-        fontSize: Fonts.fs_16,
-        color: Colors.black,
-    },
-    inputContainer: {
-        marginBottom: 20,
-    },
-    borderTransparent: {
-        color: Colors.black,
-        borderColor: 'transparent'
-    },
-    inputWrapper: {
-        borderRadius: 10,
-        backgroundColor: Colors.white,
-        shadowColor: Colors.black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-    },
-    input: {
-        height: 56,
-        borderRadius: 10,
-        paddingHorizontal: 20,
-        fontSize: Fonts.fs_16,
-        color: Colors.black,
-    },
-    queryInput: {
-        height: 150,
-        paddingTop: 16,
-        paddingBottom: 16,
-    },
-    continueButton: {
-        height: 56,
-        backgroundColor: Colors.primary_color_orange,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 8,
-    },
-    continueButtonDisabled: {
-        opacity: 0.7,
-    },
-    continueButtonText: {
-        color: Colors.white,
-        fontSize: Fonts.fs_18,
-        fontWeight: '600',
-    },
-});
 
 export default SupportForm;

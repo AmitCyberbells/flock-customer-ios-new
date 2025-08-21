@@ -26,6 +26,7 @@ import { isIos } from '../../constants/IsPlatform';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCurrentLocation } from '../../services/GetCurrentLocation';
 import { useThemeColors } from '../../constants/useThemeColors';
+import IsVenueOpened from '../../constants/IsVenueOpened';
 
 const Login: React.FC<ScreenProps<'Login'>> = props => {
 
@@ -132,11 +133,22 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
     try {
       console.log('[Login] Starting check-in for venue:', venueId);
       
-      // 1. Fetch venue details (optional, but can validate venue exists)
+      // 1. Fetch venue details and check if venue is open
+      let venueData: any = null;
       await new Promise<void>((resolve, reject) => {
         Request.fetch_venue(Number(venueId), (success, error) => {
           if (success && success.data) {
             console.log('[Login] Venue found:', success.data);
+            venueData = success.data;
+            
+            // Check if venue is open before allowing check-in
+            if (!IsVenueOpened(venueData)) {
+              console.log('[Login] Venue is closed, preventing check-in');
+              MtToast.error('This venue is currently closed. Please visit during business hours.');
+              reject(new Error('Venue is closed'));
+              return;
+            }
+            
             resolve();
           } else {
             console.log('[Login] Venue fetch error:', error);
@@ -262,7 +274,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
     boxViewCardPassword: {
       marginHorizontal: 20,
       backgroundColor: theme.inputBackground,
-      paddingVertical: isIos ? 10 : 0,
+      paddingVertical: isIos ? 5 : 0,
       marginTop: isIos ? 25 : 20,
     },
     textInput: {
@@ -270,7 +282,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
       color: theme.text,
       fontSize: Fonts.fs_14,
       fontFamily: Fonts.regular,
-      height: 40
+      height: 25
     },
     forgotPasswordText: {
       fontSize: Fonts.fs_12,
@@ -330,6 +342,7 @@ const Login: React.FC<ScreenProps<'Login'>> = props => {
 
       <BoxView
         cardStyle={[
+          
           dynamicStyles.boxViewCardPassword,
           passwordErr != '' ? styles.inputError : {},
         ]}

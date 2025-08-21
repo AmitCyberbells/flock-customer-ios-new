@@ -2,6 +2,7 @@
 //'https://web.cyberbells.com/DitroInfotech/Projects/flock/';
 
 export const BASE_HOST = 'https://api.getflock.io/';
+export const BASE_HOST2 = 'https://getflock.io/';
 export const API_ENDPOINT = `${BASE_HOST}api/`;
 export const BASE_IMG_URL = `${BASE_HOST}assets/images/users/`;
 export const BASE_URL = `${API_ENDPOINT}customer/`
@@ -11,7 +12,7 @@ export const API = {
   api_endpoint: `${API_ENDPOINT}`,
   base_url: `${BASE_URL}`,
   imgURL: `${BASE_IMG_URL}`,
-
+  privacy_policy:`${BASE_HOST2}privacy-policy/`,
   terms: `${BASE_URL}terms`,
   signup: `${BASE_URL}signup`,
   login: `${BASE_URL}login`,

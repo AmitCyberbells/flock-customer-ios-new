@@ -16,7 +16,7 @@ const TransactionHistory: React.FC<ScreenProps<'TransactionHistory'>> = (props) 
             <VirtualizedList>
                 <View style={{ flex: 1 }}>
                     <TransactionList setLoader={setLoader} />
-                </View>
+                </View> 
             </VirtualizedList>
         </View>
     )

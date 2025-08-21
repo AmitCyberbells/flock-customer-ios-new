@@ -80,7 +80,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
                     <Textview
                         text={item.question}
                         style={{
-                            fontFamily: Fonts.medium,
+                            fontFamily: Fonts.regular,
                             color: theme.text,
                             fontSize: Fonts.fs_17
                         }}
@@ -146,7 +146,7 @@ const FAQs: React.FC<ScreenProps<'FAQs'>> = (props) => {
             <Textview
                 text={'Top questions '}
                 style={{
-                    fontFamily: Fonts.medium,
+                    fontFamily: Fonts.regular,
                     color: theme.text,
                     marginTop: 25,
                     fontSize: Fonts.fs_18,

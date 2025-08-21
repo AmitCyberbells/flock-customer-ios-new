@@ -5,12 +5,14 @@ import { Colors } from "../../constants/Colors";
 import Loader from "../../components/Loader";
 import WebView from "react-native-webview";
 import PageHeader from "../../navigations/PageHeader";
+import { useTheme } from "@react-navigation/native";
+import { useThemeColors } from "../../constants/useThemeColors";
 
 const WebPage: React.FC<ScreenProps<'WebPage'>> = (props) => {
     const [loader, setLoader] = useState<boolean>(false);
     const pageTitle = props.route?.params['title'] || '';
     const link = props.route?.params['link'] || '';
-   
+   const theme =useThemeColors();
 
     useEffect(() => {
 
@@ -19,7 +21,7 @@ const WebPage: React.FC<ScreenProps<'WebPage'>> = (props) => {
     return (
         <View style={{
             flex: 1,
-            backgroundColor: Colors.white,
+            backgroundColor: theme.inputBackground,
             paddingBottom: 70
         }}>
             <Loader isLoading={loader} />

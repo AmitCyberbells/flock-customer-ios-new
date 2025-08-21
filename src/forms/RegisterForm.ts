@@ -15,6 +15,8 @@ export type FormFields = {
   phone: FormField;
   password: FormField;
   birthDate: FormField;
+  termsCondition: FormField;
+
 };
 
 // Function to create a new form field
@@ -34,6 +36,7 @@ const formFields: FormFields = {
   phone: createField(),
   password: createField(),
   birthDate: createField(),
+  termsCondition: createField(),
 };
 
 // Define validation rules separately
@@ -44,6 +47,7 @@ const rules: Record<keyof FormFields, ValidationRule[]> = {
   phone: [/*Validator.required('phone'),*/Validator.phone],
   password: [Validator.required('password'), Validator.password],
   birthDate: [/*Validator.required('birthDate')*/],
+  termsCondition: [Validator.required('termsCondition')],
 };
 
 // Define utility methods separately
@@ -67,6 +71,8 @@ const RegisterForm = {
       contact: this.fields.phone.value,
       password: this.fields.password.value,
       dob: this.fields.birthDate.value,
+      termsCondition: this.fields.termsCondition.value,
+
     };
   },
 
